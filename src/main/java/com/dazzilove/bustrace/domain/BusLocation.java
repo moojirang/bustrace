@@ -1,25 +1,43 @@
 package com.dazzilove.bustrace.domain;
 
 import lombok.Data;
+import lombok.ToString;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 @Data
-public class BusLocation {
+@ToString
+@XmlAccessorType(value = XmlAccessType.FIELD)
+@XmlRootElement(name = "busLocationList")
+public class BusLocation implements Serializable {
 
-    String endBus;
+    @XmlElement(name = "endBus")
+    private String endBus;
 
-    String lowPlate;
+    @XmlElement(name = "lowPlate")
+    private String lowPlate;
 
-    String plateNo;
+    @XmlElement(name = "plateNo")
+    private String plateNo;
 
-    String plateType;
+    @XmlElement(name = "plateType")
+    private String plateType;
 
-    String remainSeatCnt;
+    @XmlElement(name = "remainSeatCnt")
+    private String remainSeatCnt;
 
-    String routeId;
+    @XmlElement(name = "routeId")
+    private String routeId;
 
-    String stationId;
+    @XmlElement(name = "stationId")
+    private String stationId;
 
-    String stationSeq;
+    @XmlElement(name = "stationSeq")
+    private String stationSeq;
 
 }
 

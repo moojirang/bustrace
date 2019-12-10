@@ -3,21 +3,21 @@ package com.dazzilove.bustrace.domain;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.*;
 import java.util.List;
 
 @Data
 @ToString
+@XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "response")
-public class BusLocationResult {
+public class BusLocationResult extends MsgResponse {
 
+    @XmlElement(name = "msgBody")
     private MsgBody msgBody;
 
-    @XmlRootElement(name = "msgBody")
+    @XmlAccessorType(XmlAccessType.FIELD)
     public static class MsgBody {
-
-        @XmlElementWrapper(name = "busLocationList")
+        //@XmlElementWrapper(name = "busLocationList")
         private List<BusLocation> busLocationList;
     }
 

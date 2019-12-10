@@ -1,0 +1,9 @@
+bustrace:
+  serviceKey: 1234567890
+
+logging:
+  level:
+    hello: INFO
+    org:
+      springframework:
+        ws: DEBUG

@@ -1,6 +1,6 @@
 package com.dazzilove.bustrace.config;
 
-import com.dazzilove.bustrace.service.BusRouterClient;
+import com.dazzilove.bustrace.service.BusRouteClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
@@ -15,12 +15,4 @@ public class BustraceConfiguration {
         return marshaller;
     }
 
-    @Bean
-    public BusRouterClient busRouterClient(Jaxb2Marshaller marshaller) {
-        BusRouterClient client = new BusRouterClient();
-        client.setDefaultUri("http://openapi.gbis.go.kr/ws/busrouteservice");
-        client.setMarshaller(marshaller);
-        client.setUnmarshaller(marshaller);
-        return client;
-    }
 }

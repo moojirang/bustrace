@@ -1,44 +1,32 @@
 package com.dazzilove.bustrace.domain;
 
 import lombok.Data;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
-@ToString
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@XmlRootElement(name = "busLocationList")
-public class BusLocation implements Serializable {
+public class BusLocation {
+    @Id
+    private UUID id;
 
-    @XmlElement(name = "endBus")
-    private String endBus;
-
-    @XmlElement(name = "lowPlate")
-    private String lowPlate;
-
-    @XmlElement(name = "plateNo")
-    private String plateNo;
-
-    @XmlElement(name = "plateType")
-    private String plateType;
-
-    @XmlElement(name = "remainSeatCnt")
-    private String remainSeatCnt;
-
-    @XmlElement(name = "routeId")
+    /** 노선ID */
     private String routeId;
-
-    @XmlElement(name = "stationId")
+    /** 정류소ID */
     private String stationId;
-
-    @XmlElement(name = "stationSeq")
+    /** 정류소 순서 */
     private String stationSeq;
-
+    /** 막차여부 (0:해당사항없음, 1:막차) */
+    private String endBus;
+    /** 저상버스여부 (0:일반버스, 1:저상버스) */
+    private String lowPlate;
+    /** 차량번호 */
+    private String plateNo;
+    /** 차종 (0:정보없음, 1:소형승합차, 2:중형승합차, 3:대형승합차, 4:2층버스) */
+    private String plateType;
+    /** 차량 빈자리수 (-1:정보없음, 0~:빈자리 수) */
+    private String remainsSeatCnt;
+    /** 생성시간 */
+    private LocalDateTime createdAt;
 }
-
-

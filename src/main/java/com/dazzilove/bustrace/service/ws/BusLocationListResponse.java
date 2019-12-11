@@ -1,4 +1,4 @@
-package com.dazzilove.bustrace.domain;
+package com.dazzilove.bustrace.service.ws;
 
 import lombok.Data;
 import lombok.ToString;
@@ -10,15 +10,16 @@ import java.util.List;
 @ToString
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "response")
-public class BusLocationResult extends MsgResponse {
+public class BusLocationListResponse extends MsgResponse {
 
     @XmlElement(name = "msgBody")
     private MsgBody msgBody;
 
+    @Data
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class MsgBody {
         //@XmlElementWrapper(name = "busLocationList")
-        private List<BusLocation> busLocationList;
+        private List<BusLocationList> busLocationList;
     }
 
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<bindings xmlns="http://java.sun.com/xml/ns/jaxb" if-exists="true" version="2.1">
+  <!--
+
+이 파일은 JAXB(JavaTM Architecture for XML Binding) 참조 구현 2.3.0 버전을 통해 생성되었습니다. 
+<a href="https://javaee.github.io/jaxb-v2/">https://javaee.github.io/jaxb-v2/</a>를 참조하십시오. 
+이 파일을 수정하면 소스 스키마를 재컴파일할 때 수정 사항이 손실됩니다. 
+생성 날짜: 2019.12.11 시간 05:28:28 PM KST 
+
+  -->
+  <bindings xmlns:tns="http://ws.api.javaweb/" if-exists="true" scd="x-schema::tns">
+    <schemaBindings map="false">
+      <package name="com.dazzilove.bustrace.service.wsdl"/>
+    </schemaBindings>
+    <bindings if-exists="true" scd="~tns:getAreaBusRouteList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetAreaBusRouteList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getAreaBusRouteListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetAreaBusRouteListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteInfoItem">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteInfoItem"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteInfoItemResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteInfoItemResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteLineList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteLineList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteLineListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteLineListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteStationList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteStationList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:getBusRouteStationListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.GetBusRouteStationListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:apiResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.ApiResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRoute">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRoute"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:resComMsgHeader">
+      <class ref="com.dazzilove.bustrace.service.wsdl.ResComMsgHeader"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:resMsgHeader">
+      <class ref="com.dazzilove.bustrace.service.wsdl.ResMsgHeader"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteInfoItemResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteInfoItemResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteInfoItem">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteInfoItem"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteInfo">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteInfo"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteLineListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteLineListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteLineList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteLineList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteLine">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteLine"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteStationListResponse">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteStationListResponse"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteStationList">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteStationList"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busRouteStation">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusRouteStation"/>
+    </bindings>
+    <bindings if-exists="true" scd="~tns:busStation">
+      <class ref="com.dazzilove.bustrace.service.wsdl.BusStation"/>
+    </bindings>
+  </bindings>
+</bindings>

@@ -1,13 +1,12 @@
 package com.dazzilove.bustrace.controller;
 
-import com.dazzilove.bustrace.domain.BusLocation;
-import com.dazzilove.bustrace.domain.BusLocationResult;
+import com.dazzilove.bustrace.service.ws.BusLocationList;
+import com.dazzilove.bustrace.service.ws.BusLocationListResponse;
 import com.dazzilove.bustrace.service.BusLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +18,14 @@ public class BusLocationController {
     BusLocationService busLocationService;
 
     @GetMapping(value = "/location/{routeId}")
-    public BusLocationResult getBusLocation(@PathVariable(value = "routeId") String routeId) throws Exception {
-        return busLocationService.getBusLocation(routeId);
+    public ResponseEntity<List<BusLocationList>> getBusLocation(@PathVariable(value = "routeId") String routeId) throws Exception {
+        return new ResponseEntity<>(busLocationService.getBusLocation(routeId), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/location/{routeId}")
+    public ResponseEntity<?> addBusLocation(@PathVariable(value = "routeId") String routeId) throws Exception {
+        busLocationService.addBusLocationList(routeId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

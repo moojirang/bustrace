@@ -1,4 +1,4 @@
-package com.dazzilove.bustrace.domain;
+package com.dazzilove.bustrace.service.ws;
 
 import lombok.Data;
 import lombok.ToString;

@@ -18,6 +18,9 @@
 
 #### MongoDB 기본 사용법
 
+- mongodb 실행
+    - mongod --dbpath "DATA=PATH"
+    - mongo
 - 현재 사용중인 데이터베이스 확인
     - db
 - 신규 데이터베이스 생성

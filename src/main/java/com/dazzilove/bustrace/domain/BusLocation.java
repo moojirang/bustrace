@@ -26,7 +26,7 @@ public class BusLocation {
     /** 차종 (0:정보없음, 1:소형승합차, 2:중형승합차, 3:대형승합차, 4:2층버스) */
     private String plateType;
     /** 차량 빈자리수 (-1:정보없음, 0~:빈자리 수) */
-    private String remainsSeatCnt;
+    private String remainSeatCnt;
     /** 생성시간 */
     private LocalDateTime createdAt;
 }

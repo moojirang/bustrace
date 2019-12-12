@@ -1,5 +1,8 @@
 bustrace:
   serviceKey: 1234567890
+  routeId: 224000047
+  scheduler:
+    threadPoolSize: 5
 
 logging:
   level:

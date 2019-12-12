@@ -4,15 +4,15 @@ import com.dazzilove.bustrace.service.BusRouteClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Configuration
 public class BustraceConfiguration {
 
-    @Bean
+   @Bean
     public Jaxb2Marshaller marshaller() {
         Jaxb2Marshaller marshaller = new Jaxb2Marshaller();
         marshaller.setContextPath("com.dazzilove.bustrace.service.wsdl");
         return marshaller;
     }
-
 }

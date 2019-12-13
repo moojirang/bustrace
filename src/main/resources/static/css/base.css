@@ -1,0 +1,71 @@
+.topPadding {
+    padding-top:15px;
+}
+
+.bottomPadding {
+     padding-bottom:15px;
+}
+
+.topMargin {
+    margin-top: 15px;
+}
+
+.bottomMargin {
+    margin-bottom: 15px;
+}
+
+.doc-title {
+    font-weight: bolder;
+}
+
+.showInfo {
+    display: block;
+}
+
+.closeInfo {
+    display: none;
+}
+
+.stationDetailInfo {
+    display: none;
+    padding-top:10px;
+}
+
+.bg-gray {
+    background-color:#EEEEEE;
+}
+
+.font-light-gray {
+    color: #999999;
+}
+
+.font-gray {
+    color: #999999;
+}
+
+.font-smaller {
+    font-size: smaller;
+}
+
+.contentAlignRight {
+    width: 100%;
+    text-align: right;
+}
+
+.starIcon {
+    width: 20px;
+    height: 20px;
+    background-image: url("/img/star.png");
+}
+
+.icon-size-small {
+    width:17px;
+}
+
+.icon-no-check {
+    filter: opacity(.2) drop-shadow(0 0 0 gray);
+}
+
+.icon-check {
+    filter: opacity(.7) drop-shadow(0 0 0 yellow);
+}

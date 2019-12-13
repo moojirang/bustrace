@@ -1,16 +1,25 @@
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
 <%@ page import="com.dazzilove.bustrace.domain.Bus" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteStation" %>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRoute" %>
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
 <%@ page import="com.dazzilove.bustrace.domain.BusLocation" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     BusRouteInfo busRouteInfo = (BusRouteInfo) request.getAttribute("busRouteInfo");
+    String routeId = "";
     String routeName = "";
     if (busRouteInfo != null) {
+        routeId = busRouteInfo.getRouteId();
         routeName = busRouteInfo.getRouteName();
+    }
+
+    List<String> createdAtList = (List<String>) request.getAttribute("createdAtList");
+    if (createdAtList == null) {
+        createdAtList = new ArrayList();
     }
 
     List<BusRouteStation> busRouteStationList = (List<BusRouteStation>) request.getAttribute("busRouteStationList");
@@ -18,10 +27,10 @@
         busRouteStationList = new ArrayList<>();
     }
 
-    List<BusLocation> busLocationList = (List<BusLocation>) request.getAttribute("busLocationList");
-    if (busLocationList == null) {
-        busLocationList = new ArrayList<>();
-    }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    String nowDay = sdf.format(new Date());
+
 %>
 <!doctype html>
 <html lang="ko">
@@ -68,21 +77,37 @@
                 $(this).css("display", "none");
             });
         }
+
+        function changeCreatedAtSelect(obj) {
+            var createdAt = $(obj).val();
+            $(".createdAtLi").each(function() {
+                $(this).css("display", "none");
+                if (createdAt == $(this).attr("createdAt")) {
+                    $(this).css("display", "block");
+                }
+                if (createdAt == "All Time") {
+                    $(this).css("display", "block");
+                }
+            });
+        }
+
+        function goSearch() {
+            var frm = document.searchForm;
+            frm.action = "/routeInfo";
+            frm.submit();
+        }
     </script>
 </head>
 <body>
 
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">BusTrace</a>
+    <a class="navbar-brand" href="/busList">BusTrace</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="/busList">노선목록</a>
             </li>
@@ -129,33 +154,43 @@
         <% } %>
     </div>
     <div id="stationsTabArea">
-        <form>
+        <form name="searchForm" id="searchForm">
+            <input type="hidden" id="routeId" name="routeId" value="<%= routeId %>" />
             <div class="form-row topPadding">
                 <div class="form-group">
-                    <input class="form-control form-control-sm" type="text" value="20190912" style="width:100px;">
+                    <input class="form-control form-control-sm" type="text" id="startCreatedAt" name="startCreatedAt" value="<%= nowDay %>" style="width:100px;">
                 </div>
                 <div class="form-group" style="width: 14px; text-align: center">
                     -
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-sm" type="text" value="20190912" style="width:100px;">
+                    <input class="form-control form-control-sm" type="text" id="endCreatedAt" name="endCreatedAt" value="<%= nowDay %>" style="width:100px;">
                 </div>
                 <div class="form-group" style="width: 4px">
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="showAllStationDetailInfo()">Search</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="goSearch()">Search</button>
                 </div>
             </div>
-            <div class="contentAlignRight">
+            <div class="contentAlignRight bottomMargin">
                 <div>
                     <button type="button" class="btn btn-warning btn-sm" onclick="showAllStationDetailInfo()">Expand Stars</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="showAllStationDetailInfo()">Expand All</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo()">Close All</button>
-                    <%--<button type="button" class="btn btn-info btn-sm" onclick="refresh()">Refresh</button>--%>
 
                 </div>
             </div>
         </form>
+
+        <div class="form-group">
+            <select class="form-control form-control-sm" onchange="changeCreatedAtSelect(this);">
+                <option>All Time</option>
+                <% for(String time: createdAtList) { %>
+                <option><%= time %></option>
+                <% } %>
+            </select>
+        </div>
+
         <ul class="list-group list-group-flush">
             <% for(BusRouteStation busRouteStation : busRouteStationList) { %>
                 <% String stationId = busRouteStation.getStationId(); %>
@@ -165,12 +200,21 @@
                     <%= busRouteStation.getStationName() %> <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     <%--<span class="badge badge-primary badge-pill">14</span>--%>
                     <div class="stationDetailInfo">
-                        <ul class="list-group list-group-flush font-smaller">
-                            <li class="list-group-item bg-gray">2019.12.23 23:45 / 잔여좌석 0석</li>
-                            <li class="list-group-item bg-gray">2019.12.23 23:45 / 잔여좌석 0석</li>
-                            <li class="list-group-item bg-gray">2019.12.23 23:45 / 잔여좌석 0석</li>
-                            <li class="list-group-item bg-gray">2019.12.23 23:45 / 잔여좌석 0석</li>
-                        </ul>
+                        <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
+                        <% if (!busLocationList.isEmpty()) { %>
+                            <ul class="list-group list-group-flush font-smaller">
+                                <% for(BusLocation busLocation: busLocationList) { %>
+                                <li class="list-group-item bg-gray createdAtLi" createdAt="<%= busLocation.getFormatedCreatedAt() %>">
+                                    <%= busLocation.getFormatedCreatedAt() %>
+                                    | <%= busLocation.getPlateNo() %>(<%= busLocation.getPlateTypeName() %>)
+                                    <% String remainSeatCnt = busLocation.getRemainSeatCnt(); %>
+                                    <% if (!"-1".equals(remainSeatCnt)) { %>
+                                    | 잔여좌석 <%= remainSeatCnt %>석
+                                    <% } %>
+                                    </li>
+                                <% } %>
+                            </ul>
+                        <% } %>
                     </div>
                 </span>
             </li>

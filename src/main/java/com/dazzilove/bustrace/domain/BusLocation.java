@@ -1,12 +1,16 @@
 package com.dazzilove.bustrace.domain;
 
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
+@ToString
 public class BusLocation {
     @Id
     private UUID id;
@@ -29,4 +33,56 @@ public class BusLocation {
     private String remainSeatCnt;
     /** 생성시간 */
     private LocalDateTime createdAt;
+
+    public String getLowPlateName() {
+        String lowPlatName = "";
+        switch (lowPlate) {
+            case "0":
+                lowPlatName = "일반버스";
+                break;
+            case "1":
+                lowPlatName = "저상버스";
+                break;
+        }
+        return lowPlatName;
+    }
+
+    public String getPlateTypeName() {
+        String plateTypeName = "";
+        switch (plateType) {
+            case "0":
+                plateTypeName = "정보없음";
+                break;
+            case "1":
+                plateTypeName = "소형승합차";
+                break;
+            case "2":
+                plateTypeName = "중형승합차";
+                break;
+            case "3":
+                plateTypeName = "대형승합차";
+                break;
+            case "4":
+                plateTypeName = "2층버스";
+                break;
+        }
+        return plateTypeName;
+    }
+
+    private String formatTwoLength(String string) {
+        String returnValue = string;
+        returnValue = (returnValue == null) ? "" : returnValue;
+        returnValue = returnValue.trim();
+        returnValue = (returnValue.length() == 1) ? "0" + returnValue : returnValue;
+        return returnValue;
+    }
+
+    public String getFormatedCreatedAt() {
+        return String.format("%s/%s/%s %s:%s"
+                                , formatTwoLength(String.valueOf(createdAt.getYear()))
+                                , formatTwoLength(String.valueOf(createdAt.getMonthValue()))
+                                , formatTwoLength(String.valueOf(createdAt.getDayOfMonth()))
+                                , formatTwoLength(String.valueOf(createdAt.getHour()))
+                                , formatTwoLength(String.valueOf(createdAt.getMinute())));
+    }
 }

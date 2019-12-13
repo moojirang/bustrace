@@ -1,7 +1,47 @@
-<html>
-<head><title>Home Page</title></head>
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Home</title>
+
+    <link href="/css/bootstrap-4.4.1/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap-4.4.1/bootstrap.css}"/>
+    <script src="/js/bootstrap-4.4.1/bootstrap.js" th:href="@{/js/bootstrap-4.4.1/bootstrap.js}"></script>
+
+    <link href="/css/base.css" rel="stylesheet" th:href="@{/css/base.css}"/>
+</head>
 <body>
-<h1>Hello !</h1>
-<p>Welcome to <span th:text="${appName}">Our App</span></p>
+<div class="container">
+    <div>Project name = <span th:text="${appName}">Project name</span></div>
+
+    <div class="alert alert-primary" role="alert">
+        A simple primary alert—check it out!
+    </div>
+    <div class="alert alert-secondary" role="alert">
+        A simple secondary alert—check it out!
+    </div>
+    <div class="alert alert-success" role="alert">
+        A simple success alert—check it out!
+    </div>
+    <div class="alert alert-danger" role="alert">
+        A simple danger alert—check it out!
+    </div>
+    <div class="alert alert-warning" role="alert">
+        A simple warning alert—check it out!
+    </div>
+    <div class="alert alert-info" role="alert">
+        A simple info alert—check it out!
+    </div>
+    <div class="alert alert-light" role="alert">
+        A simple light alert—check it out!
+    </div>
+    <div class="alert alert-dark" role="alert">
+        A simple dark alert—check it out!
+    </div>
+</div>
 </body>
 </html>

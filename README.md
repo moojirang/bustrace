@@ -10,9 +10,12 @@
 
 #### MongoDB 설치
 
-- mongoDB 도커 실행하기
+- mongoDB 도커 설치 및 실행하기
     - docker run -p 27017:27017 --name mongo_boot -d mongo
-- mongoDB 구동 여부 확인
+- mongoDB 도커 구동 및 접근
+    - docker start mongo_boot
+    - docker stop mongo_boot
+    - docker attach mongo_boot
     - docker exec -i -t mongo_boot bash
     - root@d26475076d57:/# mongo
 

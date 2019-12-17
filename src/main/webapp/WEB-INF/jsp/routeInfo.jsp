@@ -5,6 +5,7 @@
 <%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
 <%@ page import="com.dazzilove.bustrace.domain.BusLocation" %>
+<%@ page import="com.dazzilove.bustrace.service.ws.BusStation" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     BusRouteInfo busRouteInfo = (BusRouteInfo) request.getAttribute("busRouteInfo");
@@ -70,13 +71,39 @@
             $(obj).children(".stationDetailInfo").css("display", nextDisplay);
         }
 
-        function showAllStationDetailInfo() {
+        function showOnlyStarts() {
+            var btnTextShowOnly = "Only Stars";
+            var btnTextShowAll = "Show All";
+
+            var btnText = $("#toggleStarShowClseBtn").text();
+            console.log(btnText);
+            if (btnText == btnTextShowOnly) {
+                closeAllStationDetailInfo();
+                $(".busLocationLiItem").each(function() {
+                    $(this).css("display", "none");
+                });
+                $(".busLocationLiItem").each(function() {
+                    if($(this).children("img").hasClass("icon-check")) {
+                        $(this).css("display", "block");
+                    }
+                });
+                $("#toggleStarShowClseBtn").text(btnTextShowAll);
+            } else {
+                closeAllStationDetailInfo();
+                $(".busLocationLiItem").each(function() {
+                    $(this).css("display", "block");
+                });
+                $("#toggleStarShowClseBtn").text(btnTextShowOnly);
+            }
+        }
+
+        function showAllStationDetailInfo(obj) {
             $(".stationDetailInfo").each(function() {
                 $(this).css("display", "block");
             });
         }
 
-        function closeAllStationDetailInfo() {
+        function closeAllStationDetailInfo(obj) {
             $(".stationDetailInfo").each(function() {
                 $(this).css("display", "none");
             });
@@ -178,10 +205,19 @@
             </div>
             <div class="contentAlignRight bottomMargin">
                 <div>
-                    <%--<button type="button" class="btn btn-warning btn-sm" onclick="showAllStationDetailInfo()">Expand Stars</button>--%>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="showAllStationDetailInfo()">Expand All</button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo()">Close All</button>
+                    <button type="button" class="btn btn-warning btn-sm" onclick="showOnlyStarts()" id="toggleStarShowClseBtn">Only Stars</button>
 
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-info btn-sm">상행</button>
+                        <button type="button" class="btn btn-info btn-sm">하행</button>
+                        <button type="button" class="btn btn-info btn-sm active">전체</button>
+                    </div>
+                </div>
+            </div>
+            <div class="contentAlignRight bottomMargin">
+                <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="showAllStationDetailInfo(this)">Expand All</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo(this)">Close All</button>
                 </div>
             </div>
         </form>
@@ -196,17 +232,24 @@
         </div>
 
         <ul class="list-group list-group-flush">
-            <% String turnYn = "N"; %>
+            <%
+                String turnYn = "N";
+                BusStation busStation = new BusStation();
+            %>
             <% for(BusRouteStation busRouteStation : busRouteStationList) { %>
                 <%
                     String stationId = busRouteStation.getStationId();
                     if ("N".equals(turnYn) && "Y".equals(busRouteStation.getTurnYn())) {
                         turnYn = "Y";
                     }
+                    boolean isStarStation = false;
+                    String starStationId = busStation.getStartStationIdMap().get(stationId);
+                    if (starStationId != null) {
+                        isStarStation = true;
+                    }
                 %>
-                <%  %>
-            <li class="list-group-item" class="trun<%= turnYn %>">
-                <%--<img src="/img/star.png" class="icon-size-small icon-no-check" />--%>
+            <li class="list-group-item busLocationLiItem" class="trun<%= turnYn %>">
+                <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %> />
                 <span onclick="toggleStationDetailInfo(this)">
                     <%= busRouteStation.getStationName() %>
                     <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
@@ -239,10 +282,6 @@
             </li>
             <% } %>
         </ul>
-        <div class="topPadding contentAlignRight">
-            <button type="button" class="btn btn-primary btn-sm" onclick="showAllStationDetailInfo()">All Expand</button>
-            <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo()">All Close</button>
-        </div>
     </div>
 </div>
 </body>

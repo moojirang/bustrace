@@ -1,10 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="com.dazzilove.bustrace.domain.Bus" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
-<%@ page import="com.dazzilove.bustrace.service.wsdl.BusRoute" %>
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
 <%@ page import="com.dazzilove.bustrace.domain.BusLocation" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>

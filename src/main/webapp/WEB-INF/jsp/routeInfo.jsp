@@ -248,8 +248,12 @@
                     if (starStationId != null) {
                         isStarStation = true;
                     }
+
+                    int remainSeatCntZeroCnt = busRouteStation.getRemainSeatCntZeroCnt();
+                    String remainSeatCntZeroClass = (remainSeatCntZeroCnt > 0) ? "remainSeatCntZero" : "";
+
                 %>
-            <li class="list-group-item busLocationLiItem" class="trun<%= turnYn %>">
+            <li class="list-group-item busLocationLiItem trun<%= turnYn %> <%= remainSeatCntZeroClass %>">
                 <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %> />
                 <span onclick="toggleStationDetailInfo(this)">
                     <%= busRouteStation.getStationName() %>

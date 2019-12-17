@@ -137,6 +137,7 @@ public class BusController {
 
                         });
             }
+            // TODO = 정거장별로 시간순으로 정렬 후 가장 마지막 시간의 중복데이터를 merge하도록 수정 할 것
             for(BusRouteStation busRouteStation: busRouteStationList) {
                 List<BusLocation> busLocations = busRouteStation.getBusLocationList();
                 if (!busLocations.isEmpty()) {

@@ -190,12 +190,20 @@
         </div>
 
         <ul class="list-group list-group-flush">
+            <% String turnYn = "N"; %>
             <% for(BusRouteStation busRouteStation : busRouteStationList) { %>
-                <% String stationId = busRouteStation.getStationId(); %>
-            <li class="list-group-item">
+                <%
+                    String stationId = busRouteStation.getStationId();
+                    if ("N".equals(turnYn) && "Y".equals(busRouteStation.getTurnYn())) {
+                        turnYn = "Y";
+                    }
+                %>
+                <%  %>
+            <li class="list-group-item" class="trun<%= turnYn %>">
                 <%--<img src="/img/star.png" class="icon-size-small icon-no-check" />--%>
                 <span onclick="toggleStationDetailInfo(this)">
-                    <%= busRouteStation.getStationName() %> <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
+                    <%= busRouteStation.getStationName() %>
+                    <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     <%--<span class="badge badge-primary badge-pill">14</span>--%>
                     <div class="stationDetailInfo">
                         <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>

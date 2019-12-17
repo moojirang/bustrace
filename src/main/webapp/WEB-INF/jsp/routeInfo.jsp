@@ -172,7 +172,7 @@
             </div>
             <div class="contentAlignRight bottomMargin">
                 <div>
-                    <button type="button" class="btn btn-warning btn-sm" onclick="showAllStationDetailInfo()">Expand Stars</button>
+                    <%--<button type="button" class="btn btn-warning btn-sm" onclick="showAllStationDetailInfo()">Expand Stars</button>--%>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="showAllStationDetailInfo()">Expand All</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo()">Close All</button>
 
@@ -193,7 +193,7 @@
             <% for(BusRouteStation busRouteStation : busRouteStationList) { %>
                 <% String stationId = busRouteStation.getStationId(); %>
             <li class="list-group-item">
-                <img src="/img/star.png" class="icon-size-small icon-no-check" />
+                <%--<img src="/img/star.png" class="icon-size-small icon-no-check" />--%>
                 <span onclick="toggleStationDetailInfo(this)">
                     <%= busRouteStation.getStationName() %> <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     <%--<span class="badge badge-primary badge-pill">14</span>--%>

@@ -85,4 +85,8 @@ public class BusLocation {
                                 , formatTwoLength(String.valueOf(createdAt.getHour()))
                                 , formatTwoLength(String.valueOf(createdAt.getMinute())));
     }
+
+    public int createdAtDiff(final BusLocation busLocation) {
+        return this.createdAt.compareTo(busLocation.getCreatedAt());
+    }
 }

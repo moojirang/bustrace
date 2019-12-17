@@ -216,10 +216,17 @@
                         <% if (!busLocationList.isEmpty()) { %>
                             <ul class="list-group list-group-flush font-smaller">
                                 <% for(BusLocation busLocation: busLocationList) { %>
-                                <li class="list-group-item bg-gray createdAtLi" createdAt="<%= busLocation.getFormatedCreatedAt() %>">
-                                    <%= busLocation.getFormatedCreatedAt() %>
-                                    | <%= busLocation.getPlateNo() %>(<%= busLocation.getPlateTypeName() %>)
-                                    <% String remainSeatCnt = busLocation.getRemainSeatCnt(); %>
+                                <%
+                                    String formatedCreatedAt = busLocation.getFormatedCreatedAt();
+                                    String plateNo = busLocation.getPlateNo();
+                                    String plateTypeName = busLocation.getPlateTypeName();
+                                    String remainSeatCnt = busLocation.getRemainSeatCnt();
+
+                                    String remainSeatCntZeroYn = ("0".equals(remainSeatCnt)) ? "Y" : "N";
+                                %>
+                                <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%>" createdAt="<%= formatedCreatedAt %>">
+                                    <%= formatedCreatedAt %>
+                                    | <%= plateNo %>(<%= plateTypeName %>)
                                     <% if (!"-1".equals(remainSeatCnt)) { %>
                                     | 잔여좌석 <%= remainSeatCnt %>석
                                     <% } %>

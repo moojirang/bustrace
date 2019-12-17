@@ -29,6 +29,12 @@
     SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
     String nowDay = sdf.format(new Date());
 
+    String startCreatedAt = request.getParameter("startCreatedAt");
+    String endCreatedAt = request.getParameter("endCreatedAt");
+
+    startCreatedAt = (startCreatedAt == null || "".equals(startCreatedAt.trim())) ? nowDay : startCreatedAt;
+    endCreatedAt = (endCreatedAt == null || "".equals(endCreatedAt.trim())) ? nowDay : endCreatedAt;
+
 %>
 <!doctype html>
 <html lang="ko">
@@ -156,13 +162,13 @@
             <input type="hidden" id="routeId" name="routeId" value="<%= routeId %>" />
             <div class="form-row topPadding">
                 <div class="form-group">
-                    <input class="form-control form-control-sm" type="text" id="startCreatedAt" name="startCreatedAt" value="<%= nowDay %>" style="width:100px;">
+                    <input class="form-control form-control-sm" type="text" id="startCreatedAt" name="startCreatedAt" value="<%= startCreatedAt %>" style="width:100px;">
                 </div>
                 <div class="form-group" style="width: 14px; text-align: center">
                     -
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-sm" type="text" id="endCreatedAt" name="endCreatedAt" value="<%= nowDay %>" style="width:100px;">
+                    <input class="form-control form-control-sm" type="text" id="endCreatedAt" name="endCreatedAt" value="<%= endCreatedAt %>" style="width:100px;">
                 </div>
                 <div class="form-group" style="width: 4px">
                 </div>

@@ -7,6 +7,7 @@ import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
 import com.dazzilove.bustrace.service.wsdl.BusRouteInfo;
 import com.dazzilove.bustrace.service.ws.BusRouteStation;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -145,11 +146,17 @@ public class BusController {
                         busLocationMap.put(busLocation.getFormatedCreatedAt() + "/" + busLocation.getPlateNo(), busLocation);
                     });
                     List<BusLocation> mergedBusLocatios = new ArrayList<>();
+                    List<BusLocation> zeroRemainSeatBusLocatios = new ArrayList<>();
                     busLocationMap.forEach((key, value) -> {
                         mergedBusLocatios.add(value);
+                        String remainSeatCnt = StringUtils.defaultString(value.getRemainSeatCnt(), "0");
+                        if ("0".equals(remainSeatCnt)) {
+                            zeroRemainSeatBusLocatios.add(value);
+                        }
                     });
                     mergedBusLocatios.sort((busLocation1, busLocation2) -> busLocation1.createdAtDiff(busLocation2));
                     busRouteStation.setBusLocationList(mergedBusLocatios);
+                    busRouteStation.setRemainSeatCntZeroCnt(zeroRemainSeatBusLocatios.size());
                 }
 
             }

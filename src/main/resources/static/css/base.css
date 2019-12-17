@@ -35,6 +35,42 @@
     background-color:#EEEEEE;
 }
 
+
+.bg-mistyrose {
+    background-color: #ffe4e1;
+}
+
+.bg-pink {
+    background-color: #ffc0cb;
+}
+
+.bg-lightpink {
+    background-color: #ffb6c1;
+}
+
+.bg-hotpink {
+    background-color: #ff69b4;
+}
+
+.bg-green-depth1 {
+    background-color: #ccffee;
+}
+.bg-green-depth2 {
+    background-color: #ccffcc;
+}
+.bg-green-depth3 {
+    background-color: #ccff99;
+}
+.bg-green-depth4 {
+    background-color: #ccff66;
+}
+.bg-green-depth5 {
+    background-color: #ccff33;
+}
+.bg-green-depth5 {
+    background-color: #ccff00;
+}
+
 .font-light-gray {
     color: #999999;
 }
@@ -71,6 +107,5 @@
 }
 
 .remainSeatCntZeroY {
-    background-color: #dddddd;
     font-weight: bold;
 }

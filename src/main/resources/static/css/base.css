@@ -99,13 +99,18 @@
 }
 
 .icon-no-check {
-    filter: opacity(.1) drop-shadow(0 0 0 gray);
+    filter: opacity(.1) /*drop-shadow(0 0 0 gray); */
 }
 
 .icon-check {
-    filter: opacity(.9) drop-shadow(0 0 0 yellow);
+    filter: opacity(.4) /*drop-shadow(0 0 0 yellow);*/
 }
 
 .remainSeatCntZeroY {
     font-weight: bold;
+}
+
+.remainSeatCntZero {
+    font-weight: bold;
+    color: #708090;
 }

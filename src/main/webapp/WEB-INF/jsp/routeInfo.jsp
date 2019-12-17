@@ -6,6 +6,7 @@
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
 <%@ page import="com.dazzilove.bustrace.domain.BusLocation" %>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusStation" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
     BusRouteInfo busRouteInfo = (BusRouteInfo) request.getAttribute("busRouteInfo");
@@ -263,11 +264,22 @@
                                     String formatedCreatedAt = busLocation.getFormatedCreatedAt();
                                     String plateNo = busLocation.getPlateNo();
                                     String plateTypeName = busLocation.getPlateTypeName();
-                                    String remainSeatCnt = busLocation.getRemainSeatCnt();
+                                    String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
 
                                     String remainSeatCntZeroYn = ("0".equals(remainSeatCnt)) ? "Y" : "N";
+                                    int remainSeatCntInt = Integer.parseInt(remainSeatCnt);
+                                    String remainSeatCntBgClass = "";
+                                    if (remainSeatCntInt == 0) {
+                                        remainSeatCntBgClass = "bg-green-depth1";
+                                    } else if (remainSeatCntInt <= 5) {
+                                        remainSeatCntBgClass = "bg-green-depth2";
+                                    } else if (remainSeatCntInt <= 10) {
+                                        remainSeatCntBgClass = "bg-green-depth3";
+                                    } else if (remainSeatCntInt <= 15) {
+                                        remainSeatCntBgClass = "bg-green-depth4";
+                                    }
                                 %>
-                                <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%>" createdAt="<%= formatedCreatedAt %>">
+                                <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>">
                                     <%= formatedCreatedAt %>
                                     | <%= plateNo %>(<%= plateTypeName %>)
                                     <% if (!"-1".equals(remainSeatCnt)) { %>

@@ -69,3 +69,8 @@
 .icon-check {
     filter: opacity(.7) drop-shadow(0 0 0 yellow);
 }
+
+.remainSeatCntZeroY {
+    background-color: #dddddd;
+    font-weight: bold;
+}

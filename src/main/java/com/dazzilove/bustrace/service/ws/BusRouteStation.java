@@ -12,6 +12,7 @@ import java.util.List;
 public class BusRouteStation extends BusStation {
 	private String stationSeq;
 	private String turnYn;
+	private int remainSeatCntZeroCnt;
 
 	private List<BusLocation> busLocationList = new ArrayList<>();
 }

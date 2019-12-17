@@ -129,9 +129,7 @@ public class BusController {
                                     .stream()
                                     .filter(busRouteStation -> stationId.equals(busRouteStation.getStationId()))
                                     .forEach(busRouteStation -> {
-//                                        if (stationId.equals(busRouteStation.getStationId())) {
-                                            busRouteStation.getBusLocationList().add(busLocation);
-//                                        }
+                                        busRouteStation.getBusLocationList().add(busLocation);
                                         String createdAt = busLocation.getFormatedCreatedAt();
                                         createdAtMap.put(createdAt, createdAt);
                                     });

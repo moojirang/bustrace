@@ -136,6 +136,23 @@ public class BusController {
 
                         });
             }
+            for(BusRouteStation busRouteStation: busRouteStationList) {
+                List<BusLocation> busLocations = busRouteStation.getBusLocationList();
+                if (!busLocations.isEmpty()) {
+                    Map<String, BusLocation> busLocationMap = new HashMap<>();
+
+                    busLocations.forEach(busLocation -> {
+                        busLocationMap.put(busLocation.getFormatedCreatedAt() + "/" + busLocation.getPlateNo(), busLocation);
+                    });
+                    List<BusLocation> mergedBusLocatios = new ArrayList<>();
+                    busLocationMap.forEach((key, value) -> {
+                        mergedBusLocatios.add(value);
+                    });
+                    mergedBusLocatios.sort((busLocation1, busLocation2) -> busLocation1.createdAtDiff(busLocation2));
+                    busRouteStation.setBusLocationList(mergedBusLocatios);
+                }
+
+            }
             mav.addObject("busRouteStationList", busRouteStationList);
 
             List<String> createdAtList = new ArrayList<>();

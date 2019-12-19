@@ -20,17 +20,17 @@ public class BusLocationTask {
 
     // cron = 초 분 시 일 월 주 (년)
     // 5분간격 6:00 ~ 9:55 까지 매일
-    @Scheduled(cron = "0 0/5 6-9 * * ?")
+    @Scheduled(cron = "0 0/1 6-9 * * ?")
     public void scheduleBusLocationMorningSaveTask() {
         busLocationMorningAndNight();
     }
 
-    @Scheduled(cron = "0 0/5 17-21 * * ?")
+    @Scheduled(cron = "0 0/1 17-21 * * ?")
     public void scheduleBusLocationNightSaveTask() {
         busLocationMorningAndNight();
     }
 
-    @Scheduled(cron = "0 0/30 * * * ?")
+    @Scheduled(cron = "0 0/15 * * * ?")
     public void scheduleBusLocationAllDaySaveTask() {
         busLocationAllDay();
     }
@@ -42,16 +42,16 @@ public class BusLocationTask {
         routes.add("224000019"); // 32
         routes.add("208000009"); // 81
         routes.add("224000014"); // 30-2
+        routes.add("224000019"); // 3200
+        routes.add("224000050"); // 3400
+        routes.add("224000054"); // 3500
 
         busLocationSave(routes);
     }
 
     private void busLocationMorningAndNight() {
         List<String> routes = new ArrayList<>();
-        routes.add("224000019"); // 3200
         routes.add("224000047"); // 3300
-        routes.add("224000050"); // 3400
-        routes.add("224000054"); // 3500
 
         busLocationSave(routes);
     }

@@ -72,12 +72,18 @@
             $(obj).children(".stationDetailInfo").css("display", nextDisplay);
         }
 
-        function showOnlyStarts() {
+        function showOnlyStarts(target) {
             var btnTextShowOnly = "Only Stars";
             var btnTextShowAll = "Show All";
 
-            var btnText = $("#toggleStarShowClseBtn").text();
-            console.log(btnText);
+            var btnText = "";
+
+            if (target == null) {
+                btnText = $("#toggleStarShowClseBtn").text();
+            } else {
+                btnText = target;
+            }
+
             if (btnText == btnTextShowOnly) {
                 closeAllStationDetailInfo();
                 $(".busLocationLiItem").each(function() {
@@ -96,6 +102,32 @@
                 });
                 $("#toggleStarShowClseBtn").text(btnTextShowOnly);
             }
+        }
+
+        function showAllStarts() {
+            showOnlyStarts("Show All");
+        }
+
+        function resetWayGroup(obj) {
+            $(".way-group").each(function() {
+                $(this).removeClass("active");
+            });
+            $(obj).addClass("active");
+
+            showAllStarts();
+
+            var displayTurnClass = "";
+            if($(obj).hasClass("ascend-way")) {
+                displayTurnClass = "trunN";
+            } else if ($(obj).hasClass("descend-way")) {
+                displayTurnClass = "trunY";
+            }
+            $(".busLocationLiItem").each(function() {
+                $(this).css("display", "block");
+                if (displayTurnClass != "" && !$(this).hasClass(displayTurnClass)) {
+                    $(this).css("display", "none");
+                }
+            });
         }
 
         function showAllStationDetailInfo(obj) {
@@ -209,9 +241,9 @@
                     <button type="button" class="btn btn-warning btn-sm" onclick="showOnlyStarts()" id="toggleStarShowClseBtn">Only Stars</button>
 
                     <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-info btn-sm">상행</button>
-                        <button type="button" class="btn btn-info btn-sm">하행</button>
-                        <button type="button" class="btn btn-info btn-sm active">전체</button>
+                        <button type="button" class="btn btn-info btn-sm way-group ascend-way" onclick="resetWayGroup(this)">상행</button>
+                        <button type="button" class="btn btn-info btn-sm way-group descend-way" onclick="resetWayGroup(this)">하행</button>
+                        <button type="button" class="btn btn-info btn-sm way-group all-way active" onclick="resetWayGroup(this)">전체</button>
                     </div>
                 </div>
             </div>

@@ -49,13 +49,14 @@
     <script src="/js/bootstrap-4.4.1/bootstrap.js"></script>
 
     <script language="javascript">
-        function changeTab(tabId) {
+        function changeTab(obj) {
             $(".subTab li a").each(function() {
                 var id = $(this).attr("id");
                 $(this).removeClass("active");
                 $("#" + id + "Area").css("display", "none");
             });
 
+            var tabId = $(obj).attr("id");
             $("#" + tabId).addClass("active");
             $("#" + tabId + "Area").css("display", "block");
         }
@@ -186,13 +187,13 @@
 
     <ul class="nav nav-tabs subTab">
         <li class="nav-item">
-            <a class="nav-link" href="#" id="defaultInfoTab" onclick="changeTab('defaultInfoTab')">기본정보</a>
+            <a class="nav-link" href="#" id="defaultInfoTab" onclick="changeTab(this)">기본정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#" id="stationsTab" onclick="changeTab('stationsTab')">정거장 정보</a>
+            <a class="nav-link active" href="#" id="stationsTab" onclick="changeTab(this)">정거장 정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" id="specialInfoTab" onclick="changeTab('specialInfoTab')">특이사항</a>
+            <a class="nav-link" href="#" id="specialInfoTab" onclick="changeTab(this)">특이사항</a>
         </li>
     </ul>
 

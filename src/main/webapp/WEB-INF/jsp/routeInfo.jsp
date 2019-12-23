@@ -50,14 +50,12 @@
 
     <script language="javascript">
         function changeTab(tabId) {
-            $("a").each(function() {
-                var group = $(this).attr("group");
+            $(".subTab li a").each(function() {
                 var id = $(this).attr("id");
-                if (group == "subTab") {
-                    $(this).removeClass("active");
-                    $("#" + id + "Area").css("display", "none");
-                }
+                $(this).removeClass("active");
+                $("#" + id + "Area").css("display", "none");
             });
+
             $("#" + tabId).addClass("active");
             $("#" + tabId + "Area").css("display", "block");
         }
@@ -186,15 +184,15 @@
         <div class="align-content-md-start"><%= routeName %>번 노선정보</div>
     </div>
 
-    <ul class="nav nav-tabs" id="usbTab">
+    <ul class="nav nav-tabs subTab">
         <li class="nav-item">
-            <a class="nav-link" href="#" group="subTab" id="defaultInfoTab" onclick="changeTab('defaultInfoTab')">기본정보</a>
+            <a class="nav-link" href="#" id="defaultInfoTab" onclick="changeTab('defaultInfoTab')">기본정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link active" href="#" group="subTab" id="stationsTab" onclick="changeTab('stationsTab')">정거장 정보</a>
+            <a class="nav-link active" href="#" id="stationsTab" onclick="changeTab('stationsTab')">정거장 정보</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" group="subTab" id="specialInfoTab" onclick="changeTab('specialInfoTab')">특이사항</a>
+            <a class="nav-link" href="#" id="specialInfoTab" onclick="changeTab('specialInfoTab')">특이사항</a>
         </li>
     </ul>
 

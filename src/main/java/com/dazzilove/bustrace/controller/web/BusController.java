@@ -65,15 +65,12 @@ public class BusController {
         mav.setViewName("routeInfo");
 
         String routeId = request.getParameter("routeId");
-        String startCreatedAt = request.getParameter("startCreatedAt");
-        String endCreatedAt = request.getParameter("endCreatedAt");
-
-        startCreatedAt = (startCreatedAt == null) ? "" : startCreatedAt.trim();
-        endCreatedAt = (endCreatedAt == null) ? "" : endCreatedAt.trim();
+        String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
+        String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();
 
         LocalDateTime startCreatedAtLdt = LocalDateTime.now();
         LocalDateTime endCreatedAtLdt = LocalDateTime.now();
-        if ("".equals(startCreatedAt.trim()) || "".equals(endCreatedAt.trim())) {
+        if ("".equals(startCreatedAt) || "".equals(endCreatedAt)) {
             LocalDate localDate = LocalDate.now();
             startCreatedAtLdt = LocalDateTime.of(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), 0, 0, 0);
             endCreatedAtLdt = LocalDateTime.of(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), 23, 59, 59);

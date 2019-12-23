@@ -193,8 +193,10 @@
         <li class="nav-item">
             <a class="nav-link active" href="#" group="subTab" id="stationsTab" onclick="changeTab('stationsTab')">정거장 정보</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#" group="subTab" id="specialInfoTab" onclick="changeTab('specialInfoTab')">특이사항</a>
+        </li>
     </ul>
-
 
     <div id="defaultInfoTabArea" style="display: none;">
         <% if (busRouteInfo != null) { %>
@@ -216,6 +218,7 @@
         </ul>
         <% } %>
     </div>
+
     <div id="stationsTabArea">
         <form name="searchForm" id="searchForm">
             <input type="hidden" id="routeId" name="routeId" value="<%= routeId %>" />
@@ -329,6 +332,10 @@
             </li>
             <% } %>
         </ul>
+    </div>
+
+    <div id="specialInfoTabArea" style="display: none;">
+        <div style="text-align: center">특이사항 없습니다.</div>
     </div>
 </div>
 </body>

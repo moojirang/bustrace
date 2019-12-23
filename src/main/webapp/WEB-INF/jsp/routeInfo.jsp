@@ -28,7 +28,7 @@
     }
 
 
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String nowDay = sdf.format(new Date());
 
     String startCreatedAt = request.getParameter("startCreatedAt");
@@ -222,13 +222,13 @@
             <input type="hidden" id="routeId" name="routeId" value="<%= routeId %>" />
             <div class="form-row topPadding">
                 <div class="form-group">
-                    <input class="form-control form-control-sm" type="text" id="startCreatedAt" name="startCreatedAt" value="<%= startCreatedAt %>" style="width:100px;">
+                    <input class="form-control form-control-sm" type="date" id="startCreatedAt" name="startCreatedAt" value="<%= startCreatedAt %>" >
                 </div>
                 <div class="form-group" style="width: 14px; text-align: center">
                     -
                 </div>
                 <div class="form-group">
-                    <input class="form-control form-control-sm" type="text" id="endCreatedAt" name="endCreatedAt" value="<%= endCreatedAt %>" style="width:100px;">
+                    <input class="form-control form-control-sm" type="date" id="endCreatedAt" name="endCreatedAt" value="<%= endCreatedAt %>" >
                 </div>
                 <div class="form-group" style="width: 4px">
                 </div>

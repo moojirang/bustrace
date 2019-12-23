@@ -286,7 +286,7 @@
 
                 %>
             <li class="list-group-item busLocationLiItem trun<%= turnYn %> <%= remainSeatCntZeroClass %>">
-                <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %> />
+                <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %>" />
                 <span onclick="toggleStationDetailInfo(this)">
                     <%= busRouteStation.getStationName() %>
                     <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>

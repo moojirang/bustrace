@@ -27,15 +27,14 @@
         busRouteStationList = new ArrayList<>();
     }
 
-
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String nowDay = sdf.format(new Date());
 
-    String startCreatedAt = request.getParameter("startCreatedAt");
-    String endCreatedAt = request.getParameter("endCreatedAt");
+    String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
+    String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();
 
-    startCreatedAt = (startCreatedAt == null || "".equals(startCreatedAt.trim())) ? nowDay : startCreatedAt;
-    endCreatedAt = (endCreatedAt == null || "".equals(endCreatedAt.trim())) ? nowDay : endCreatedAt;
+    startCreatedAt = ("".equals(startCreatedAt.trim())) ? nowDay : startCreatedAt;
+    endCreatedAt = ("".equals(endCreatedAt.trim())) ? nowDay : endCreatedAt;
 
 %>
 <!doctype html>

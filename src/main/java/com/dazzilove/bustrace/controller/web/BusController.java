@@ -68,6 +68,9 @@ public class BusController {
         String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
         String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();
 
+        startCreatedAt = startCreatedAt.replace("-", "");
+        endCreatedAt = endCreatedAt.replace("-", "");
+
         LocalDateTime startCreatedAtLdt = LocalDateTime.now();
         LocalDateTime endCreatedAtLdt = LocalDateTime.now();
         if ("".equals(startCreatedAt) || "".equals(endCreatedAt)) {

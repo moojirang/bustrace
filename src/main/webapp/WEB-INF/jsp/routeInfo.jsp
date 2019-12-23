@@ -62,12 +62,16 @@
         }
 
         function toggleStationDetailInfo(obj) {
-            var nowDisplay = $(obj).children(".stationDetailInfo").css("display");
-            var nextDisplay = "none";
-            if (nowDisplay == "none") {
-                nextDisplay = "block";
-            }
-            $(obj).children(".stationDetailInfo").css("display", nextDisplay);
+            $(obj).nextAll().each(function() {
+                if ($(this).hasClass("stationDetailInfo")) {
+                    var nowDisplay = $(this).css("display");
+                    var nextDisplay = "none";
+                    if (nowDisplay == "none") {
+                        nextDisplay = "block";
+                    }
+                    $(this).css("display", nextDisplay);
+                }
+            });
         }
 
         function showOnlyStarts(target) {
@@ -288,10 +292,12 @@
                 %>
             <li class="list-group-item busLocationLiItem trun<%= turnYn %> <%= remainSeatCntZeroClass %>">
                 <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %>" />
-                <span onclick="toggleStationDetailInfo(this)">
-                    <%= busRouteStation.getStationName() %>
-                    <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
-                    <div class="stationDetailInfo">
+                <span>
+                    <span onclick="toggleStationDetailInfo(this)">
+                        <%= busRouteStation.getStationName() %>
+                        <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
+                    </span>
+                    <div class="stationDetailInfo" test="dddd">
                         <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
                         <% if (!busLocationList.isEmpty()) { %>
                             <ul class="list-group list-group-flush font-smaller">

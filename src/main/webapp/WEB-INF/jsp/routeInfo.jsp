@@ -291,7 +291,6 @@
                 <span onclick="toggleStationDetailInfo(this)">
                     <%= busRouteStation.getStationName() %>
                     <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
-                    <%--<span class="badge badge-primary badge-pill">14</span>--%>
                     <div class="stationDetailInfo">
                         <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
                         <% if (!busLocationList.isEmpty()) { %>

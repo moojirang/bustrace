@@ -297,7 +297,7 @@
                         <%= busRouteStation.getStationName() %>
                         <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     </span>
-                    <div class="stationDetailInfo" test="dddd">
+                    <div class="stationDetailInfo">
                         <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
                         <% if (!busLocationList.isEmpty()) { %>
                             <ul class="list-group list-group-flush font-smaller">

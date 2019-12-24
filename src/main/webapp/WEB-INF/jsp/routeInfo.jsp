@@ -313,6 +313,8 @@
                 <option><%= time %></option>
                 <% } %>
             </select>
+            - 시간 선택은 list에서 arange로 바꾸고...<br>
+            - 버스차량번호 list를 추가하여 차량번호로 확인할 수 있도록 할 것<br>
         </div>
 
         <ul class="list-group list-group-flush">

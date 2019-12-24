@@ -39,7 +39,7 @@ public class BusLocationTask {
         List<String> routes = new ArrayList<>();
         routes.add("216000047"); // 5602
         routes.add("224000040"); // 5604
-        routes.add("224000019"); // 32
+        routes.add("217000009"); // 32
         routes.add("208000009"); // 81
         routes.add("224000014"); // 30-2
         routes.add("224000019"); // 3200

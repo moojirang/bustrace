@@ -63,7 +63,7 @@
 
         function toggleStationDetailInfo(obj) {
             $(obj).nextAll().each(function() {
-                if ($(this).hasClass("stationDetailInfo")) {
+                if ($(this).hasClass("stationDetailInfo") && $(this).hasClass("timeline")) {
                     var nowDisplay = $(this).css("display");
                     var nextDisplay = "none";
                     if (nowDisplay == "none") {

@@ -86,6 +86,17 @@ public class BusLocation {
                                 , formatTwoLength(String.valueOf(createdAt.getMinute())));
     }
 
+    public String getFormatedCreatedAtByHalftime() {
+        int minute = createdAt.getMinute();
+        minute = (minute <= 30) ? 0 : 31;
+        return String.format("%s/%s/%s %s:%s"
+                , formatTwoLength(String.valueOf(createdAt.getYear()))
+                , formatTwoLength(String.valueOf(createdAt.getMonthValue()))
+                , formatTwoLength(String.valueOf(createdAt.getDayOfMonth()))
+                , formatTwoLength(String.valueOf(createdAt.getHour()))
+                , formatTwoLength(String.valueOf(minute)));
+    }
+
     public int createdAtDiff(final BusLocation busLocation) {
         return this.createdAt.compareTo(busLocation.getCreatedAt());
     }

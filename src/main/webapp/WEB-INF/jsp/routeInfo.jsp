@@ -135,6 +135,10 @@
         function showAllStationDetailInfo(obj) {
             $(".stationDetailInfo").each(function() {
                 $(this).css("display", "block");
+
+                if ($(this).hasClass("bus")) {
+                    $(this).css("display", "none");
+                }
             });
         }
 
@@ -162,6 +166,48 @@
             frm.action = "/routeInfo";
             frm.submit();
         }
+
+        function showTimelineViewer(obj) {
+            toggleBadgeStationDetailInfo(obj);
+
+            var defaultClass = "timeline";
+            if ($(obj).hasClass("bus")) {
+                defaultClass = "bus";
+            }
+
+            $(obj).nextAll(".stationDetailInfo").each(function() {
+                if ($(this).hasClass(defaultClass)) {
+                    $(this).css("display", "block");
+                } else {
+                    $(this).css("display", "none");
+                }
+            });
+        }
+
+        function toggleBadgeStationDetailInfo(obj) {
+            var checkClass = "badge-stationDetailInfo";
+            var prevObj = $(obj).prev();
+            if(prevObj.hasClass(checkClass)) {
+                checkAndRemoveClass(prevObj, "badge-secondary");
+                checkAndRemoveClass(prevObj, "badge-light");
+                prevObj.addClass("badge-light");
+            }
+            var nextObj = $(obj).next();
+            if(nextObj.hasClass(checkClass)) {
+                checkAndRemoveClass(nextObj, "badge-secondary");
+                checkAndRemoveClass(nextObj, "badge-light");
+                nextObj.addClass("badge-light");
+            }
+            checkAndRemoveClass(obj, "badge-light");
+            $(obj).addClass("badge-secondary");
+        }
+
+        function checkAndRemoveClass(obj, className) {
+            if ($(obj).hasClass(className)) {
+                $(obj).removeClass(className);
+            }
+        }
+
     </script>
 </head>
 <body>
@@ -297,7 +343,12 @@
                         <%= busRouteStation.getStationName() %>
                         <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     </span>
-                    <div class="stationDetailInfo">
+                    <span class="badge badge-secondary badge-stationDetailInfo timeline" onclick="showTimelineViewer(this)">Timeline</span>
+                    <span class="badge badge-light badge-stationDetailInfo bus" onclick="showTimelineViewer(this)">Bus</span>
+                    <div class="stationDetailInfo bus">
+                        bus icon viewer
+                    </div>
+                    <div class="stationDetailInfo timeline">
                         <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
                         <% if (!busLocationList.isEmpty()) { %>
                             <ul class="list-group list-group-flush font-smaller">

@@ -357,6 +357,25 @@
                                 String plateTypeName = busLocation.getPlateTypeName();
                                 String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
 
+                                int platNoLen = plateNo.length();
+                                plateNo = plateNo.substring(platNoLen -4, platNoLen);
+
+                                String busImgSrc = "/img/";
+                                switch (plateTypeName) {
+                                    case "2층버스":
+                                        busImgSrc = busImgSrc + "bus2f_2.png";
+                                        break;
+                                    case "대형승합차":
+                                        busImgSrc = busImgSrc + "bus1f_2.png";
+                                        break;
+                                    case "중형승합차":
+                                        busImgSrc = busImgSrc + "bus1f_1.png";
+                                        break;
+                                    default:
+                                        busImgSrc = busImgSrc + "bus1f_0.png";
+                                        break;
+                                }
+
                                 String remainSeatCntZeroYn = ("0".equals(remainSeatCnt)) ? "Y" : "N";
                                 int remainSeatCntInt = Integer.parseInt(remainSeatCnt);
                                 String remainSeatCntBgClass = "";
@@ -372,7 +391,7 @@
                             %>
                             <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>">
                                 <%= formatedCreatedAt %>
-                                | <%= plateNo %>(<%= plateTypeName %>)
+                                | <img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /> <%= plateNo %>
                                 <% if (!"-1".equals(remainSeatCnt)) { %>
                                 | 잔여좌석 <%= remainSeatCnt %>석
                                 <% } %>

@@ -167,7 +167,7 @@
             frm.submit();
         }
 
-        function showTimelineViewer(obj) {
+        function toggleStationDetailInfoTab(obj) {
             toggleBadgeStationDetailInfo(obj);
 
             var defaultClass = "timeline";
@@ -343,46 +343,47 @@
                         <%= busRouteStation.getStationName() %>
                         <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     </span>
-                    <span class="badge badge-secondary badge-stationDetailInfo timeline" onclick="showTimelineViewer(this)">Timeline</span>
-                    <span class="badge badge-light badge-stationDetailInfo bus" onclick="showTimelineViewer(this)">Bus</span>
+                    <span class="badge badge-secondary badge-stationDetailInfo timeline" onclick="toggleStationDetailInfoTab(this)">Timeline</span>
+                    <span class="badge badge-light badge-stationDetailInfo bus" onclick="toggleStationDetailInfoTab(this)">Bus</span>
+
+                    <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
+                    <% busLocationList = (busLocationList.isEmpty()) ? new ArrayList<>() : busLocationList; %>
+                    <div class="stationDetailInfo timeline">
+                        <ul class="list-group list-group-flush font-smaller">
+                            <% for(BusLocation busLocation: busLocationList) { %>
+                            <%
+                                String formatedCreatedAt = busLocation.getFormatedCreatedAt();
+                                String plateNo = busLocation.getPlateNo();
+                                String plateTypeName = busLocation.getPlateTypeName();
+                                String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
+
+                                String remainSeatCntZeroYn = ("0".equals(remainSeatCnt)) ? "Y" : "N";
+                                int remainSeatCntInt = Integer.parseInt(remainSeatCnt);
+                                String remainSeatCntBgClass = "";
+                                if (remainSeatCntInt == 0) {
+                                    remainSeatCntBgClass = "bg-green-depth1";
+                                } else if (remainSeatCntInt <= 5) {
+                                    remainSeatCntBgClass = "bg-green-depth2";
+                                } else if (remainSeatCntInt <= 10) {
+                                    remainSeatCntBgClass = "bg-green-depth3";
+                                } else if (remainSeatCntInt <= 15) {
+                                    remainSeatCntBgClass = "bg-green-depth4";
+                                }
+                            %>
+                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>">
+                                <%= formatedCreatedAt %>
+                                | <%= plateNo %>(<%= plateTypeName %>)
+                                <% if (!"-1".equals(remainSeatCnt)) { %>
+                                | 잔여좌석 <%= remainSeatCnt %>석
+                                <% } %>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
                     <div class="stationDetailInfo bus">
                         bus icon viewer
                     </div>
-                    <div class="stationDetailInfo timeline">
-                        <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
-                        <% if (!busLocationList.isEmpty()) { %>
-                            <ul class="list-group list-group-flush font-smaller">
-                                <% for(BusLocation busLocation: busLocationList) { %>
-                                <%
-                                    String formatedCreatedAt = busLocation.getFormatedCreatedAt();
-                                    String plateNo = busLocation.getPlateNo();
-                                    String plateTypeName = busLocation.getPlateTypeName();
-                                    String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
 
-                                    String remainSeatCntZeroYn = ("0".equals(remainSeatCnt)) ? "Y" : "N";
-                                    int remainSeatCntInt = Integer.parseInt(remainSeatCnt);
-                                    String remainSeatCntBgClass = "";
-                                    if (remainSeatCntInt == 0) {
-                                        remainSeatCntBgClass = "bg-green-depth1";
-                                    } else if (remainSeatCntInt <= 5) {
-                                        remainSeatCntBgClass = "bg-green-depth2";
-                                    } else if (remainSeatCntInt <= 10) {
-                                        remainSeatCntBgClass = "bg-green-depth3";
-                                    } else if (remainSeatCntInt <= 15) {
-                                        remainSeatCntBgClass = "bg-green-depth4";
-                                    }
-                                %>
-                                <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>">
-                                    <%= formatedCreatedAt %>
-                                    | <%= plateNo %>(<%= plateTypeName %>)
-                                    <% if (!"-1".equals(remainSeatCnt)) { %>
-                                    | 잔여좌석 <%= remainSeatCnt %>석
-                                    <% } %>
-                                    </li>
-                                <% } %>
-                            </ul>
-                        <% } %>
-                    </div>
                 </span>
             </li>
             <% } %>

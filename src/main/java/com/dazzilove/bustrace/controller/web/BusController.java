@@ -144,7 +144,7 @@ public class BusController {
                     Map<String, BusLocation> busLocationMap = new HashMap<>();
 
                     busLocations.forEach(busLocation -> {
-                        busLocationMap.put(busLocation.getFormatedCreatedAt() + "/" + busLocation.getPlateNo(), busLocation);
+                        busLocationMap.put(busLocation.getFormatedCreatedAtByHalftime() + "/" + busLocation.getPlateNo(), busLocation);
                     });
                     List<BusLocation> mergedBusLocatios = new ArrayList<>();
                     List<BusLocation> zeroRemainSeatBusLocatios = new ArrayList<>();

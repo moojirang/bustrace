@@ -343,8 +343,8 @@
                         <%= busRouteStation.getStationName() %>
                         <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     </span>
-                    <span class="badge badge-secondary badge-stationDetailInfo timeline" onclick="toggleStationDetailInfoTab(this)">Timeline</span>
-                    <span class="badge badge-light badge-stationDetailInfo bus" onclick="toggleStationDetailInfoTab(this)">Bus</span>
+                    <%--<span class="badge badge-secondary badge-stationDetailInfo timeline" onclick="toggleStationDetailInfoTab(this)">Timeline</span>--%>
+                    <%--<span class="badge badge-light badge-stationDetailInfo bus" onclick="toggleStationDetailInfoTab(this)">Bus</span>--%>
 
                     <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
                     <% busLocationList = (busLocationList.isEmpty()) ? new ArrayList<>() : busLocationList; %>

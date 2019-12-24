@@ -46,7 +46,7 @@ public class BusController {
         busList.add(bus);
         bus = new Bus("5604", "224000040");
         busList.add(bus);
-        bus = new Bus("32", "224000019");
+        bus = new Bus("32", "217000009");
         busList.add(bus);
         bus = new Bus("81", "208000009");
         busList.add(bus);

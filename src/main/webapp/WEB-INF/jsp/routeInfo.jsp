@@ -508,21 +508,7 @@
                                 int platNoLen = plateNo.length();
                                 String shortPlateNo = plateNo.substring(platNoLen -4, platNoLen);
 
-                                String busImgSrc = "/img/";
-                                switch (plateTypeName) {
-                                    case "2층버스":
-                                        busImgSrc = busImgSrc + "bus2f_2.png";
-                                        break;
-                                    case "대형승합차":
-                                        busImgSrc = busImgSrc + "bus1f_2.png";
-                                        break;
-                                    case "중형승합차":
-                                        busImgSrc = busImgSrc + "bus1f_1.png";
-                                        break;
-                                    default:
-                                        busImgSrc = busImgSrc + "bus1f_0.png";
-                                        break;
-                                }
+                                String busImgSrc = CodeUtil.getPlateType(plateType).getImageSrc();
 
                                 String remainSeatCntZeroYn = ("0".equals(remainSeatCnt)) ? "Y" : "N";
                                 int remainSeatCntInt = Integer.parseInt(remainSeatCnt);

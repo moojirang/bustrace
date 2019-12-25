@@ -81,15 +81,15 @@ public class BusController {
             String year = startCreatedAt.substring(0, 4);
             String month = startCreatedAt.substring(4, 6);
             String day = startCreatedAt.substring(6, 8);
-            month = (month.indexOf("0") == 0) ? month.substring(1,1) : month;
-            day = (day.indexOf("0") == 0) ? day.substring(1,1) : day;
+            month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
+            day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
             startCreatedAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 0, 0, 0);
 
             year = endCreatedAt.substring(0, 4);
             month = endCreatedAt.substring(4, 6);
             day = endCreatedAt.substring(6, 8);
-            month = (month.indexOf("0") == 0) ? month.substring(1,1) : month;
-            day = (day.indexOf("0") == 0) ? day.substring(1,1) : day;
+            month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
+            day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
             endCreatedAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 23, 59, 59);
         }
 

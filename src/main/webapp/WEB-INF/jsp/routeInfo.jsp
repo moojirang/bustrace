@@ -152,7 +152,7 @@
             var createdAt = $(obj).val();
             $(".createdAtLi").each(function() {
                 $(this).css("display", "none");
-                if (createdAt == $(this).attr("createdAt")) {
+                if (createdAt == $(this).attr("data-createdat")) {
                     $(this).css("display", "block");
                 }
                 if (createdAt == "All Time") {
@@ -255,7 +255,7 @@
             var endTimeArange = parseInt($("#endTimeArange").val());
 
             $(".createdAtLi").each(function() {
-                var createdAt = $(this).attr("createdAt");
+                var createdAt = $(this).attr("data-createdat");
                 var hour = createdAt.substring(11, 13);
                 hour = (hour.indexOf("0") == 0) ? hour.substring(1,2) : hour;
                 var hourInt = parseInt(hour);
@@ -484,7 +484,7 @@
                                     remainSeatCntBgClass = "bg-green-depth4";
                                 }
                             %>
-                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>" data-plateno="<%= plateNo %>">
+                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" data-createdat="<%= formatedCreatedAt %>" data-plateno="<%= plateNo %>">
                                 <%= formatedCreatedAt %>
                                 | <img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /> <%= shortPlateNo %>
                                 <% if (!"-1".equals(remainSeatCnt)) { %>

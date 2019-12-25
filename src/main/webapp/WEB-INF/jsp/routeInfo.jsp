@@ -228,6 +228,57 @@
             showAllStationDetailInfo();
         }
 
+        function changeTimeArangeSelect(obj) {
+            var startTimeArange = "0";
+            var endTimeArange = "23";
+
+            var selectedArange = $(obj).val();
+            if (selectedArange == "00") {
+                return;
+            } else if (selectedArange == "01") {
+                startTimeArange = "0";
+                endTimeArange = "23";
+            } else if (selectedArange == "02") {
+                startTimeArange = "5";
+                endTimeArange = "9";
+            } else if (selectedArange == "03") {
+                startTimeArange = "10";
+                endTimeArange = "16";
+            } else if (selectedArange == "04") {
+                startTimeArange = "17";
+                endTimeArange = "22";
+            }
+
+            $("#startTimeArange").val(startTimeArange);
+            $("#endTimeArange").val(endTimeArange);
+
+            changeTimeArange();
+        }
+
+        function changeTimeArange() {
+            var startTimeArange = parseInt($("#startTimeArange").val());
+            var endTimeArange = parseInt($("#endTimeArange").val());
+
+            $(".createdAtLi").each(function() {
+                var createdAt = $(this).attr("createdAt");
+                var hour = createdAt.substring(11, 13);
+                hour = (hour.indexOf("0") == 0) ? hour.substring(1,2) : hour;
+                var hourInt = parseInt(hour);
+
+                var isDisplay = false;
+                if (hourInt >= startTimeArange && hourInt <= endTimeArange) {
+                    isDisplay = true;
+                }
+
+                if (isDisplay) {
+                    $(this).css("display", "block");
+                } else {
+                    $(this).css("display", "none");
+                }
+            });
+
+            showAllStationDetailInfo();
+        }
     </script>
 </head>
 <body>
@@ -333,6 +384,32 @@
                 <option><%= time %></option>
                 <% } %>
             </select>
+
+
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text form-control-sm">시간대</span>
+                </div>
+                <select class="custom-select" id="startTimeArange" onchange="changeTimeArange()">
+                    <option>All</option>
+                    <% for(int i=0; i<24; i++) { %>
+                    <option value="<%=i%>" <%= (i==0) ? "selected" : "" %>><%= (i < 10) ? "0"+i : ""+i %>:00</option>
+                    <% } %>
+                </select>
+                <select class="custom-select" id="endTimeArange" onchange="changeTimeArange()">
+                    <option>All</option>
+                    <% for(int i=0; i<24; i++) { %>
+                    <option value="<%=i%>" <%= (i==23) ? "selected" : "" %>><%= (i < 10) ? "0"+i : ""+i %>:59</option>
+                    <% } %>
+                </select>
+                <select class="custom-select" onchange="changeTimeArangeSelect(this);">
+                    <option value="00">선택</option>
+                    <option value="01">전체</option>
+                    <option value="02">출근시간</option>
+                    <option value="03">근무시간</option>
+                    <option value="04">퇴근시간</option>
+                </select>
+            </div>
 
             <div class="input-group input-group-sm">
                 <div class="input-group-prepend">

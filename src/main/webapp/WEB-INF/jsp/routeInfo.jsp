@@ -217,7 +217,7 @@
             var selectedPlateNo = $(obj).val();
             $(".createdAtLi").each(function() {
                 var nowPlateNo = $(this).attr("data-plateno");
-                if (selectedPlateNo == "차량번호 전체") {
+                if (selectedPlateNo == "All") {
                     $(this).css("display", "block");
                 } else if (selectedPlateNo == nowPlateNo) {
                     $(this).css("display", "block");
@@ -333,12 +333,20 @@
                 <option><%= time %></option>
                 <% } %>
             </select>
-            <select class="form-control form-control-sm" onchange="changePlateNoSelect(this);">
-                <option>차량번호 전체</option>
-                <% for(String plateNo : plateNoList) { %>
-                <option><%= plateNo %></option>
-                <% } %>
-            </select>
+
+            <div class="input-group input-group-sm">
+                <div class="input-group-prepend">
+                    <span class="input-group-text form-control-sm">차량번호</span>
+                </div>
+                <select class="custom-select" onchange="changePlateNoSelect(this);">
+                    <option>All</option>
+                    <% for(String plateNo : plateNoList) { %>
+                    <option><%= plateNo %></option>
+                    <% } %>
+                </select>
+            </div>
+
+
             <div>TODO : 시간 선택을 list에서 arange로 변경</div>
         </div>
 

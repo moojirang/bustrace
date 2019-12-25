@@ -9,10 +9,6 @@ public class CodeUtil {
 
 	static Map<String, PlateType> plateTypes = new HashMap<>();
 
-	public static String getPlateTypeName(String code) {
-		return plateTypes.get(code).getName();
-	}
-
 	public static PlateType getPlateType(String code) {
 		return plateTypes.get(code);
 	}

@@ -22,6 +22,11 @@
         createdAtList = new ArrayList();
     }
 
+    List<String> plateNoList = (List<String>) request.getAttribute("plateNoList");
+    if (plateNoList.isEmpty()) {
+        plateNoList = new ArrayList();
+    }
+
     List<BusRouteStation> busRouteStationList = (List<BusRouteStation>) request.getAttribute("busRouteStationList");
     if (busRouteStationList == null) {
         busRouteStationList = new ArrayList<>();
@@ -208,6 +213,21 @@
             }
         }
 
+        function changePlateNoSelect(obj) {
+            var selectedPlateNo = $(obj).val();
+            $(".createdAtLi").each(function() {
+                var nowPlateNo = $(this).attr("data-plateno");
+                if (selectedPlateNo == "차량번호 전체") {
+                    $(this).css("display", "block");
+                } else if (selectedPlateNo == nowPlateNo) {
+                    $(this).css("display", "block");
+                } else {
+                    $(this).css("display", "none");
+                }
+            });
+            showAllStationDetailInfo();
+        }
+
     </script>
 </head>
 <body>
@@ -313,8 +333,13 @@
                 <option><%= time %></option>
                 <% } %>
             </select>
-            - 시간 선택은 list에서 arange로 바꾸고...<br>
-            - 버스차량번호 list를 추가하여 차량번호로 확인할 수 있도록 할 것<br>
+            <select class="form-control form-control-sm" onchange="changePlateNoSelect(this);">
+                <option>차량번호 전체</option>
+                <% for(String plateNo : plateNoList) { %>
+                <option><%= plateNo %></option>
+                <% } %>
+            </select>
+            <div>TODO : 시간 선택을 list에서 arange로 변경</div>
         </div>
 
         <ul class="list-group list-group-flush">
@@ -360,7 +385,7 @@
                                 String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
 
                                 int platNoLen = plateNo.length();
-                                plateNo = plateNo.substring(platNoLen -4, platNoLen);
+                                String shortPlateNo = plateNo.substring(platNoLen -4, platNoLen);
 
                                 String busImgSrc = "/img/";
                                 switch (plateTypeName) {
@@ -391,9 +416,9 @@
                                     remainSeatCntBgClass = "bg-green-depth4";
                                 }
                             %>
-                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>">
+                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" createdAt="<%= formatedCreatedAt %>" data-plateno="<%= plateNo %>">
                                 <%= formatedCreatedAt %>
-                                | <img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /> <%= plateNo %>
+                                | <img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /> <%= shortPlateNo %>
                                 <% if (!"-1".equals(remainSeatCnt)) { %>
                                 | 잔여좌석 <%= remainSeatCnt %>석
                                 <% } %>

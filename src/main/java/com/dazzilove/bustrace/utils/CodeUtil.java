@@ -13,6 +13,10 @@ public class CodeUtil {
 		return plateTypes.get(code).getName();
 	}
 
+	public static PlateType getPlateType(String code) {
+		return plateTypes.get(code);
+	}
+
 	public static Map<String, PlateType> getPlateTypes() {
 		Map<String, PlateType> newPlateTypes = new HashMap<>();
 		PlateType plateType;

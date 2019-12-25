@@ -33,6 +33,15 @@
     - 참고) 데이터베이스에 최소 1건의 데이터가 들어 있어야 show dbs 실행 시 목록에 노출 됨
 - 아래 사이트 참조
     - https://nicewoong.github.io/development/2018/02/10/mongodb-tutorial/
+    
+## 서버배포 
+
+- Maven > bustrace > Lifecycle > package 실행
+- ftp로 war copy & past
+- ssh 아이디@IP <-- 접속
+- docroot로 이동
+- 기존 프로세스 kill -9 pid
+- 쉘 실행
 
 ## 참조URL
 

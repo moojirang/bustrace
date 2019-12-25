@@ -378,14 +378,6 @@
         </form>
 
         <div class="form-group">
-            <select class="form-control form-control-sm" onchange="changeCreatedAtSelect(this);">
-                <option>All Time</option>
-                <% for(String time: createdAtList) { %>
-                <option><%= time %></option>
-                <% } %>
-            </select>
-
-
             <div class="input-group input-group-sm">
                 <div class="input-group-prepend">
                     <span class="input-group-text form-control-sm">시간대</span>
@@ -410,7 +402,6 @@
                     <option value="04">퇴근시간</option>
                 </select>
             </div>
-
             <div class="input-group input-group-sm">
                 <div class="input-group-prepend">
                     <span class="input-group-text form-control-sm">차량번호</span>
@@ -422,9 +413,6 @@
                     <% } %>
                 </select>
             </div>
-
-
-            <div>TODO : 시간 선택을 list에서 arange로 변경</div>
         </div>
 
         <ul class="list-group list-group-flush">

@@ -17,11 +17,6 @@
         routeName = busRouteInfo.getRouteName();
     }
 
-    List<String> createdAtList = (List<String>) request.getAttribute("createdAtList");
-    if (createdAtList == null) {
-        createdAtList = new ArrayList();
-    }
-
     List<String> plateNoList = (List<String>) request.getAttribute("plateNoList");
     if (plateNoList.isEmpty()) {
         plateNoList = new ArrayList();

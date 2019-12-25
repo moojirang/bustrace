@@ -1,6 +1,4 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
@@ -18,9 +16,22 @@
         routeName = busRouteInfo.getRouteName();
     }
 
-    List<String> plateNoList = (List<String>) request.getAttribute("plateNoList");
+    List<Bus> plateNoList = (List<Bus>) request.getAttribute("plateNoList");
     if (plateNoList.isEmpty()) {
         plateNoList = new ArrayList();
+    }
+
+    List<PlateType> plateTypeList = new ArrayList();
+    Map<String, PlateType> plateTypeCodeMap = CodeUtil.getPlateTypes();
+    plateTypeCodeMap.forEach((key, value) -> {
+        plateTypeList.add(value);
+    });
+    for(PlateType plateType: plateTypeList) {
+        for(Bus bus: plateNoList) {
+            if(bus.getPlateType().equals(plateType.getCode())) {
+                plateType.setTypeCnt(plateType.getTypeCnt() + 1);
+            }
+        }
     }
 
     List<BusRouteStation> busRouteStationList = (List<BusRouteStation>) request.getAttribute("busRouteStationList");
@@ -386,13 +397,24 @@
             </div>
             <div class="contentAlignRight bottomMargin">
                 <div class="btn">
-                    <% List<PlateType> plateTypeList = CodeUtil.getPlateTypes(); %>
                     <% for(PlateType plateType: plateTypeList) { %>
-                        <img src="<%= plateType.getImageSrc() %>" style="width:25px"
-                            data-toggle="tooltip"
-                            data-placement="bottom"
-                            title="<%= plateType.getName() %>"
-                            onclick="showSpecialPlateTypeList('<%= plateType.getCode() %>');" />
+                        <%
+                            String codeValueAll = "99";
+                            int typeCnt = plateType.getTypeCnt();
+                            String code = plateType.getCode();
+                        %>
+                        <% if(typeCnt > 0 || codeValueAll.equals(code)) { %>
+                            <img src="<%= plateType.getImageSrc() %>" style="width:25px"
+                                data-toggle="tooltip"
+                                data-placement="bottom"
+                                title="<%= plateType.getName() %>"
+                                onclick="showSpecialPlateTypeList('<%= plateType.getCode() %>');" />
+                            <% if (codeValueAll.equals(code)) { %>
+                                <span class="badge badge-light">ALL</span>
+                            <% } else { %>
+                                <span class="badge badge-light"><%= typeCnt %></span>
+                            <% }  %>
+                        <% } %>
                     <% } %>
                 </div>
                 <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
@@ -433,8 +455,8 @@
                 </div>
                 <select class="custom-select" onchange="changePlateNoSelect(this);">
                     <option>All</option>
-                    <% for(String plateNo : plateNoList) { %>
-                    <option><%= plateNo %></option>
+                    <% for(Bus bus : plateNoList) { %>
+                    <option><%= bus.getPlateNo() %> (<%= bus.getPlateTypeName() %>)</option>
                     <% } %>
                 </select>
             </div>

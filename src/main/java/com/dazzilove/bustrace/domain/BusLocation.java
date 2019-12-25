@@ -35,18 +35,18 @@ public class BusLocation {
     /** 생성시간 */
     private LocalDateTime createdAt;
 
-    public String getLowPlateName() {
-        String lowPlatName = "";
-        switch (lowPlate) {
-            case "0":
-                lowPlatName = "일반버스";
-                break;
-            case "1":
-                lowPlatName = "저상버스";
-                break;
-        }
-        return lowPlatName;
-    }
+//    public String getLowPlateName() {
+//        String lowPlatName = "";
+//        switch (lowPlate) {
+//            case "0":
+//                lowPlatName = "일반버스";
+//                break;
+//            case "1":
+//                lowPlatName = "저상버스";
+//                break;
+//        }
+//        return lowPlatName;
+//    }
 
     public String getPlateTypeName() {
         return CodeUtil.getPlateType(this.plateType).getName();

@@ -120,6 +120,7 @@ public class BusController {
                         busRouteStationList.add(temp);
                     });
             Map<String, String> createdAtMap = new HashMap<>();
+            Map<String, String> plateNoMap = new HashMap<>();
             List<BusLocation> busLocationList = busLocationService.getBusLoactions(busLocationParam);
             if (!busLocationList.isEmpty()) {
                 busLocationList.stream()
@@ -131,8 +132,12 @@ public class BusController {
                                     .filter(busRouteStation -> stationId.equals(busRouteStation.getStationId()))
                                     .forEach(busRouteStation -> {
                                         busRouteStation.getBusLocationList().add(busLocation);
+
                                         String createdAt = busLocation.getFormatedCreatedAt();
                                         createdAtMap.put(createdAt, createdAt);
+
+                                        String plateNo = busLocation.getPlateNo();
+                                        plateNoMap.put(plateNo, plateNo);
                                     });
 
                         });
@@ -169,6 +174,12 @@ public class BusController {
             });
             createdAtList.sort((a, b) -> a.compareTo(b));
             mav.addObject("createdAtList", createdAtList);
+
+            List<String> plateNoList = new ArrayList<>();
+            plateNoMap.forEach((key, value) -> {
+                plateNoList.add(key);
+            });
+            mav.addObject("plateNoList", plateNoList);
         }
 
 

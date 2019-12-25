@@ -1,5 +1,6 @@
 package com.dazzilove.bustrace.domain;
 
+import com.dazzilove.bustrace.utils.CodeUtil;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -48,25 +49,7 @@ public class BusLocation {
     }
 
     public String getPlateTypeName() {
-        String plateTypeName = "";
-        switch (plateType) {
-            case "0":
-                plateTypeName = "정보없음";
-                break;
-            case "1":
-                plateTypeName = "소형승합차";
-                break;
-            case "2":
-                plateTypeName = "중형승합차";
-                break;
-            case "3":
-                plateTypeName = "대형승합차";
-                break;
-            case "4":
-                plateTypeName = "2층버스";
-                break;
-        }
-        return plateTypeName;
+        return CodeUtil.getPlateType(this.plateType).getName();
     }
 
     private String formatTwoLength(String string) {

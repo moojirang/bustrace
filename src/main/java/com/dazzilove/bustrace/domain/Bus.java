@@ -27,6 +27,6 @@ public class Bus {
     }
 
     public String getPlateTypeName() {
-        return CodeUtil.getPlateTypeName(this.plateType);
+        return CodeUtil.getPlateType(this.plateType).getName();
     }
 }

@@ -4,8 +4,9 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
 <%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
-<%@ page import="com.dazzilove.bustrace.domain.BusLocation" %>
+<%@ page import="com.dazzilove.bustrace.domain.*" %>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusStation" %>
+<%@ page import="com.dazzilove.bustrace.utils.CodeUtil" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
@@ -46,9 +47,14 @@
     <link href="/css/base.css" rel="stylesheet"/>
 
     <script src="/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap-4.4.1/bootstrap.js"></script>
 
     <script language="javascript">
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        });
+
         function changeTab(obj) {
             $(".subTab li a").each(function() {
                 var id = $(this).attr("id");
@@ -274,6 +280,20 @@
 
             showAllStationDetailInfo();
         }
+
+        function showSpecialPlateTypeList(plateTypeCode) {
+            $(".createdAtLi").each(function() {
+                var selectedPlateTypeCode = $(this).attr("data-platetype");
+                if (plateTypeCode == "99") {
+                    $(this).css("display", "block");
+                } else if (selectedPlateTypeCode == plateTypeCode) {
+                    $(this).css("display", "block");
+                } else {
+                    $(this).css("display", "none");
+                }
+                showAllStationDetailInfo();
+            });
+        }
     </script>
 </head>
 <body>
@@ -365,6 +385,16 @@
                 </div>
             </div>
             <div class="contentAlignRight bottomMargin">
+                <div class="btn">
+                    <% List<PlateType> plateTypeList = CodeUtil.getPlateTypes(); %>
+                    <% for(PlateType plateType: plateTypeList) { %>
+                        <img src="<%= plateType.getImageSrc() %>" style="width:25px"
+                            data-toggle="tooltip"
+                            data-placement="bottom"
+                            title="<%= plateType.getName() %>"
+                            onclick="showSpecialPlateTypeList('<%= plateType.getCode() %>');" />
+                    <% } %>
+                </div>
                 <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="showAllStationDetailInfo(this)">Expand All</button>
                     <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo(this)">Close All</button>
@@ -449,6 +479,7 @@
                             <%
                                 String formatedCreatedAt = busLocation.getFormatedCreatedAt();
                                 String plateNo = busLocation.getPlateNo();
+                                String plateType = busLocation.getPlateType();
                                 String plateTypeName = busLocation.getPlateTypeName();
                                 String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
 
@@ -484,7 +515,10 @@
                                     remainSeatCntBgClass = "bg-green-depth4";
                                 }
                             %>
-                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>" data-createdat="<%= formatedCreatedAt %>" data-plateno="<%= plateNo %>">
+                            <li class="list-group-item bg-gray createdAtLi remainSeatCntZero<%=remainSeatCntZeroYn%> <%= remainSeatCntBgClass %>"
+                                data-createdat="<%= formatedCreatedAt %>"
+                                data-plateno="<%= plateNo %>"
+                                data-platetype="<%= plateType %>">
                                 <%= formatedCreatedAt %>
                                 | <img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /> <%= shortPlateNo %>
                                 <% if (!"-1".equals(remainSeatCnt)) { %>

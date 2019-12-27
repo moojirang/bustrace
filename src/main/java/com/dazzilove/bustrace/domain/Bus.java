@@ -29,4 +29,8 @@ public class Bus {
     public String getPlateTypeName() {
         return CodeUtil.getPlateType(this.plateType).getName();
     }
+
+    public int plateNoDiff(Bus bus) {
+        return this.plateNo.compareTo(bus.getPlateNo());
+    }
 }

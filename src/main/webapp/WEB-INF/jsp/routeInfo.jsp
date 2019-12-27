@@ -157,11 +157,22 @@
                     $(this).css("display", "none");
                 }
             });
+            setAtciveClassForGroup("expand-group", "expand-all");
         }
 
         function closeAllStationDetailInfo(obj) {
             $(".stationDetailInfo").each(function() {
                 $(this).css("display", "none");
+            });
+            setAtciveClassForGroup("expand-group", "close-all");
+        }
+
+        function setAtciveClassForGroup(targetGroupClass, targetClass) {
+            $("." + targetGroupClass).each(function() {
+                checkAndRemoveClass(this, "active");
+                if($(this).hasClass(targetClass)) {
+                    $(this).addClass("active");
+                }
             });
         }
 
@@ -385,17 +396,20 @@
                 </div>
             </div>
             <div class="contentAlignRight bottomMargin">
-                <div>
-                    <button type="button" class="btn btn-warning btn-sm" onclick="showOnlyStarts()" id="toggleStarShowClseBtn">Only Stars</button>
+                <button type="button" class="btn btn-warning btn-sm" onclick="showOnlyStarts()" id="toggleStarShowClseBtn">Only Stars</button>
 
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-info btn-sm way-group ascend-way" onclick="resetWayGroup(this)">상행</button>
-                        <button type="button" class="btn btn-info btn-sm way-group descend-way" onclick="resetWayGroup(this)">하행</button>
-                        <button type="button" class="btn btn-info btn-sm way-group all-way active" onclick="resetWayGroup(this)">전체</button>
-                    </div>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-info btn-sm way-group ascend-way" onclick="resetWayGroup(this)">상행</button>
+                    <button type="button" class="btn btn-info btn-sm way-group descend-way" onclick="resetWayGroup(this)">하행</button>
+                    <button type="button" class="btn btn-info btn-sm way-group all-way active" onclick="resetWayGroup(this)">전체</button>
+                </div>
+
+                <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-secondary btn-sm expand-group expand-all" onclick="showAllStationDetailInfo(this)">전체 열기</button>
+                    <button type="button" class="btn btn-secondary btn-sm expand-group close-all active" onclick="closeAllStationDetailInfo(this)">전체 닫기</button>
                 </div>
             </div>
-            <div class="contentAlignRight bottomMargin">
+            <div class="contentAlignRight">
                 <div class="btn">
                     <% for(PlateType plateType: plateTypeList) { %>
                         <%
@@ -416,10 +430,6 @@
                             <% }  %>
                         <% } %>
                     <% } %>
-                </div>
-                <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="showAllStationDetailInfo(this)">Expand All</button>
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="closeAllStationDetailInfo(this)">Close All</button>
                 </div>
             </div>
         </form>

@@ -304,6 +304,17 @@
         }
 
         function showSpecialPlateTypeList(plateTypeCode) {
+            $(".bus-select-group").each(function() {
+                var badge = $(this);
+                checkAndRemoveClass(badge, "badge-dark");
+                badge.addClass("badge-light");
+                var thisPlateTypeCode = $(this).attr("data-platetype");
+                if (thisPlateTypeCode == plateTypeCode) {
+                    checkAndRemoveClass(badge, "badge-light");
+                    badge.addClass("badge-dark");
+                }
+            });
+
             $(".createdAtLi").each(function() {
                 var selectedPlateTypeCode = $(this).attr("data-platetype");
                 if (plateTypeCode == "99") {
@@ -418,16 +429,19 @@
                             String code = plateType.getCode();
                         %>
                         <% if(typeCnt > 0 || codeValueAll.equals(code)) { %>
-                            <img src="<%= plateType.getImageSrc() %>" style="width:25px"
-                                data-toggle="tooltip"
-                                data-placement="bottom"
-                                title="<%= plateType.getName() %>"
-                                onclick="showSpecialPlateTypeList('<%= plateType.getCode() %>');" />
-                            <% if (codeValueAll.equals(code)) { %>
-                                <span class="badge badge-light">ALL</span>
-                            <% } else { %>
-                                <span class="badge badge-light"><%= typeCnt %></span>
-                            <% }  %>
+                            <span onclick="showSpecialPlateTypeList('<%= plateType.getCode() %>');">
+                                <img src="<%= plateType.getImageSrc() %>"
+                                    style="width:25px"
+                                    data-toggle="tooltip"
+                                    data-placement="bottom"
+                                    title="<%= plateType.getName() %>"
+                                    data-platetype="<%= plateType.getCode() %>" />
+                                <% if (codeValueAll.equals(code)) { %>
+                                    <span class="badge bus-select-group badge-dark" data-platetype="<%= plateType.getCode() %>">ALL</span>
+                                <% } else { %>
+                                    <span class="badge bus-select-group badge-light" data-platetype="<%= plateType.getCode() %>"><%= typeCnt %></span>
+                                <% }  %>
+                            </span>
                         <% } %>
                     <% } %>
                 </div>

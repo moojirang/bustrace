@@ -91,40 +91,12 @@
             });
         }
 
-        function showOnlyStarts(target) {
-            var btnTextShowOnly = "Only Stars";
-            var btnTextShowAll = "Show All";
-
-            var btnText = "";
-
-            if (target == null) {
-                btnText = $("#toggleStarShowClseBtn").text();
-            } else {
-                btnText = target;
-            }
-
-            if (btnText == btnTextShowOnly) {
-                closeAllStationDetailInfo();
-                $(".busLocationLiItem").each(function() {
-                    $(this).css("display", "none");
-                });
-                $(".busLocationLiItem").each(function() {
-                    if($(this).children("img").hasClass("icon-check")) {
-                        $(this).css("display", "block");
-                    }
-                });
-                $("#toggleStarShowClseBtn").text(btnTextShowAll);
-            } else {
-                closeAllStationDetailInfo();
-                $(".busLocationLiItem").each(function() {
-                    $(this).css("display", "block");
-                });
-                $("#toggleStarShowClseBtn").text(btnTextShowOnly);
-            }
-        }
-
-        function showAllStarts() {
-            showOnlyStarts("Show All");
+        function resetStarGroup(obj) {
+            $(".btn-star-group").each(function() {
+                $(this).removeClass("active");
+            });
+            $(obj).addClass("active");
+            busLocationItemFilter();
         }
 
         function resetWayGroup(obj) {
@@ -132,21 +104,7 @@
                 $(this).removeClass("active");
             });
             $(obj).addClass("active");
-
-            showAllStarts();
-
-            var displayTurnClass = "";
-            if($(obj).hasClass("ascend-way")) {
-                displayTurnClass = "trunN";
-            } else if ($(obj).hasClass("descend-way")) {
-                displayTurnClass = "trunY";
-            }
-            $(".busLocationLiItem").each(function() {
-                $(this).css("display", "block");
-                if (displayTurnClass != "" && !$(this).hasClass(displayTurnClass)) {
-                    $(this).css("display", "none");
-                }
-            });
+            busLocationItemFilter();
         }
 
         function showAllStationDetailInfo(obj) {
@@ -338,6 +296,45 @@
             });
         }
     </script>
+    <script>
+        function busLocationItemFilter() {
+            $(".busLocationLiItem").each(function() {
+                $(this).css("display", "none");
+
+                var isDisplay = false;
+                if (   $(this).hasClass(getNowStarActiveClass())
+                    && $(this).hasClass(getNowWayGroupActiveClass())
+                ) {
+                    isDisplay = true;
+                }
+
+                if (isDisplay) {
+                    $(this).css("display", "block");
+                }
+            });
+        }
+
+        function getNowStarActiveClass() {
+            var returnClass = "starAll";
+            $(".btn-star-group").each(function() {
+                if($(this).hasClass("active")) {
+                    returnClass = $(this).attr("data-staryn");
+                }
+            });
+            return returnClass;
+        }
+
+        function getNowWayGroupActiveClass() {
+            var displayTurnClass = "";
+            $(".way-group").each(function() {
+                if($(this).hasClass("active")) {
+                    displayTurnClass = $(this).attr("data-way");
+                }
+            });
+            console.log(displayTurnClass);
+            return displayTurnClass;
+        }
+    </script>
 </head>
 <body>
 
@@ -417,12 +414,15 @@
                 </div>
             </div>
             <div class="contentAlignRight bottomMargin">
-                <button type="button" class="btn btn-warning btn-sm" onclick="showOnlyStarts()" id="toggleStarShowClseBtn">Only Stars</button>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-warning btn-sm btn-star-group" data-staryn="starY" onclick="resetStarGroup(this)">Only Stars</button>
+                    <button type="button" class="btn btn-warning btn-sm btn-star-group active" data-staryn="starAll" onclick="resetStarGroup(this)">All</button>
+                </div>
 
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-info btn-sm way-group ascend-way" onclick="resetWayGroup(this)">상행</button>
-                    <button type="button" class="btn btn-info btn-sm way-group descend-way" onclick="resetWayGroup(this)">하행</button>
-                    <button type="button" class="btn btn-info btn-sm way-group all-way active" onclick="resetWayGroup(this)">전체</button>
+                    <button type="button" class="btn btn-info btn-sm way-group" data-way="ascend-way" onclick="resetWayGroup(this)">상행</button>
+                    <button type="button" class="btn btn-info btn-sm way-group" data-way="descend-way" onclick="resetWayGroup(this)">하행</button>
+                    <button type="button" class="btn btn-info btn-sm way-group active" data-way="all-way" onclick="resetWayGroup(this)">전체</button>
                 </div>
 
                 <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
@@ -498,26 +498,30 @@
 
         <ul class="list-group list-group-flush">
             <%
-                String turnYn = "N";
+                String wayInfo = "";
                 BusStation busStation = new BusStation();
             %>
             <% for(BusRouteStation busRouteStation : busRouteStationList) { %>
                 <%
                     String stationId = busRouteStation.getStationId();
-                    if ("N".equals(turnYn) && "Y".equals(busRouteStation.getTurnYn())) {
-                        turnYn = "Y";
+                    if ("descend-way".equals(wayInfo) || "Y".equals(busRouteStation.getTurnYn())) {
+                        wayInfo = "descend-way";
+                    } else {
+                        wayInfo = "ascend-way";
                     }
                     boolean isStarStation = false;
                     String starStationId = busStation.getStartStationIdMap().get(stationId);
                     if (starStationId != null) {
                         isStarStation = true;
                     }
+                    String starYn = (isStarStation) ? "Y" : "N";
 
                     int remainSeatCntZeroCnt = busRouteStation.getRemainSeatCntZeroCnt();
                     String remainSeatCntZeroClass = (remainSeatCntZeroCnt > 0) ? "remainSeatCntZero" : "";
 
                 %>
-            <li class="list-group-item busLocationLiItem trun<%= turnYn %> <%= remainSeatCntZeroClass %>">
+            <li class="list-group-item busLocationLiItem <%= wayInfo %> all-way star<%= starYn %> starAll <%= remainSeatCntZeroClass %>"
+                data-way-info="">
                 <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %>" />
                 <span>
                     <span onclick="toggleStationDetailInfo(this)">

@@ -249,6 +249,7 @@
                 }
             });
             showAllStationDetailInfo();
+            showSpecialPlateTypeList();
         }
 
         function changeTimeArangeSelect(obj) {
@@ -301,9 +302,14 @@
             });
 
             showAllStationDetailInfo();
+            showSpecialPlateTypeList();
         }
 
         function showSpecialPlateTypeList(plateTypeCode) {
+            if (plateTypeCode == null || plateTypeCode == undefined) {
+                plateTypeCode = "00";
+            }
+
             $(".bus-select-group").each(function() {
                 var badge = $(this);
                 checkAndRemoveClass(badge, "badge-dark");
@@ -314,6 +320,10 @@
                     badge.addClass("badge-dark");
                 }
             });
+
+            if (plateTypeCode == "00") {
+                return;
+            }
 
             $(".createdAtLi").each(function() {
                 var selectedPlateTypeCode = $(this).attr("data-platetype");

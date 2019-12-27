@@ -115,14 +115,14 @@
                     $(this).css("display", "none");
                 }
             });
-            setAtciveClassForGroup("expand-group", "expand-all");
+            setAtciveClassForGroup("btn-expand-group", "expand-all");
         }
 
         function closeAllStationDetailInfo(obj) {
             $(".stationDetailInfo").each(function() {
                 $(this).css("display", "none");
             });
-            setAtciveClassForGroup("expand-group", "close-all");
+            setAtciveClassForGroup("btn-expand-group", "close-all");
         }
 
         function setAtciveClassForGroup(targetGroupClass, targetClass) {
@@ -437,8 +437,8 @@
                 </div>
 
                 <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-secondary btn-sm expand-group expand-all" onclick="showAllStationDetailInfo(this)">전체 열기</button>
-                    <button type="button" class="btn btn-secondary btn-sm expand-group close-all active" onclick="closeAllStationDetailInfo(this)">전체 닫기</button>
+                    <button type="button" class="btn btn-secondary btn-sm btn-expand-group expand-all" onclick="showAllStationDetailInfo(this)">전체 열기</button>
+                    <button type="button" class="btn btn-secondary btn-sm btn-expand-group close-all active" onclick="closeAllStationDetailInfo(this)">전체 닫기</button>
                 </div>
             </div>
             <div class="contentAlignRight">

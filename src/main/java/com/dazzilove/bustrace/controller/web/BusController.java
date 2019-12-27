@@ -169,6 +169,7 @@ public class BusController {
             plateNoMap.forEach((key, value) -> {
                 plateNoList.add(value);
             });
+            plateNoList.sort((bus1, bus2) -> bus1.plateNoDiff(bus2));
             mav.addObject("plateNoList", plateNoList);
         }
 

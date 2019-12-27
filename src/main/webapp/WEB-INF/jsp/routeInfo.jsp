@@ -91,7 +91,7 @@
             });
         }
 
-        function resetStarGroup(obj) {
+        function resetStarGroupBtn(obj) {
             $(".btn-star-group").each(function() {
                 $(this).removeClass("active");
             });
@@ -99,8 +99,8 @@
             busLocationItemFilter();
         }
 
-        function resetWayGroup(obj) {
-            $(".way-group").each(function() {
+        function resetWayGroupBtn(obj) {
+            $(".btn-way-group").each(function() {
                 $(this).removeClass("active");
             });
             $(obj).addClass("active");
@@ -302,9 +302,7 @@
                 $(this).css("display", "none");
 
                 var isDisplay = false;
-                if (   $(this).hasClass(getNowStarActiveClass())
-                    && $(this).hasClass(getNowWayGroupActiveClass())
-                ) {
+                if (isActiveStarGroup($(this)) && isActiveWayGroup($(this))) {
                     isDisplay = true;
                 }
 
@@ -314,25 +312,38 @@
             });
         }
 
-        function getNowStarActiveClass() {
-            var returnClass = "starAll";
+        function isActiveStarGroup(obj) {
+            var attrName = "data-star-yn";
+            var nowData = "starAll";
             $(".btn-star-group").each(function() {
                 if($(this).hasClass("active")) {
-                    returnClass = $(this).attr("data-staryn");
+                    nowData = $(this).attr(attrName);
                 }
             });
-            return returnClass;
+
+            var returnVal = false;
+            if($(obj).attr(attrName) == nowData || nowData == "all") {
+                returnVal = true;
+            }
+
+            return returnVal;
         }
 
-        function getNowWayGroupActiveClass() {
-            var displayTurnClass = "";
-            $(".way-group").each(function() {
+        function isActiveWayGroup(obj) {
+            var attrName = "data-way-info";
+            var nowData = "";
+            $(".btn-way-group").each(function() {
                 if($(this).hasClass("active")) {
-                    displayTurnClass = $(this).attr("data-way");
+                    nowData = $(this).attr(attrName);
                 }
             });
-            console.log(displayTurnClass);
-            return displayTurnClass;
+
+            var returnVal = false;
+            if($(obj).attr(attrName) == nowData || nowData == "all") {
+                returnVal = true;
+            }
+
+            return returnVal;
         }
     </script>
 </head>
@@ -415,14 +426,14 @@
             </div>
             <div class="contentAlignRight bottomMargin">
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-warning btn-sm btn-star-group" data-staryn="starY" onclick="resetStarGroup(this)">Only Stars</button>
-                    <button type="button" class="btn btn-warning btn-sm btn-star-group active" data-staryn="starAll" onclick="resetStarGroup(this)">All</button>
+                    <button type="button" class="btn btn-warning btn-sm btn-star-group" data-star-yn="Y" onclick="resetStarGroupBtn(this)">Only Stars</button>
+                    <button type="button" class="btn btn-warning btn-sm btn-star-group active" data-star-yn="all" onclick="resetStarGroupBtn(this)">All</button>
                 </div>
 
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-info btn-sm way-group" data-way="ascend-way" onclick="resetWayGroup(this)">상행</button>
-                    <button type="button" class="btn btn-info btn-sm way-group" data-way="descend-way" onclick="resetWayGroup(this)">하행</button>
-                    <button type="button" class="btn btn-info btn-sm way-group active" data-way="all-way" onclick="resetWayGroup(this)">전체</button>
+                    <button type="button" class="btn btn-info btn-sm btn-way-group" data-way-info="ascend-way" onclick="resetWayGroupBtn(this)">상행</button>
+                    <button type="button" class="btn btn-info btn-sm btn-way-group" data-way-info="descend-way" onclick="resetWayGroupBtn(this)">하행</button>
+                    <button type="button" class="btn btn-info btn-sm btn-way-group active" data-way-info="all" onclick="resetWayGroupBtn(this)">전체</button>
                 </div>
 
                 <div class="btn-group stationDetailInfoBtnGroup" role="group" aria-label="Basic example">
@@ -520,8 +531,9 @@
                     String remainSeatCntZeroClass = (remainSeatCntZeroCnt > 0) ? "remainSeatCntZero" : "";
 
                 %>
-            <li class="list-group-item busLocationLiItem <%= wayInfo %> all-way star<%= starYn %> starAll <%= remainSeatCntZeroClass %>"
-                data-way-info="">
+            <li class="list-group-item busLocationLiItem <%= remainSeatCntZeroClass %>"
+                data-way-info="<%= wayInfo %>"
+                data-star-yn="<%= starYn %>" >
                 <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %>" />
                 <span>
                     <span onclick="toggleStationDetailInfo(this)">

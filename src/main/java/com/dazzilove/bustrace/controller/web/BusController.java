@@ -32,27 +32,7 @@ public class BusController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busList");
 
-        List<Bus> busList = new ArrayList<>();
-
-        Bus bus = new Bus("3200", "224000019");
-        busList.add(bus);
-        bus = new Bus("3300", "224000047");
-        busList.add(bus);
-        bus = new Bus("3400", "224000050");
-        busList.add(bus);
-        bus = new Bus("3500", "224000054");
-        busList.add(bus);
-        bus = new Bus("5602", "216000047");
-        busList.add(bus);
-        bus = new Bus("5604", "224000040");
-        busList.add(bus);
-        bus = new Bus("32", "217000009");
-        busList.add(bus);
-        bus = new Bus("81", "208000009");
-        busList.add(bus);
-        bus = new Bus("30-2", "224000014");
-        busList.add(bus);
-
+        List<Bus> busList = new Bus().getBusList();
         mav.addObject("busList", busList);
 
 

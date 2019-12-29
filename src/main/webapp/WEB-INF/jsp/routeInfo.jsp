@@ -363,6 +363,9 @@
             <li class="nav-item active">
                 <span class="nav-link">> 노선정보 <span class="sr-only">(current)</span></span>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/busMng">노선관리</a>
+            </li>
         </ul>
     </div>
 </nav>

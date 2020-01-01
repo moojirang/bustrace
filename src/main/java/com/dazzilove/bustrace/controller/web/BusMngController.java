@@ -10,10 +10,10 @@ import java.util.List;
 @Controller
 public class BusMngController {
 
-    @RequestMapping("/busMng")
+    @RequestMapping("/busMng/busMngList")
     public ModelAndView viewBusMng() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("busMng");
+        mav.setViewName("busMng/busMngList");
 
         List<Bus> busList = new Bus().getBusList();
 
@@ -22,10 +22,10 @@ public class BusMngController {
         return mav;
     }
 
-    @RequestMapping("/busMngInfo")
+    @RequestMapping("/busMng/busMngInfo")
     public ModelAndView viewBusMngInfo() {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("busMngInfo");
+        mav.setViewName("busMng/busMngInfo");
         return mav;
     }
 

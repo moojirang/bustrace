@@ -43,6 +43,7 @@ public class BusLocationTask {
         routes.add("208000009"); // 81
         routes.add("224000014"); // 30-2
         routes.add("224000019"); // 3200
+        routes.add("224000047"); // 3300
         routes.add("224000050"); // 3400
         routes.add("224000054"); // 3500
 
@@ -51,7 +52,10 @@ public class BusLocationTask {
 
     private void busLocationMorningAndNight() {
         List<String> routes = new ArrayList<>();
+        routes.add("224000019"); // 3200
         routes.add("224000047"); // 3300
+        routes.add("224000050"); // 3400
+        routes.add("224000054"); // 3500
 
         busLocationSave(routes);
     }

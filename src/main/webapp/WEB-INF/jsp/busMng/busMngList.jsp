@@ -33,7 +33,7 @@
                 <a class="nav-link" href="/busList">노선목록</a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="/busMng">노선관리<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/busMng/busMngList">노선관리<span class="sr-only">(current)</span></a>
             </li>
         </ul>
     </div>
@@ -56,7 +56,7 @@
         <tr>
             <th scope="row"><%= number++ %></th>
             <td>
-                <a href="/busMngInfo?routeId=<%= bus.getRouteId() %>"><%= bus.getRouteName() %></a>
+                <a href="/busMng/busMngInfo?routeId=<%= bus.getRouteId() %>"><%= bus.getRouteName() %></a>
             </td>
             <td><%= bus.getRouteId() %></td>
         </tr>

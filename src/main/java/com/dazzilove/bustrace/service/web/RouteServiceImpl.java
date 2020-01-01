@@ -1,7 +1,6 @@
 package com.dazzilove.bustrace.service.web;
 
 import com.dazzilove.bustrace.domain.*;
-import com.dazzilove.bustrace.repository.BusRepository;
 import com.dazzilove.bustrace.utils.CodeUtil;
 import org.bson.types.Code;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,6 @@ import java.util.UUID;
 
 @Service
 public class RouteServiceImpl implements RouteService {
-
-	@Autowired
-	BusRepository busRepository;
 
 	@Autowired
 	TripPlanService tripPlanService;

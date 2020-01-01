@@ -27,7 +27,7 @@
                 <a class="nav-link" href="/busList">노선목록<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/busMng">노선관리</a>
+                <a class="nav-link" href="/busMng/busMngList">노선관리</a>
             </li>
         </ul>
     </div>

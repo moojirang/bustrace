@@ -5,7 +5,7 @@
     <link href="/css/bootstrap-4.4.1/bootstrap.css" rel="stylesheet"/>
     <link href="/css/base.css" rel="stylesheet"/>
 
-    <script src="/js/jquery-3.4.1.slim.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
     <script src="/js/popper.min.js"></script>
     <script src="/js/bootstrap-4.4.1/bootstrap.js"></script>
 

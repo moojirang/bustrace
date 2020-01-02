@@ -19,12 +19,12 @@
 
     <script>
         function addBus() {
-            var frm = document.form1;
 
             var routeId = $("#routeId").val();
             var plateNo = $("#plateNo").val();
             var plateType = $(':radio[name="plateTypes"]:checked').val();
             var weekendOperationYN = $(':radio[name="weekendOperationYN"]:checked').val();
+            var schoolBreakReductionYN = $(':radio[name="schoolBreakReductionYN"]:checked').val();
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
@@ -39,11 +39,32 @@
                 alert("주말운행여부를 선택해주세요.");
                 return;
             }
+            if (schoolBreakReductionYN == undefined) {
+                alert("방학감차여부를 선택해주세요.");
+                return;
+            }
+
+            if (schoolBreakReductionYN == "Y") {
+                var schoolBreakReductionStartAt = $("#schoolBreakReductionStartAt").val();
+                schoolBreakReductionStartAt = $.trim(schoolBreakReductionStartAt);
+
+                if (schoolBreakReductionStartAt == "") {
+                    alert("방학감차 시작일을 입력해주세요.");
+                    return;
+                }
+            }
 
             $.ajax({
               method: "POST",
               url: "/busMng/addTripPlanProc",
-              data: { routeId : routeId, plateNo: plateNo, plateType: plateType, weekendOperationYN: weekendOperationYN }
+              data: {
+                  routeId : routeId
+                  , plateNo: plateNo
+                  , plateType: plateType
+                  , weekendOperationYN: weekendOperationYN
+                  , schoolBreakReductionYN: schoolBreakReductionYN
+                  , schoolBreakReductionStartAt: schoolBreakReductionStartAt
+              }
             })
             .done(function(msg) {
                 var confirmResult = confirm(msg + "\n추가로 등록하시겠습니까?");
@@ -117,6 +138,21 @@
                 <input class="form-check-input" type="radio" name="weekendOperationYN" id="weekendOperation_N" value="N">
                 <label class="form-check-label" for="weekendOperation_N">주말운행 X</label>
             </div>
+        </div>
+        <div class="form-group">
+            <label>방학감차여부</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="schoolBreakReductionYN" id="schoolBreakReduction_Y" value="Y">
+                <label class="form-check-label" for="schoolBreakReduction_Y">방학감차 O</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="schoolBreakReductionYN" id="schoolBreakReduction_N" value="N">
+                <label class="form-check-label" for="schoolBreakReduction_N">방학감차 X</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>방학감차 시작일</label>
+            <input class="form-control form-control-sm" type="date" id="schoolBreakReductionStartAt" name="schoolBreakReductionStartAt" value="" >
         </div>
 
         <div class="contentAlignRight bottomMargin topMargin">

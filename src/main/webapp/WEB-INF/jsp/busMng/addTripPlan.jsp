@@ -51,8 +51,12 @@
               data: { routeId : routeId, plateNo: plateNo, plateType: plateType, weekendOperationYN: weekendOperationYN }
             })
             .done(function(msg) {
-                alert(msg);
-                location.href = "/busMng/busMngInfo?routeId=" + routeId;
+                var confirmResult = confirm(msg + "\n추가로 등록하시겠습니까?");
+                if (confirmResult) {
+                    location.href = "/busMng/addTripPlan?routeId=" + routeId;
+                } else {
+                    location.href = "/busMng/busMngInfo?routeId=" + routeId;
+                }
             })
             .fail(function() {
                 alert("error");

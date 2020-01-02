@@ -21,6 +21,8 @@ public class TripPlan {
 	private String plateType;
 	private String plateTypeName;
 	private String weekendOperationYN;
+	private String schoolBreakReductionYN;
+	private LocalDateTime schoolBreakReductionStartAt;
 	private LocalDateTime createdAt;
 
 	public String getShortPlateNo() {

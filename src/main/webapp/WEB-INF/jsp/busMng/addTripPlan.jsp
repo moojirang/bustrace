@@ -26,7 +26,7 @@
             var plateType = $(':radio[name="plateTypes"]:checked').val();
             var weekendOperationYN = $(':radio[name="weekendOperationYN"]:checked').val();
 
-            if (plateNo == "") {
+            if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
                 return;
             }

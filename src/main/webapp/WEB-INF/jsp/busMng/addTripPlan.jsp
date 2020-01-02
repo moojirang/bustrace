@@ -40,11 +40,6 @@
                 return;
             }
 
-            console.log("routeId = " + routeId);
-            console.log("plateNo = " + plateNo);
-            console.log("plateType = " + plateType);
-            console.log("weekendOperationYN = " + weekendOperationYN);
-
             $.ajax({
               method: "POST",
               url: "/busMng/addTripPlanProc",

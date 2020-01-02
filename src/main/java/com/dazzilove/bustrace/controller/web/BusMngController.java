@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -102,8 +103,12 @@ public class BusMngController {
     	String plateNo = StringUtils.defaultString(request.getParameter("plateNo"), "");
     	String plateType = StringUtils.defaultString(request.getParameter("plateType"), "");
     	String weekendOperationYN = StringUtils.defaultString(request.getParameter("weekendOperationYN"), "");
+		String schoolBreakReductionYN = StringUtils.defaultString(request.getParameter("schoolBreakReductionYN"), "");
+		String schoolBreakReductionStartAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartAt"), "");
 
-    	if("".equals(routeId) || "".equals(plateNo) || "".equals(plateType) || "".equals(weekendOperationYN)) {
+		schoolBreakReductionStartAt = schoolBreakReductionStartAt.replace("-", "");
+
+    	if("".equals(routeId) || "".equals(plateNo) || "".equals(plateType) || "".equals(weekendOperationYN) || "".equals(schoolBreakReductionYN)) {
 			return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
 		}
 
@@ -112,6 +117,17 @@ public class BusMngController {
     	tripPlan.setPlateNo(plateNo);
 		tripPlan.setPlateType(plateType);
 		tripPlan.setWeekendOperationYN(weekendOperationYN);
+		tripPlan.setSchoolBreakReductionYN(schoolBreakReductionYN);
+		if ("Y".equals(schoolBreakReductionYN) && !"".equals(schoolBreakReductionStartAt)) {
+			String year = schoolBreakReductionStartAt.substring(0, 4);
+			String month = schoolBreakReductionStartAt.substring(4, 6);
+			String day = schoolBreakReductionStartAt.substring(6, 8);
+			month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
+			day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
+			LocalDateTime schoolBreakReductionStartAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 0, 0, 0);
+
+			tripPlan.setSchoolBreakReductionStartAt(schoolBreakReductionStartAtLdt);
+		}
 		try {
 			tripPlanService.addTripPlan(tripPlan);
 		} catch(Exception e) {

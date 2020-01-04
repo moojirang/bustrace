@@ -113,6 +113,7 @@
                  <th scope="col">타입</th>
                  <th scope="col">차량번호</th>
                  <th scope="col">주말운행</th>
+                 <th scope="col">예비차</th>
                  <th scope="col">방학감차</th>
              </tr>
              </thead>
@@ -125,6 +126,7 @@
                 String busImgSrc = plateTypeCodeInfo.getImageSrc();
                 String plateTypeName = plateTypeCodeInfo.getName();
                 String weekendOperationYN = StringUtils.defaultString(tripPlan.getWeekendOperationYN(), "N");
+                String spareYN = StringUtils.defaultString(tripPlan.getSpareYN(), "N");
                 String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYN(), "N");
                 String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
              %>
@@ -133,6 +135,7 @@
                      <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
                      <td><%= plateNo %></td>
                      <td><%= weekendOperationYN %></td>
+                     <td><%= spareYN %></td>
                      <td>
                         <%= schoolBreakReductionYN %>
                         <% if ("Y".equals(schoolBreakReductionYN)) { %>

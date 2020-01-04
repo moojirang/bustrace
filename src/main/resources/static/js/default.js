@@ -3,6 +3,10 @@ $(function () {
   $('[data-toggle="tooltip"]').tooltip()
 });
 
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
+
 function changeTab(obj) {
     $(".subTab li a").each(function() {
         var id = $(this).attr("id");

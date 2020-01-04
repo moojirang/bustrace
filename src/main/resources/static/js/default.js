@@ -24,3 +24,22 @@ function checkAndRemoveClass(obj, className) {
         $(obj).removeClass(className);
     }
 }
+
+function setInputCheckedByValue() {
+    $(":input").each(function() {
+        var obj = $(this);
+        var type = obj.attr('type');
+
+        if (type == "radio") {
+            var val = obj.val();
+            var dataInputValue = obj.attr("data-input-value");
+            if(val == dataInputValue) {
+                obj.attr("checked", "checked");
+            }
+        }
+        if (type == "date" || type == "text") {
+            var dataInputValue = obj.attr("data-input-value");
+            obj.val(dataInputValue);
+        }
+    });
+}

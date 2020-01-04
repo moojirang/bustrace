@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
+<%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page import="com.dazzilove.bustrace.utils.CodeUtil" %>
 <%@ page import="com.dazzilove.bustrace.domain.*" %>
 <%
@@ -112,6 +113,7 @@
                  <th scope="col">타입</th>
                  <th scope="col">차량번호</th>
                  <th scope="col">주말운행</th>
+                 <th scope="col">예비차</th>
              </tr>
              </thead>
              <tbody>
@@ -122,12 +124,26 @@
                 PlateType plateTypeCodeInfo = plateTypeCodeMap.get(plateType);
                 String busImgSrc = plateTypeCodeInfo.getImageSrc();
                 String plateTypeName = plateTypeCodeInfo.getName();
+                String weekendOperationYN = StringUtils.defaultString(tripPlan.getWeekendOperationYN(), "N");
+                String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYN(), "N");
+                String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
              %>
                  <tr>
                      <td scope="row"><%= index++ %></td>
                      <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
                      <td><%= plateNo %></td>
-                     <td><%= tripPlan.getWeekendOperationYN() %></td>
+                     <td><%= weekendOperationYN %></td>
+                     <td>
+                        <%= schoolBreakReductionYN %>
+                        <% if ("Y".equals(schoolBreakReductionYN)) { %>
+                        <button type="button"
+                            class="btn btn-info btn-sm"
+                            data-container="body"
+                            data-toggle="popover"
+                            data-placement="bottom"
+                            data-content="<%= schoolBreakReductionStartAt %>">!</button>
+                        <% } %>
+                     </td>
                  </tr>
              <% } %>
              </tbody>

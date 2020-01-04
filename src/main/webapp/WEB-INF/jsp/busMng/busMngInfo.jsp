@@ -25,6 +25,10 @@
             location.href = '/busMng/addTripPlan?routeId=' + routeId;
         }
 
+    function editTripPlan(tripPlanId) {
+        location.href = "/busMng/viewEditTripPlan?tripPlanId=" + tripPlanId;
+    }
+
         function goList() {
             location.href = "/busMng/busMngList";
         }
@@ -106,6 +110,7 @@
              <tbody>
              <% for (TripPlan tripPlan: tripPlanList) { %>
              <%
+                String tripPlanId = tripPlan.getTripPlanId();
                 String plateType = tripPlan.getPlateType();
                 String plateNo = tripPlan.getShortPlateNo();
                 PlateType plateTypeCodeInfo = plateTypeCodeMap.get(plateType);
@@ -117,22 +122,24 @@
                 String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
              %>
                  <tr>
-                     <td scope="row"><%= index++ %></td>
-                     <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
-                     <td><%= plateNo %></td>
-                     <td><%= weekendOperationYN %></td>
-                     <td><%= spareYN %></td>
-                     <td>
+                    <td scope="row"><%= index++ %></td>
+                    <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
+                    <td>
+                        <a href="#" onclick="editTripPlan('<%= tripPlanId %>');"><%= plateNo %></a>
+                    </td>
+                    <td><%= weekendOperationYN %></td>
+                    <td><%= spareYN %></td>
+                    <td>
                         <%= schoolBreakReductionYN %>
                         <% if ("Y".equals(schoolBreakReductionYN)) { %>
-                        <button type="button"
-                            class="btn btn-info btn-sm"
-                            data-container="body"
-                            data-toggle="popover"
-                            data-placement="bottom"
-                            data-content="시작일 = <%= schoolBreakReductionStartAt %>">!</button>
+                            <button type="button"
+                                class="btn btn-info btn-sm"
+                                data-container="body"
+                                data-toggle="popover"
+                                data-placement="bottom"
+                                data-content="시작일 = <%= schoolBreakReductionStartAt %>">!</button>
                         <% } %>
-                     </td>
+                    </td>
                  </tr>
              <% } %>
              </tbody>

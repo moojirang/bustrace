@@ -24,6 +24,10 @@
         function addTripPlan(routeId) {
             location.href = '/busMng/addTripPlan?routeId=' + routeId;
         }
+
+        function goList() {
+            location.href = "/busMng/busMngList";
+        }
     </script>
 </head>
 <body>
@@ -135,6 +139,7 @@
          </table>
 
          <div class="contentAlignRight bottomMargin topMargin">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="goList()">목록</button>
             <button type="button" class="btn btn-sm btn-primary" onclick="addTripPlan('<%= routeId %>')">차량추가</button>
          </div>
     </div>

@@ -113,7 +113,7 @@
                  <th scope="col">타입</th>
                  <th scope="col">차량번호</th>
                  <th scope="col">주말운행</th>
-                 <th scope="col">예비차</th>
+                 <th scope="col">방학감차</th>
              </tr>
              </thead>
              <tbody>

@@ -130,7 +130,7 @@
                             data-container="body"
                             data-toggle="popover"
                             data-placement="bottom"
-                            data-content="<%= schoolBreakReductionStartAt %>">!</button>
+                            data-content="시작일 = <%= schoolBreakReductionStartAt %>">!</button>
                         <% } %>
                      </td>
                  </tr>

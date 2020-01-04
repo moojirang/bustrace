@@ -5,7 +5,7 @@ $(function () {
 
 $(function () {
   $('[data-toggle="popover"]').popover()
-})
+});
 
 function changeTab(obj) {
     $(".subTab li a").each(function() {

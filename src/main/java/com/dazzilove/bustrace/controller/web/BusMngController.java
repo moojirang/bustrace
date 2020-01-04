@@ -84,7 +84,7 @@ public class BusMngController {
 		return route;
 	}
 
-    @RequestMapping("/busMng/addTripPlan")
+    @RequestMapping("/busMng/viewAddTripPlan")
     public ModelAndView viewAddTripPlan(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/addTripPlan");

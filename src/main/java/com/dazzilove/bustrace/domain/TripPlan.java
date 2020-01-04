@@ -5,8 +5,6 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -25,6 +23,11 @@ public class TripPlan {
 	private String schoolBreakReductionYN;
 	private LocalDateTime schoolBreakReductionStartAt;
 	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
+
+	public String getTripPlanId() {
+		return this.id.toString();
+	}
 
 	public String getShortPlateNo() {
 		String shortPlateNo = this.plateNo;
@@ -42,6 +45,32 @@ public class TripPlan {
 				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getDayOfMonth())));
 	}
 
+	public boolean isAddValidate() {
+		if("".equals(this.routeId))
+			return false;
+		if("".equals(this.plateNo))
+			return false;
+		if("".equals(this.plateType))
+			return false;
+		if("".equals(this.weekendOperationYN))
+			return false;
+		if("".equals(this.spareYN))
+			return false;
+		if("".equals(this.schoolBreakReductionYN))
+			return false;
+
+		return true;
+	}
+
+	public boolean isEditValidate() {
+		if("".equals(this.id))
+			return false;
+		if(!isAddValidate())
+			return false;
+
+		return true;
+	}
+
 	private String formatTwoLength(String string) {
 		String returnValue = string;
 		returnValue = (returnValue == null) ? "" : returnValue;
@@ -49,4 +78,5 @@ public class TripPlan {
 		returnValue = (returnValue.length() == 1) ? "0" + returnValue : returnValue;
 		return returnValue;
 	}
+
 }

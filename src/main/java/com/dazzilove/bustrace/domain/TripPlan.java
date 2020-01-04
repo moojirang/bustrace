@@ -30,4 +30,24 @@ public class TripPlan {
 		shortPlateNo = shortPlateNo.substring(shortPlateNo.length() - 4, shortPlateNo.length());
 		return shortPlateNo;
 	}
+
+	public String getFormatedSchoolBreakReductionStartAt() {
+		if (this.schoolBreakReductionStartAt == null) {
+			return "";
+		}
+		return String.format("%s/%s/%s %s:%s"
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getYear()))
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getMonthValue()))
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getDayOfMonth()))
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getHour()))
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getMinute())));
+	}
+
+	private String formatTwoLength(String string) {
+		String returnValue = string;
+		returnValue = (returnValue == null) ? "" : returnValue;
+		returnValue = returnValue.trim();
+		returnValue = (returnValue.length() == 1) ? "0" + returnValue : returnValue;
+		return returnValue;
+	}
 }

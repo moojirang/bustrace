@@ -103,12 +103,13 @@ public class BusMngController {
     	String plateNo = StringUtils.defaultString(request.getParameter("plateNo"), "");
     	String plateType = StringUtils.defaultString(request.getParameter("plateType"), "");
     	String weekendOperationYN = StringUtils.defaultString(request.getParameter("weekendOperationYN"), "");
+		String spareYN = StringUtils.defaultString(request.getParameter("spareYN"), "");
 		String schoolBreakReductionYN = StringUtils.defaultString(request.getParameter("schoolBreakReductionYN"), "");
 		String schoolBreakReductionStartAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartAt"), "");
 
 		schoolBreakReductionStartAt = schoolBreakReductionStartAt.replace("-", "");
 
-    	if("".equals(routeId) || "".equals(plateNo) || "".equals(plateType) || "".equals(weekendOperationYN) || "".equals(schoolBreakReductionYN)) {
+    	if("".equals(routeId) || "".equals(plateNo) || "".equals(plateType) || "".equals(weekendOperationYN) || "".equals(spareYN) || "".equals(schoolBreakReductionYN)) {
 			return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
 		}
 
@@ -117,6 +118,7 @@ public class BusMngController {
     	tripPlan.setPlateNo(plateNo);
 		tripPlan.setPlateType(plateType);
 		tripPlan.setWeekendOperationYN(weekendOperationYN);
+		tripPlan.setSpareYN(spareYN);
 		tripPlan.setSchoolBreakReductionYN(schoolBreakReductionYN);
 		if ("Y".equals(schoolBreakReductionYN) && !"".equals(schoolBreakReductionStartAt)) {
 			String year = schoolBreakReductionStartAt.substring(0, 4);

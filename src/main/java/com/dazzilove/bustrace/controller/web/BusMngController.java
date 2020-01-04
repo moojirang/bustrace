@@ -87,7 +87,7 @@ public class BusMngController {
     @RequestMapping("/busMng/viewAddTripPlan")
     public ModelAndView viewAddTripPlan(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("busMng/addTripPlan");
+        mav.setViewName("busMng/tripPlanForm");
 		mav.addObject("pageMode", "ADD");
 
 		String routeId = (String) request.getParameter("routeId");
@@ -124,7 +124,7 @@ public class BusMngController {
 	@RequestMapping("/busMng/viewEditTripPlan")
 	public ModelAndView viewEditTripPlan(ServletRequest request) throws Exception {
     	ModelAndView mav = new ModelAndView();
-		mav.setViewName("busMng/addTripPlan");
+		mav.setViewName("busMng/tripPlanForm");
 		mav.addObject("pageMode", "EDIT");
 
 		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");

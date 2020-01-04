@@ -24,19 +24,23 @@
             var plateNo = $("#plateNo").val();
             var plateType = $(':radio[name="plateTypes"]:checked').val();
             var weekendOperationYN = $(':radio[name="weekendOperationYN"]:checked').val();
+            var spareYN = $(':radio[name="spareYN"]:checked').val();
             var schoolBreakReductionYN = $(':radio[name="schoolBreakReductionYN"]:checked').val();
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
                 return;
             }
-
             if (plateType == undefined) {
                 alert("차량타입을 선택해주세요.");
                 return;
             }
             if (weekendOperationYN == undefined) {
                 alert("주말운행여부를 선택해주세요.");
+                return;
+            }
+            if (spareYN == undefined) {
+                alert("예비차여부를 선택해주세요.");
                 return;
             }
             if (schoolBreakReductionYN == undefined) {
@@ -62,6 +66,7 @@
                   , plateNo: plateNo
                   , plateType: plateType
                   , weekendOperationYN: weekendOperationYN
+                  , spareYN: spareYN
                   , schoolBreakReductionYN: schoolBreakReductionYN
                   , schoolBreakReductionStartAt: schoolBreakReductionStartAt
               }
@@ -137,6 +142,17 @@
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="weekendOperationYN" id="weekendOperation_N" value="N">
                 <label class="form-check-label" for="weekendOperation_N">주말운행 X</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>예비차여부</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="spareYN" id="spare_Y" value="Y">
+                <label class="form-check-label" for="spare_Y">예비차 O</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="spareYN" id="spare_N" value="N">
+                <label class="form-check-label" for="spare_N">예비차 X</label>
             </div>
         </div>
         <div class="form-group">

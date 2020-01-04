@@ -99,7 +99,7 @@
             .done(function(msg) {
                 var confirmResult = confirm(msg + "\n추가로 등록하시겠습니까?");
                 if (confirmResult) {
-                    location.href = "/busMng/addTripPlan?routeId=" + routeId;
+                    location.href = "/busMng/viewAddTripPlan?routeId=" + routeId;
                 } else {
                     location.href = "/busMng/busMngInfo?routeId=" + routeId;
                 }

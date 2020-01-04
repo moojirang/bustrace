@@ -18,6 +18,7 @@
     <%@include file="/WEB-INF/jsp/include/basicHeaderInfo.jsp"%>
 
     <script>
+        var routeId = "<%= route.getRouteId() %>";
         function addBus() {
 
             var routeId = $("#routeId").val();
@@ -82,6 +83,10 @@
             .fail(function() {
                 alert("error");
             });
+        }
+
+        function goBack() {
+            history.back();
         }
     </script>
 </head>
@@ -157,6 +162,7 @@
         </div>
 
         <div class="contentAlignRight bottomMargin topMargin">
+            <button type="button" class="btn btn-sm btn-secondary" onclick="goBack()">뒤로</button>
             <button type="button" class="btn btn-sm btn-primary" onclick="addBus()">추가</button>
         </div>
     </form>

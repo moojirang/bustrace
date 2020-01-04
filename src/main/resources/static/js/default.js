@@ -18,3 +18,9 @@ function changeTab(obj) {
     $("#" + tabId).addClass("active");
     $("#" + tabId + "Area").css("display", "block");
 }
+
+function checkAndRemoveClass(obj, className) {
+    if ($(obj).hasClass(className)) {
+        $(obj).removeClass(className);
+    }
+}

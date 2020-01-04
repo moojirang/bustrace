@@ -22,7 +22,7 @@
 
     <script>
         function addTripPlan(routeId) {
-            location.href = '/busMng/addTripPlan?routeId=' + routeId;
+            location.href = '/busMng/viewAddTripPlan?routeId=' + routeId;
         }
 
     function editTripPlan(tripPlanId) {

@@ -21,6 +21,7 @@ public class TripPlan {
 	private String plateType;
 	private String plateTypeName;
 	private String weekendOperationYN;
+	private String spareYN;
 	private String schoolBreakReductionYN;
 	private LocalDateTime schoolBreakReductionStartAt;
 	private LocalDateTime createdAt;
@@ -35,12 +36,10 @@ public class TripPlan {
 		if (this.schoolBreakReductionStartAt == null) {
 			return "";
 		}
-		return String.format("%s/%s/%s %s:%s"
+		return String.format("%s/%s/%s"
 				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getYear()))
 				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getMonthValue()))
-				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getDayOfMonth()))
-				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getHour()))
-				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getMinute())));
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getDayOfMonth())));
 	}
 
 	private String formatTwoLength(String string) {

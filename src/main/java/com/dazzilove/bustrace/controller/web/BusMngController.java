@@ -88,34 +88,94 @@ public class BusMngController {
     public ModelAndView viewAddTripPlan(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/addTripPlan");
+		mav.addObject("pageMode", "ADD");
 
 		String routeId = (String) request.getParameter("routeId");
-		mav.addObject("route", getRouteInfo(routeId));
+		Route route = getRouteInfo(routeId);
+
+		TripPlan tripPlan = new TripPlan();
+		tripPlan.setRouteId(routeId);
+		tripPlan.setRouteName(route.getRouteName());
+		mav.addObject("tripPlan", tripPlan);
 
         return mav;
     }
 
     @RequestMapping("/busMng/addTripPlanProc")
 	@ResponseBody
-	public String addTripPlan(ServletRequest request) {
+	public String addTripPlan(ServletRequest request) throws Exception {
 
+		TripPlan tripPlan = convertTripPlanByRequest(request);
+
+    	if(!tripPlan.isAddValidate()) {
+			return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
+		}
+
+		try {
+			tripPlanService.addTripPlan(tripPlan);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "등록 중 에러가 발생 했습니다.";
+		}
+
+    	return "등록 완료 되었습니다.";
+	}
+
+	@RequestMapping("/busMng/viewEditTripPlan")
+	public ModelAndView viewEditTripPlan(ServletRequest request) throws Exception {
+    	ModelAndView mav = new ModelAndView();
+		mav.setViewName("busMng/addTripPlan");
+		mav.addObject("pageMode", "EDIT");
+
+		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");
+
+		TripPlan tripPlan = tripPlanService.getTripPlan(tripPlanId);
+		Route route = getRouteInfo(tripPlan.getRouteId());
+
+		tripPlan.setRouteName(route.getRouteName());
+		mav.addObject("tripPlan", tripPlan);
+
+		return mav;
+	}
+
+	@RequestMapping("/busMng/editTripPlanProc")
+	@ResponseBody
+	public String editTripPlan(ServletRequest request) throws Exception {
+
+		TripPlan tripPlan = convertTripPlanByRequest(request);
+
+		if(!tripPlan.isEditValidate()) {
+			return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
+		}
+
+		try {
+			tripPlanService.editTripPlan(tripPlan);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "수정 중 에러가 발생 했습니다.";
+		}
+
+		return "수정 완료 되었습니다.";
+	}
+
+	private TripPlan convertTripPlanByRequest(ServletRequest request) throws Exception {
+		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");
 		String routeId = StringUtils.defaultString(request.getParameter("routeId"), "");
-    	String plateNo = StringUtils.defaultString(request.getParameter("plateNo"), "");
-    	String plateType = StringUtils.defaultString(request.getParameter("plateType"), "");
-    	String weekendOperationYN = StringUtils.defaultString(request.getParameter("weekendOperationYN"), "");
-		String spareYN = StringUtils.defaultString(request.getParameter("spareYN"), "");
-		String schoolBreakReductionYN = StringUtils.defaultString(request.getParameter("schoolBreakReductionYN"), "");
+		String plateNo = StringUtils.defaultString(request.getParameter("plateNo"), "");
+		String plateType = StringUtils.defaultString(request.getParameter("plateType"), "");
+		String weekendOperationYN = StringUtils.defaultString(request.getParameter("weekendOperationYN"), "N");
+		String spareYN = StringUtils.defaultString(request.getParameter("spareYN"), "N");
+		String schoolBreakReductionYN = StringUtils.defaultString(request.getParameter("schoolBreakReductionYN"), "N");
 		String schoolBreakReductionStartAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartAt"), "");
 
 		schoolBreakReductionStartAt = schoolBreakReductionStartAt.replace("-", "");
 
-    	if("".equals(routeId) || "".equals(plateNo) || "".equals(plateType) || "".equals(weekendOperationYN) || "".equals(spareYN) || "".equals(schoolBreakReductionYN)) {
-			return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
+		TripPlan tripPlan = new TripPlan();
+		if (!"".equals(tripPlanId)) {
+			tripPlan = tripPlanService.getTripPlan(tripPlanId);
 		}
-
-    	TripPlan tripPlan = new TripPlan();
-    	tripPlan.setRouteId(routeId);
-    	tripPlan.setPlateNo(plateNo);
+		tripPlan.setRouteId(routeId);
+		tripPlan.setPlateNo(plateNo);
 		tripPlan.setPlateType(plateType);
 		tripPlan.setWeekendOperationYN(weekendOperationYN);
 		tripPlan.setSpareYN(spareYN);
@@ -130,14 +190,8 @@ public class BusMngController {
 
 			tripPlan.setSchoolBreakReductionStartAt(schoolBreakReductionStartAtLdt);
 		}
-		try {
-			tripPlanService.addTripPlan(tripPlan);
-		} catch(Exception e) {
-			e.printStackTrace();
-			return "등록 중 에러가 발생 했습니다.";
-		}
 
-    	return "등록완료 되었습니다.";
+		return tripPlan;
 	}
 
 }

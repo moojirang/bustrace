@@ -116,9 +116,9 @@
                 PlateType plateTypeCodeInfo = plateTypeCodeMap.get(plateType);
                 String busImgSrc = plateTypeCodeInfo.getImageSrc();
                 String plateTypeName = plateTypeCodeInfo.getName();
-                String weekendOperationYN = StringUtils.defaultString(tripPlan.getWeekendOperationYN(), "N");
-                String spareYN = StringUtils.defaultString(tripPlan.getSpareYN(), "N");
-                String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYN(), "N");
+                String weekendOperationYn = StringUtils.defaultString(tripPlan.getWeekendOperationYn(), "N");
+                String spareYN = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
+                String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
                 String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
              %>
                  <tr>
@@ -127,7 +127,7 @@
                     <td>
                         <a href="#" onclick="editTripPlan('<%= tripPlanId %>');"><%= plateNo %></a>
                     </td>
-                    <td><%= weekendOperationYN %></td>
+                    <td><%= weekendOperationYn %></td>
                     <td><%= spareYN %></td>
                     <td>
                         <%= schoolBreakReductionYN %>

@@ -18,9 +18,9 @@ public class TripPlan {
 	private String plateNo;
 	private String plateType;
 	private String plateTypeName;
-	private String weekendOperationYN;
-	private String spareYN;
-	private String schoolBreakReductionYN;
+	private String weekendOperationYn;
+	private String spareYn;
+	private String schoolBreakReductionYn;
 	private LocalDateTime schoolBreakReductionStartAt;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
@@ -52,11 +52,11 @@ public class TripPlan {
 			return false;
 		if("".equals(this.plateType))
 			return false;
-		if("".equals(this.weekendOperationYN))
+		if("".equals(this.weekendOperationYn))
 			return false;
-		if("".equals(this.spareYN))
+		if("".equals(this.spareYn))
 			return false;
-		if("".equals(this.schoolBreakReductionYN))
+		if("".equals(this.schoolBreakReductionYn))
 			return false;
 
 		return true;

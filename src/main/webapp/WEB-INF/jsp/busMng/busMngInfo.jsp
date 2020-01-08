@@ -39,8 +39,11 @@
     <jsp:param name="currentMenu" value="4"/>
 </jsp:include>
 <div class="container bottomPadding">
-    <div class="alert alert-secondary doc-title" role="alert" style="margin-top:15px;">
-        노선관리상세 (<%= route.getRouteName() %>번)
+    <div class="rounded-lg alert-secondary doc-title" role="alert" style="margin-top:15px;">
+        <div class="d-flex mb-3 justify-content-center">
+            <div class="p-2">노선관리상세 (<%= route.getRouteName() %>번)</div>
+            <div class="ml-auto p-2"><button type="button" class="btn btn-sm btn-secondary" onclick="goList()">목록</button></div>
+        </div>
     </div>
 
     <ul class="nav nav-tabs subTab">
@@ -146,7 +149,6 @@
          </table>
 
          <div class="contentAlignRight bottomMargin topMargin">
-            <button type="button" class="btn btn-sm btn-secondary" onclick="goList()">목록</button>
             <button type="button" class="btn btn-sm btn-primary" onclick="addTripPlan('<%= routeId %>')">차량추가</button>
          </div>
     </div>

@@ -18,8 +18,11 @@
     <jsp:param name="currentMenu" value="1"/>
 </jsp:include>
 <div class="container bottomPadding">
-    <div class="alert alert-secondary doc-title" role="alert" style="margin-top:15px;">
-        노선 리스트
+    <div class="rounded-lg alert-secondary doc-title" role="alert" style="margin-top:15px;">
+        <div class="d-flex mb-3 justify-content-center">
+            <div class="p-2">노선 리스트</div>
+            <div class="ml-auto p-2"></div>
+        </div>
     </div>
     <table class="table">
         <thead>

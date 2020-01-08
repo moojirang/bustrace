@@ -19,9 +19,9 @@
 
     String plateNoValue = StringUtils.defaultString(tripPlan.getPlateNo(), "");
     String plateTypeValue = StringUtils.defaultString(tripPlan.getPlateType(), "");
-    String weekendOperationYNValue = StringUtils.defaultString(tripPlan.getWeekendOperationYN(), "N");
-    String spareYNValue = StringUtils.defaultString(tripPlan.getSpareYN(), "N");
-    String schoolBreakReductionYNValue = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYN(), "N");
+    String weekendOperationYnValue = StringUtils.defaultString(tripPlan.getWeekendOperationYn(), "N");
+    String spareYnValue = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
+    String schoolBreakReductionYnValue = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
     String schoolBreakReductionStartAtValue = StringUtils.defaultString(tripPlan.getFormatedSchoolBreakReductionStartAt(), "");
     schoolBreakReductionStartAtValue = schoolBreakReductionStartAtValue.replace("/", "-");
 
@@ -48,9 +48,9 @@
             var routeId = $("#routeId").val();
             var plateNo = $("#plateNo").val();
             var plateType = $(':radio[name="plateTypes"]:checked').val();
-            var weekendOperationYN = $(':radio[name="weekendOperationYN"]:checked').val();
-            var spareYN = $(':radio[name="spareYN"]:checked').val();
-            var schoolBreakReductionYN = $(':radio[name="schoolBreakReductionYN"]:checked').val();
+            var weekendOperationYn = $(':radio[name="weekendOperationYn"]:checked').val();
+            var spareYn = $(':radio[name="spareYn"]:checked').val();
+            var schoolBreakReductionYn = $(':radio[name="schoolBreakReductionYn"]:checked').val();
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
@@ -60,20 +60,20 @@
                 alert("차량타입을 선택해주세요.");
                 return;
             }
-            if (weekendOperationYN == undefined) {
+            if (weekendOperationYn == undefined) {
                 alert("주말운행여부를 선택해주세요.");
                 return;
             }
-            if (spareYN == undefined) {
+            if (spareYn == undefined) {
                 alert("예비차여부를 선택해주세요.");
                 return;
             }
-            if (schoolBreakReductionYN == undefined) {
+            if (schoolBreakReductionYn == undefined) {
                 alert("방학감차여부를 선택해주세요.");
                 return;
             }
 
-            if (schoolBreakReductionYN == "Y") {
+            if (schoolBreakReductionYn == "Y") {
                 var schoolBreakReductionStartAt = $("#schoolBreakReductionStartAt").val();
                 schoolBreakReductionStartAt = $.trim(schoolBreakReductionStartAt);
 
@@ -90,9 +90,9 @@
                   routeId : routeId
                   , plateNo: plateNo
                   , plateType: plateType
-                  , weekendOperationYN: weekendOperationYN
-                  , spareYN: spareYN
-                  , schoolBreakReductionYN: schoolBreakReductionYN
+                  , weekendOperationYn: weekendOperationYn
+                  , spareYn: spareYn
+                  , schoolBreakReductionYn: schoolBreakReductionYn
                   , schoolBreakReductionStartAt: schoolBreakReductionStartAt
               }
             })
@@ -115,9 +115,9 @@
             var routeId = $("#routeId").val();
             var plateNo = $("#plateNo").val();
             var plateType = $(':radio[name="plateTypes"]:checked').val();
-            var weekendOperationYN = $(':radio[name="weekendOperationYN"]:checked').val();
-            var spareYN = $(':radio[name="spareYN"]:checked').val();
-            var schoolBreakReductionYN = $(':radio[name="schoolBreakReductionYN"]:checked').val();
+            var weekendOperationYn = $(':radio[name="weekendOperationYn"]:checked').val();
+            var spareYn = $(':radio[name="spareYn"]:checked').val();
+            var schoolBreakReductionYn = $(':radio[name="schoolBreakReductionYn"]:checked').val();
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
@@ -127,20 +127,20 @@
                 alert("차량타입을 선택해주세요.");
                 return;
             }
-            if (weekendOperationYN == undefined) {
+            if (weekendOperationYn == undefined) {
                 alert("주말운행여부를 선택해주세요.");
                 return;
             }
-            if (spareYN == undefined) {
+            if (spareYn == undefined) {
                 alert("예비차여부를 선택해주세요.");
                 return;
             }
-            if (schoolBreakReductionYN == undefined) {
+            if (schoolBreakReductionYn == undefined) {
                 alert("방학감차여부를 선택해주세요.");
                 return;
             }
 
-            if (schoolBreakReductionYN == "Y") {
+            if (schoolBreakReductionYn == "Y") {
                 var schoolBreakReductionStartAt = $("#schoolBreakReductionStartAt").val();
                 schoolBreakReductionStartAt = $.trim(schoolBreakReductionStartAt);
 
@@ -158,9 +158,9 @@
                   , routeId : routeId
                   , plateNo: plateNo
                   , plateType: plateType
-                  , weekendOperationYN: weekendOperationYN
-                  , spareYN: spareYN
-                  , schoolBreakReductionYN: schoolBreakReductionYN
+                  , weekendOperationYn: weekendOperationYn
+                  , spareYn: spareYn
+                  , schoolBreakReductionYn: schoolBreakReductionYn
                   , schoolBreakReductionStartAt: schoolBreakReductionStartAt
               }
             })
@@ -222,33 +222,33 @@
         <div class="form-group">
             <label>주말운행여부</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="weekendOperationYN" id="weekendOperation_Y" value="Y" data-input-value="<%= weekendOperationYNValue %>">
+                <input class="form-check-input" type="radio" name="weekendOperationYn" id="weekendOperation_Y" value="Y" data-input-value="<%= weekendOperationYnValue %>">
                 <label class="form-check-label" for="weekendOperation_Y">주말운행 O</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="weekendOperationYN" id="weekendOperation_N" value="N" data-input-value="<%= weekendOperationYNValue %>">
+                <input class="form-check-input" type="radio" name="weekendOperationYn" id="weekendOperation_N" value="N" data-input-value="<%= weekendOperationYnValue %>">
                 <label class="form-check-label" for="weekendOperation_N">주말운행 X</label>
             </div>
         </div>
         <div class="form-group">
             <label>예비차여부</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="spareYN" id="spare_Y" value="Y" data-input-value="<%= spareYNValue %>">
+                <input class="form-check-input" type="radio" name="spareYn" id="spare_Y" value="Y" data-input-value="<%= spareYnValue %>">
                 <label class="form-check-label" for="spare_Y">예비차 O</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="spareYN" id="spare_N" value="N" data-input-value="<%= spareYNValue %>">
+                <input class="form-check-input" type="radio" name="spareYn" id="spare_N" value="N" data-input-value="<%= spareYnValue %>">
                 <label class="form-check-label" for="spare_N">예비차 X</label>
             </div>
         </div>
         <div class="form-group">
             <label>방학감차여부</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="schoolBreakReductionYN" id="schoolBreakReduction_Y" value="Y" data-input-value="<%= schoolBreakReductionYNValue %>">
+                <input class="form-check-input" type="radio" name="schoolBreakReductionYn" id="schoolBreakReduction_Y" value="Y" data-input-value="<%= schoolBreakReductionYnValue %>">
                 <label class="form-check-label" for="schoolBreakReduction_Y">방학감차 O</label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="schoolBreakReductionYN" id="schoolBreakReduction_N" value="N" data-input-value="<%= schoolBreakReductionYNValue %>">
+                <input class="form-check-input" type="radio" name="schoolBreakReductionYn" id="schoolBreakReduction_N" value="N" data-input-value="<%= schoolBreakReductionYnValue %>">
                 <label class="form-check-label" for="schoolBreakReduction_N">방학감차 X</label>
             </div>
         </div>

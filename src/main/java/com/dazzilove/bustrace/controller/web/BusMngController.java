@@ -163,9 +163,9 @@ public class BusMngController {
 		String routeId = StringUtils.defaultString(request.getParameter("routeId"), "");
 		String plateNo = StringUtils.defaultString(request.getParameter("plateNo"), "");
 		String plateType = StringUtils.defaultString(request.getParameter("plateType"), "");
-		String weekendOperationYN = StringUtils.defaultString(request.getParameter("weekendOperationYN"), "N");
-		String spareYN = StringUtils.defaultString(request.getParameter("spareYN"), "N");
-		String schoolBreakReductionYN = StringUtils.defaultString(request.getParameter("schoolBreakReductionYN"), "N");
+		String weekendOperationYn = StringUtils.defaultString(request.getParameter("weekendOperationYn"), "N");
+		String spareYn = StringUtils.defaultString(request.getParameter("spareYn"), "N");
+		String schoolBreakReductionYn = StringUtils.defaultString(request.getParameter("schoolBreakReductionYn"), "N");
 		String schoolBreakReductionStartAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartAt"), "");
 
 		schoolBreakReductionStartAt = schoolBreakReductionStartAt.replace("-", "");
@@ -177,10 +177,10 @@ public class BusMngController {
 		tripPlan.setRouteId(routeId);
 		tripPlan.setPlateNo(plateNo);
 		tripPlan.setPlateType(plateType);
-		tripPlan.setWeekendOperationYN(weekendOperationYN);
-		tripPlan.setSpareYN(spareYN);
-		tripPlan.setSchoolBreakReductionYN(schoolBreakReductionYN);
-		if ("Y".equals(schoolBreakReductionYN) && !"".equals(schoolBreakReductionStartAt)) {
+		tripPlan.setWeekendOperationYn(weekendOperationYn);
+		tripPlan.setSpareYn(spareYn);
+		tripPlan.setSchoolBreakReductionYn(schoolBreakReductionYn);
+		if ("Y".equals(schoolBreakReductionYn) && !"".equals(schoolBreakReductionStartAt)) {
 			String year = schoolBreakReductionStartAt.substring(0, 4);
 			String month = schoolBreakReductionStartAt.substring(4, 6);
 			String day = schoolBreakReductionStartAt.substring(6, 8);

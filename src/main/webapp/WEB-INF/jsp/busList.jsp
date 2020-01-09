@@ -12,6 +12,21 @@
 <html lang="ko">
 <head>
 <%@include file="/WEB-INF/jsp/include/basicHeaderInfo.jsp"%>
+<script>
+    $(function () {
+        setTripPlanCountBg();
+    });
+
+    function setTripPlanCountBg() {
+        $(".tripplan-count").each(function() {
+            var tripPlanCount = $(this).text();
+            if (tripPlanCount > 0) {
+                checkAndRemoveClass($(this), "badge-light");
+                $(this).addClass("badge-dark");
+            }
+        });
+    }
+</script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/include/navBar.jsp" flush="true">
@@ -28,7 +43,11 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">노선번호</th>
+            <th scope="col">번호</th>
+            <th scope="col">라우트ID</th>
+            <th scope="col">전체<br/>운행</th>
+            <th scope="col">전일<br/>미운행</th>
+            <th scope="col">당일<br/>미운행</th>
         </tr>
         </thead>
         <tbody>
@@ -36,10 +55,11 @@
         <% for(Bus bus : busList) { %>
         <tr>
             <th scope="row"><%= number++ %></th>
-            <td>
-                <a href="/routeInfo?routeId=<%= bus.getRouteId() %>"><%= bus.getRouteName() %></a>
-                (<%= bus.getRouteId() %>)
-            </td>
+            <td><a href="/routeInfo?routeId=<%= bus.getRouteId() %>"><%= bus.getRouteName() %></a></td>
+            <td><%= bus.getRouteId() %></td>
+            <td><span class="badge badge-light"><%= bus.getTotalTripPlanCount() %></span></td>
+            <td><span class="badge badge-light tripplan-count"><%= bus.getPreviousDayTripHaveNoRecordTripPlanCount() %></span></td>
+            <td><span class="badge badge-light tripplan-count"><%= bus.getTodayTripHaveNoRecordTripPlanCount() %></span></td>
         </tr>
         <% } %>
         </tbody>

@@ -5,6 +5,7 @@ import com.dazzilove.bustrace.domain.BusLocation;
 import com.dazzilove.bustrace.domain.BusLocationParam;
 import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
+import com.dazzilove.bustrace.service.web.RouteService;
 import com.dazzilove.bustrace.service.wsdl.BusRouteInfo;
 import com.dazzilove.bustrace.service.ws.BusRouteStation;
 import org.apache.commons.lang.StringUtils;
@@ -27,12 +28,15 @@ public class BusController {
     @Autowired
     private BusLocationService busLocationService;
 
+    @Autowired
+    private RouteService routeService;
+
     @RequestMapping("/busList")
-    public ModelAndView getBusList() {
+    public ModelAndView getBusList() throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busList");
 
-        List<Bus> busList = new Bus().getBusList();
+        List<Bus> busList = routeService.getRoutes();
         mav.addObject("busList", busList);
 
 

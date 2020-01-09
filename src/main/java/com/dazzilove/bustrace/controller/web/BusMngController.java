@@ -31,12 +31,11 @@ public class BusMngController {
 	private TripPlanService tripPlanService;
 
     @RequestMapping("/busMng/busMngList")
-    public ModelAndView viewBusMng() {
+    public ModelAndView viewBusMng() throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/busMngList");
 
-        List<Bus> busList = new Bus().getBusList();
-
+		List<Bus> busList = routeService.getRoutes();
         mav.addObject("busList", busList);
 
         return mav;

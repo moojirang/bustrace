@@ -37,4 +37,36 @@ public class RouteServiceImpl implements RouteService {
 
 		return route;
 	}
+
+	@Override
+	public List<Bus> getRoutes() throws Exception {
+		List<Bus> busList = new Bus().getBusList();
+		busList.stream()
+				.forEach(tempBus -> {
+					List<TripPlan> tripPlans = null;
+					try {
+						tripPlans = tripPlanService.findByRouteId(tempBus.getRouteId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					if (!tripPlans.isEmpty()) {
+						int previousDayTripHaveNoRecordTripPlanCount = 0;
+						int todayTripHaveNoRecordTripPlanCount = 0;
+
+						for(TripPlan tempTripPlan: tripPlans) {
+							if ("N".equals(tempTripPlan.getPreviousDayTripRecordYn())) {
+								previousDayTripHaveNoRecordTripPlanCount++;
+							}
+							if ("N".equals(tempTripPlan.getTodayTripRecordYn())) {
+								todayTripHaveNoRecordTripPlanCount++;
+							}
+						}
+
+						tempBus.setTotalTripPlanCount(tripPlans.size());
+						tempBus.setPreviousDayTripHaveNoRecordTripPlanCount(previousDayTripHaveNoRecordTripPlanCount);
+						tempBus.setTodayTripHaveNoRecordTripPlanCount(todayTripHaveNoRecordTripPlanCount);
+					}
+				});
+		return busList;
+	}
 }

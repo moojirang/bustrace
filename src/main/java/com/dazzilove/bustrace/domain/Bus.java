@@ -16,6 +16,9 @@ public class Bus {
     private String plateNo;
     private String plateType;
     private String plateTypeName;
+    private int totalTripPlanCount;
+    private int previousDayTripHaveNoRecordTripPlanCount;
+    private int todayTripHaveNoRecordTripPlanCount;
 
     public Bus(){
 

@@ -327,7 +327,7 @@
     <div class="rounded-lg alert-secondary doc-title" role="alert" style="margin-top:15px;">
         <div class="d-flex mb-3 justify-content-center">
             <div class="p-2"><%= routeName %>번 노선정보</div>
-            <div class="ml-auto p-2"></div>
+            <div class="ml-auto p-2"><button type="button" class="btn btn-sm btn-secondary" onclick="history.back();">목록</button></div>
         </div>
     </div>
 

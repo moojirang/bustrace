@@ -1,6 +1,7 @@
 package com.dazzilove.bustrace.task;
 
 import com.dazzilove.bustrace.service.BusLocationService;
+import com.dazzilove.bustrace.service.web.TripPlanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class BusLocationTask {
     @Autowired
     private BusLocationService busLocationService;
 
+    @Autowired
+    private TripPlanService tripPlanService;
+
     // cron = 초 분 시 일 월 주 (년)
     // 5분간격 6:00 ~ 9:55 까지 매일
     @Scheduled(cron = "0 0/1 6-9 * * ?")
@@ -33,6 +37,11 @@ public class BusLocationTask {
     @Scheduled(cron = "0 0/15 * * * ?")
     public void scheduleBusLocationAllDaySaveTask() {
         busLocationAllDay();
+    }
+
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void scheduleTripInfoUpdateTask() throws Exception {
+        tripRecordUpdate();
     }
 
     private void busLocationAllDay() {
@@ -67,6 +76,23 @@ public class BusLocationTask {
             }
         } catch (Exception e) {
             logger.error("[SCHEDULER] busLocation service error, " + e.getMessage());
+        }
+    }
+
+    private void tripRecordUpdate() throws Exception {
+        List<String> routes = new ArrayList<>();
+        routes.add("216000047"); // 5602
+        routes.add("224000040"); // 5604
+        routes.add("217000009"); // 32
+        routes.add("208000009"); // 81
+        routes.add("224000014"); // 30-2
+        routes.add("224000019"); // 3200
+        routes.add("224000047"); // 3300
+        routes.add("224000050"); // 3400
+        routes.add("224000054"); // 3500
+
+        for(String routeId: routes) {
+            tripPlanService.updateTripRecord(routeId);
         }
     }
 }

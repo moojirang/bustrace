@@ -1,7 +1,11 @@
 package com.dazzilove.bustrace.service.web;
 
+import com.dazzilove.bustrace.domain.BusLocation;
+import com.dazzilove.bustrace.domain.BusLocationParam;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.repository.TripPlanRepository;
+import com.dazzilove.bustrace.service.BusLocationService;
+import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +19,9 @@ public class TripPlanServiceImpl implements TripPlanService {
 
 	@Autowired
 	TripPlanRepository tripPlanRepository;
+
+	@Autowired
+	BusLocationService busLocationService;
 
 	@Override
 	public void addTripPlan(TripPlan tripPlan) throws Exception {
@@ -46,5 +53,48 @@ public class TripPlanServiceImpl implements TripPlanService {
 		updateTarget.setUpdatedAt(LocalDateTime.now());
 		tripPlanRepository.save(updateTarget);
 
+	}
+
+	@Override
+	public void updateTripRecord(String routeId) throws Exception {
+		List<TripPlan> tripPlans = tripPlanRepository.findByRouteId(routeId);
+		if(tripPlans.isEmpty()) {
+			return;
+		}
+
+		for(TripPlan tripPlan: tripPlans) {
+
+			LocalDateTime basicDateTime = LocalDateTime.now();
+			updateTripRecordByDay(tripPlan, basicDateTime);
+
+			basicDateTime = basicDateTime.minusDays(1);
+			updateTripRecordByDay(tripPlan, basicDateTime);
+
+
+		}
+	}
+
+	private void updateTripRecordByDay(TripPlan tripPlan, LocalDateTime basicDateTime) throws Exception {
+		LocalDateTime startDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 0, 0, 0);
+		LocalDateTime endDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 23, 59, 59);
+
+		TripPlan updateTarget = getTripPlan(tripPlan.getTripPlanId());
+		if (updateTarget == null) {
+			return;
+		}
+
+		BusLocationParam busLocationParam = new BusLocationParam();
+		busLocationParam.setRouteId(tripPlan.getRouteId());
+		busLocationParam.setPlateNo(tripPlan.getPlateNo());
+		busLocationParam.setStartCreatedAt(startDateTime);
+		busLocationParam.setEndCreatedAt(endDateTime);
+		List<BusLocation> locations = busLocationService.getBusLoactions(busLocationParam);
+
+		String todayTripRecordYn = "N";
+		if (!locations.isEmpty() && locations.size() > 0) {
+			todayTripRecordYn = "Y";
+		}
+		updateTarget.setTodayTripRecordYn(todayTripRecordYn);
+		tripPlanRepository.save(updateTarget);
 	}
 }

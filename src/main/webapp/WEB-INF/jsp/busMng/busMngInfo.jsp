@@ -108,6 +108,8 @@
                  <th scope="col">주말운행</th>
                  <th scope="col">예비차</th>
                  <th scope="col">방학감차</th>
+                 <th scope="col">전일운행</th>
+                 <th scope="col">당일운행</th>
              </tr>
              </thead>
              <tbody>
@@ -123,16 +125,18 @@
                 String spareYN = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
                 String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
                 String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
+                String previousDayTripRecordYn = StringUtils.defaultString(tripPlan.getPreviousDayTripRecordYn(), "N");
+                String todayTripRecordYn = StringUtils.defaultString(tripPlan.getTodayTripRecordYn(), "N");
              %>
                  <tr>
-                    <td scope="row"><%= index++ %></td>
-                    <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
-                    <td>
-                        <a href="#" onclick="editTripPlan('<%= tripPlanId %>');"><%= plateNo %></a>
-                    </td>
-                    <td><%= weekendOperationYn %></td>
-                    <td><%= spareYN %></td>
-                    <td>
+                     <td scope="row"><%= index++ %></td>
+                     <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
+                     <td>
+                         <a href="#" onclick="editTripPlan('<%= tripPlanId %>');"><%= plateNo %></a>
+                     </td>
+                     <td><%= weekendOperationYn %></td>
+                     <td><%= spareYN %></td>
+                     <td>
                         <%= schoolBreakReductionYN %>
                         <% if ("Y".equals(schoolBreakReductionYN)) { %>
                             <button type="button"
@@ -142,7 +146,9 @@
                                 data-placement="bottom"
                                 data-content="시작일 = <%= schoolBreakReductionStartAt %>">!</button>
                         <% } %>
-                    </td>
+                     </td>
+                     <td><%= previousDayTripRecordYn %></td>
+                     <td><%= todayTripRecordYn %></td>
                  </tr>
              <% } %>
              </tbody>

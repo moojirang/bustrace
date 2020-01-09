@@ -9,4 +9,5 @@ public interface TripPlanService {
 	public List<TripPlan> findByRouteId(String routeId) throws Exception;
 	public TripPlan getTripPlan(String tripPlanId) throws Exception;
 	public void editTripPlan(TripPlan tripPlan) throws Exception;
+    void updateTripRecord(String routeId) throws Exception;
 }

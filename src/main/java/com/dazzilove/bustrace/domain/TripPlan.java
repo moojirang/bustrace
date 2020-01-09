@@ -22,6 +22,8 @@ public class TripPlan {
 	private String spareYn;
 	private String schoolBreakReductionYn;
 	private LocalDateTime schoolBreakReductionStartAt;
+	private String previousDayTripRecordYn;
+	private String todayTripRecordYn;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 

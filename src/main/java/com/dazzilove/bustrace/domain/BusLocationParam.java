@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class BusLocationParam {
 
 	private String routeId;
+	private String plateNo;
 	private LocalDateTime startCreatedAt;
 	private LocalDateTime endCreatedAt;
 

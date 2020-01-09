@@ -1,6 +1,5 @@
 package com.dazzilove.bustrace.service.web;
 
-import com.dazzilove.bustrace.domain.Bus;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.repository.TripPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +39,9 @@ public class TripPlanServiceImpl implements TripPlanService {
 		updateTarget.setRouteId(tripPlan.getRouteId());
 		updateTarget.setPlateNo(tripPlan.getPlateNo());
 		updateTarget.setPlateType(tripPlan.getPlateType());
-		updateTarget.setWeekendOperationYN(tripPlan.getWeekendOperationYN());
-		updateTarget.setSpareYN(tripPlan.getSpareYN());
-		updateTarget.setSchoolBreakReductionYN(tripPlan.getSchoolBreakReductionYN());
+		updateTarget.setWeekendOperationYn(tripPlan.getWeekendOperationYn());
+		updateTarget.setSpareYn(tripPlan.getSpareYn());
+		updateTarget.setSchoolBreakReductionYn(tripPlan.getSchoolBreakReductionYn());
 		updateTarget.setSchoolBreakReductionStartAt(tripPlan.getSchoolBreakReductionStartAt());
 		updateTarget.setUpdatedAt(LocalDateTime.now());
 		tripPlanRepository.save(updateTarget);

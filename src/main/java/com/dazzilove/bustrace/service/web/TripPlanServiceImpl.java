@@ -88,7 +88,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 		busLocationParam.setPlateNo(tripPlan.getPlateNo());
 		busLocationParam.setStartCreatedAt(startDateTime);
 		busLocationParam.setEndCreatedAt(endDateTime);
-		List<BusLocation> locations = busLocationService.getBusLoactions(busLocationParam);
+		List<BusLocation> locations = busLocationService.getBusLoactionsByPlateNo(busLocationParam);
 
 		if (!locations.isEmpty() && locations.size() > 0) {
 			return "Y";

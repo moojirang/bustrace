@@ -18,12 +18,14 @@
     });
 
     function setTripPlanCountBg() {
-        $(".tripplan-count").each(function() {
+        $(".tripplan-div-count").each(function() {
+            var tripPlanTotalCount = $(this).parents("tr").children("td").children(".tripplan-tot-count").text();
             var tripPlanCount = $(this).text();
-            if (tripPlanCount > 0) {
-                checkAndRemoveClass($(this), "badge-light");
-                $(this).addClass("badge-dark");
+            if (tripPlanTotalCount == tripPlanCount) {
+                return;
             }
+            checkAndRemoveClass($(this), "badge-light");
+            $(this).addClass("badge-dark");
         });
     }
 </script>
@@ -44,10 +46,9 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">번호</th>
-            <th scope="col">라우트ID</th>
-            <th scope="col">전체<br/>운행</th>
-            <th scope="col">전일<br/>미운행</th>
-            <th scope="col">당일<br/>미운행</th>
+            <th scope="col">전체운행</th>
+            <th scope="col">전일운행</th>
+            <th scope="col">당일운행</th>
         </tr>
         </thead>
         <tbody>
@@ -56,10 +57,9 @@
         <tr>
             <th scope="row"><%= number++ %></th>
             <td><a href="/routeInfo?routeId=<%= bus.getRouteId() %>"><%= bus.getRouteName() %></a></td>
-            <td><%= bus.getRouteId() %></td>
-            <td><span class="badge badge-light"><%= bus.getTotalTripPlanCount() %></span></td>
-            <td><span class="badge badge-light tripplan-count"><%= bus.getPreviousDayTripHaveNoRecordTripPlanCount() %></span></td>
-            <td><span class="badge badge-light tripplan-count"><%= bus.getTodayTripHaveNoRecordTripPlanCount() %></span></td>
+            <td><span class="badge badge-light tripplan-tot-count"><%= bus.getTotalTripPlanCount() %></span></td>
+            <td><span class="badge badge-light tripplan-div-count"><%= bus.getYesterdayTripRecordCount() %></span></td>
+            <td><span class="badge badge-light tripplan-div-count" ><%= bus.getTodayTripRecordCount() %></span></td>
         </tr>
         <% } %>
         </tbody>

@@ -54,3 +54,15 @@ function changeBgByActiveValue(targetObject, deleteClassName, addClassName, acti
         $(this).addClass(addClassName);
     });
 }
+
+function changeClassByAttrValue(targetObject, targetAttr, activeValue, deleteClassName, addClassName) {
+    $(targetObject).each(function() {
+        var nowValue = $(this).attr(targetAttr);
+        if (nowValue != activeValue) {
+            return;
+        }
+        checkAndRemoveClass($(this), deleteClassName);
+        $(this).addClass(addClassName);
+    });
+}
+

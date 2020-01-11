@@ -38,11 +38,11 @@
         }
 
         function setImportConfigBg() {
-            changeBgByActiveValue($(".import-config"), "badge-light", "badge-dark", "Y");
+            changeClassByAttrValue($(".import-config"), "data-value", "Y", "badge-light", "badge-dark");
         }
 
         function setImportTripPlanRecordBg() {
-            changeBgByActiveValue($(".import-tripplan-record"), "badge-light", "badge-info", "N");
+            changeClassByAttrValue($(".import-tripplan-record"), "data-value", "N", "badge-light", "badge-info");
         }
 
         function addTripPlan(routeId) {
@@ -159,10 +159,10 @@
                      <td>
                          <a href="#" onclick="editTripPlan('<%= tripPlanId %>');"><%= plateNo %></a>
                      </td>
-                     <td><span class="badge badge-light import-config"><%= weekendOperationYn %></span></td>
-                     <td><span class="badge badge-light import-config"><%= spareYN %></span></td>
+                     <td><span class="badge badge-light import-config" data-value="<%= weekendOperationYn %>"><%= weekendOperationYn %></span></td>
+                     <td><span class="badge badge-light import-config" data-value="<%= spareYN %>"><%= spareYN %></span></td>
                      <td>
-                        <span class="badge badge-light import-config"><%= schoolBreakReductionYN %></span>
+                        <span class="badge badge-light import-config" data-value="<%= schoolBreakReductionYN %>"><%= schoolBreakReductionYN %></span>
                         <% if ("Y".equals(schoolBreakReductionYN)) { %>
                             <button type="button"
                                 class="btn btn-info btn-sm"
@@ -172,8 +172,8 @@
                                 data-content="시작일 = <%= schoolBreakReductionStartedAt %>">!</button>
                         <% } %>
                      </td>
-                     <td><span class="badge badge-light import-tripplan-record"><%= previousDayTripRecordYn %></span></td>
-                     <td><span class="badge badge-light import-tripplan-record"><%= todayTripRecordYn %></span></td>
+                     <td><span class="badge badge-light import-tripplan-record" data-value="<%= previousDayTripRecordYn %>"><%= previousDayTripRecordYn %></span></td>
+                     <td><span class="badge badge-light import-tripplan-record" data-value="<%= todayTripRecordYn %>"><%= todayTripRecordYn %></span></td>
                  </tr>
              <% } %>
              </tbody>

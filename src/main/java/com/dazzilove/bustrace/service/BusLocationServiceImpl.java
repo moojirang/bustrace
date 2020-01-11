@@ -77,4 +77,13 @@ public class BusLocationServiceImpl implements BusLocationService {
                 , busLocationParam.getStartCreatedAt()
                 , busLocationParam.getEndCreatedAt());
     }
+
+    @Override
+    public List<BusLocation> getBusLoactionsByPlateNo(BusLocationParam busLocationParam) throws Exception {
+        return busLocationRepository.findByRouteIdAndPlateNoAndCreatedAtRange(
+                busLocationParam.getRouteId()
+                , busLocationParam.getPlateNo()
+                , busLocationParam.getStartCreatedAt()
+                , busLocationParam.getEndCreatedAt());
+    }
 }

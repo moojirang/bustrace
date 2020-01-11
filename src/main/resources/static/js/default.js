@@ -43,3 +43,14 @@ function setInputCheckedByValue() {
         }
     });
 }
+
+function changeBgByActiveValue(targetObject, deleteClassName, addClassName, activeValue) {
+    $(targetObject).each(function() {
+        var nowValue = $(this).text();
+        if (nowValue != activeValue) {
+            return;
+        }
+        checkAndRemoveClass($(this), deleteClassName);
+        $(this).addClass(addClassName);
+    });
+}

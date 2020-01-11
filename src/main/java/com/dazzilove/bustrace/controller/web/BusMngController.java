@@ -165,9 +165,9 @@ public class BusMngController {
 		String weekendOperationYn = StringUtils.defaultString(request.getParameter("weekendOperationYn"), "N");
 		String spareYn = StringUtils.defaultString(request.getParameter("spareYn"), "N");
 		String schoolBreakReductionYn = StringUtils.defaultString(request.getParameter("schoolBreakReductionYn"), "N");
-		String schoolBreakReductionStartAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartAt"), "");
+		String schoolBreakReductionStartedAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartedAt"), "");
 		String tripStopYn = StringUtils.defaultString(request.getParameter("tripStopYn"), "N");
-		String tripStopStartAt = StringUtils.defaultString(request.getParameter("tripStopStartAt"), "");
+		String tripStopStartedAt = StringUtils.defaultString(request.getParameter("tripStopStartedAt"), "");
 
 		TripPlan tripPlan = new TripPlan();
 		if (!"".equals(tripPlanId)) {
@@ -179,12 +179,12 @@ public class BusMngController {
 		tripPlan.setWeekendOperationYn(weekendOperationYn);
 		tripPlan.setSpareYn(spareYn);
 		tripPlan.setSchoolBreakReductionYn(schoolBreakReductionYn);
-		if ("Y".equals(schoolBreakReductionYn) && !"".equals(schoolBreakReductionStartAt)) {
-			tripPlan.setSchoolBreakReductionStartAt(getLocalDateTime(schoolBreakReductionStartAt));
+		if ("Y".equals(schoolBreakReductionYn) && !"".equals(schoolBreakReductionStartedAt)) {
+			tripPlan.setSchoolBreakReductionStartedAt(getLocalDateTime(schoolBreakReductionStartedAt));
 		}
 		tripPlan.setTripStopYn(tripStopYn);
-		if ("Y".equals(tripStopYn) && !"".equals(tripStopStartAt)) {
-			tripPlan.setTripStopStartAt(getLocalDateTime(tripStopStartAt));
+		if ("Y".equals(tripStopYn) && !"".equals(tripStopStartedAt)) {
+			tripPlan.setTripStopStartedAt(getLocalDateTime(tripStopStartedAt));
 		}
 
 		return tripPlan;

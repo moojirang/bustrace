@@ -22,12 +22,12 @@
     String weekendOperationYnValue = StringUtils.defaultString(tripPlan.getWeekendOperationYn(), "N");
     String spareYnValue = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
     String schoolBreakReductionYnValue = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
-    String schoolBreakReductionStartAtValue = StringUtils.defaultString(tripPlan.getFormatedSchoolBreakReductionStartAt(), "");
+    String schoolBreakReductionStartedAtValue = StringUtils.defaultString(tripPlan.getFormatedSchoolBreakReductionStartedAt(), "");
     String tripStopYnValue = StringUtils.defaultString(tripPlan.getTripStopYn(), "N");
-    String tripStopStartAtValue = StringUtils.defaultString(tripPlan.getFormatedTripStopStartAt(), "");
+    String tripStopStartedAtValue = StringUtils.defaultString(tripPlan.getFormatedTripStopStartedAt(), "");
 
-    schoolBreakReductionStartAtValue = schoolBreakReductionStartAtValue.replace("/", "-");
-    tripStopStartAtValue = tripStopStartAtValue.replace("/", "-");
+    schoolBreakReductionStartedAtValue = schoolBreakReductionStartedAtValue.replace("/", "-");
+    tripStopStartedAtValue = tripStopStartedAtValue.replace("/", "-");
 
     List<PlateType> plateTypeList = new ArrayList();
     Map<String, PlateType> plateTypeCodeMap = CodeUtil.getPlateTypes();
@@ -79,20 +79,20 @@
             }
 
             if (schoolBreakReductionYn == "Y") {
-                var schoolBreakReductionStartAt = $("#schoolBreakReductionStartAt").val();
-                schoolBreakReductionStartAt = $.trim(schoolBreakReductionStartAt);
+                var schoolBreakReductionStartedAt = $("#schoolBreakReductionStartedAt").val();
+                schoolBreakReductionStartedAt = $.trim(schoolBreakReductionStartedAt);
 
-                if (schoolBreakReductionStartAt == "") {
+                if (schoolBreakReductionStartedAt == "") {
                     alert("방학감차 시작일을 입력해주세요.");
                     return;
                 }
             }
 
             if (tripStopYn == "Y") {
-                var tripStopStartAt = $("#tripStopStartAt").val();
-                tripStopStartAt = $.trim(tripStopStartAt);
+                var tripStopStartedAt = $("#tripStopStartedAt").val();
+                tripStopStartedAt = $.trim(tripStopStartedAt);
 
-                if (tripStopStartAt == "") {
+                if (tripStopStartedAt == "") {
                     alert("운행중단일자를 입력해주세요.");
                     return;
                 }
@@ -108,9 +108,9 @@
                   , weekendOperationYn: weekendOperationYn
                   , spareYn: spareYn
                   , schoolBreakReductionYn: schoolBreakReductionYn
-                  , schoolBreakReductionStartAt: schoolBreakReductionStartAt
+                  , schoolBreakReductionStartedAt: schoolBreakReductionStartedAt
                   , tripStopYn: tripStopYn
-                  , tripStopStartAt: tripStopStartAt
+                  , tripStopStartedAt: tripStopStartedAt
               }
             })
             .done(function(msg) {
@@ -159,20 +159,20 @@
             }
 
             if (schoolBreakReductionYn == "Y") {
-                var schoolBreakReductionStartAt = $("#schoolBreakReductionStartAt").val();
-                schoolBreakReductionStartAt = $.trim(schoolBreakReductionStartAt);
+                var schoolBreakReductionStartedAt = $("#schoolBreakReductionStartedAt").val();
+                schoolBreakReductionStartedAt = $.trim(schoolBreakReductionStartedAt);
 
-                if (schoolBreakReductionStartAt == "") {
+                if (schoolBreakReductionStartedAt == "") {
                     alert("방학감차 시작일을 입력해주세요.");
                     return;
                 }
             }
 
             if (tripStopYn == "Y") {
-                var tripStopStartAt = $("#tripStopStartAt").val();
-                tripStopStartAt = $.trim(tripStopStartAt);
+                var tripStopStartedAt = $("#tripStopStartedAt").val();
+                tripStopStartedAt = $.trim(tripStopStartedAt);
 
-                if (tripStopStartAt == "") {
+                if (tripStopStartedAt == "") {
                     alert("운행중단일자를 입력해주세요.");
                     return;
                 }
@@ -189,9 +189,9 @@
                   , weekendOperationYn: weekendOperationYn
                   , spareYn: spareYn
                   , schoolBreakReductionYn: schoolBreakReductionYn
-                  , schoolBreakReductionStartAt: schoolBreakReductionStartAt
+                  , schoolBreakReductionStartedAt: schoolBreakReductionStartedAt
                   , tripStopYn: tripStopYn
-                  , tripStopStartAt: tripStopStartAt
+                  , tripStopStartedAt: tripStopStartedAt
               }
             })
             .done(function(msg) {
@@ -287,7 +287,7 @@
         </div>
         <div class="form-group">
             <label>방학감차 시작일</label>
-            <input class="form-control form-control-sm" type="date" id="schoolBreakReductionStartAt" name="schoolBreakReductionStartAt" data-input-value="<%= schoolBreakReductionStartAtValue %>">
+            <input class="form-control form-control-sm" type="date" id="schoolBreakReductionStartedAt" name="schoolBreakReductionStartedAt" data-input-value="<%= schoolBreakReductionStartedAtValue %>">
         </div>
         <div class="form-group">
             <label>운행중단여부</label>
@@ -302,7 +302,7 @@
         </div>
         <div class="form-group">
             <label>운행중단일자</label>
-            <input class="form-control form-control-sm" type="date" id="tripStopStartAt" name="tripStopStartAt" data-input-value="<%= tripStopStartAtValue %>">
+            <input class="form-control form-control-sm" type="date" id="tripStopStartedAt" name="tripStopStartedAt" data-input-value="<%= tripStopStartedAtValue %>">
         </div>
 
         <div class="contentAlignRight bottomMargin topMargin">

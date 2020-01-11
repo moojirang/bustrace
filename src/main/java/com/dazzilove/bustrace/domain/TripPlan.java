@@ -21,9 +21,9 @@ public class TripPlan {
 	private String weekendOperationYn;
 	private String spareYn;
 	private String schoolBreakReductionYn;
-	private LocalDateTime schoolBreakReductionStartAt;
+	private LocalDateTime schoolBreakReductionStartedAt;
 	private String tripStopYn;
-	private LocalDateTime tripStopStartAt;
+	private LocalDateTime tripStopStartedAt;
 	private String yesterdayTripRecordYn;
 	private String todayTripRecordYn;
 	private LocalDateTime createdAt;
@@ -39,24 +39,24 @@ public class TripPlan {
 		return shortPlateNo;
 	}
 
-	public String getFormatedSchoolBreakReductionStartAt() {
-		if (this.schoolBreakReductionStartAt == null) {
+	public String getFormatedSchoolBreakReductionStartedAt() {
+		if (this.schoolBreakReductionStartedAt == null) {
 			return "";
 		}
 		return String.format("%s/%s/%s"
-				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getYear()))
-				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getMonthValue()))
-				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getDayOfMonth())));
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartedAt.getYear()))
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartedAt.getMonthValue()))
+				, formatTwoLength(String.valueOf(schoolBreakReductionStartedAt.getDayOfMonth())));
 	}
 
-	public String getFormatedTripStopStartAt() {
-		if (this.tripStopStartAt == null) {
+	public String getFormatedTripStopStartedAt() {
+		if (this.tripStopStartedAt == null) {
 			return "";
 		}
 		return String.format("%s/%s/%s"
-				, formatTwoLength(String.valueOf(tripStopStartAt.getYear()))
-				, formatTwoLength(String.valueOf(tripStopStartAt.getMonthValue()))
-				, formatTwoLength(String.valueOf(tripStopStartAt.getDayOfMonth())));
+				, formatTwoLength(String.valueOf(tripStopStartedAt.getYear()))
+				, formatTwoLength(String.valueOf(tripStopStartedAt.getMonthValue()))
+				, formatTwoLength(String.valueOf(tripStopStartedAt.getDayOfMonth())));
 	}
 
 	public boolean isAddValidate() {

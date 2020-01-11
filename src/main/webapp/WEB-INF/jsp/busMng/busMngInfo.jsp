@@ -148,7 +148,7 @@
                 String weekendOperationYn = StringUtils.defaultString(tripPlan.getWeekendOperationYn(), "N");
                 String spareYN = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
                 String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
-                String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
+                String schoolBreakReductionStartedAt = tripPlan.getFormatedSchoolBreakReductionStartedAt();
                 String tripStopYn = StringUtils.defaultString(tripPlan.getTripStopYn(), "N");
                 String previousDayTripRecordYn = StringUtils.defaultString(tripPlan.getYesterdayTripRecordYn(), "N");
                 String todayTripRecordYn = StringUtils.defaultString(tripPlan.getTodayTripRecordYn(), "N");
@@ -169,7 +169,7 @@
                                 data-container="body"
                                 data-toggle="popover"
                                 data-placement="bottom"
-                                data-content="시작일 = <%= schoolBreakReductionStartAt %>">!</button>
+                                data-content="시작일 = <%= schoolBreakReductionStartedAt %>">!</button>
                         <% } %>
                      </td>
                      <td><span class="badge badge-light import-tripplan-record"><%= previousDayTripRecordYn %></span></td>

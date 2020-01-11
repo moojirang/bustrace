@@ -5,7 +5,6 @@ import com.dazzilove.bustrace.domain.BusLocationParam;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.repository.TripPlanRepository;
 import com.dazzilove.bustrace.service.BusLocationService;
-import org.apache.tomcat.jni.Local;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,24 +63,25 @@ public class TripPlanServiceImpl implements TripPlanService {
 
 		for(TripPlan tripPlan: tripPlans) {
 
+			TripPlan updateTarget = getTripPlan(tripPlan.getTripPlanId());
+			if (updateTarget == null) {
+				return;
+			}
+
 			LocalDateTime basicDateTime = LocalDateTime.now();
-			updateTripRecordByDay(tripPlan, basicDateTime);
+			updateTarget.setTodayTripRecordYn(getTripRecordYnByDay(tripPlan, basicDateTime));
+			tripPlanRepository.save(updateTarget);
 
 			basicDateTime = basicDateTime.minusDays(1);
-			updateTripRecordByDay(tripPlan, basicDateTime);
-
-
+			getTripRecordYnByDay(tripPlan, basicDateTime);
+			updateTarget.setPreviousDayTripRecordYn(getTripRecordYnByDay(tripPlan, basicDateTime));
+			tripPlanRepository.save(updateTarget);
 		}
 	}
 
-	private void updateTripRecordByDay(TripPlan tripPlan, LocalDateTime basicDateTime) throws Exception {
+	private String getTripRecordYnByDay(TripPlan tripPlan, LocalDateTime basicDateTime) throws Exception {
 		LocalDateTime startDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 0, 0, 0);
 		LocalDateTime endDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 23, 59, 59);
-
-		TripPlan updateTarget = getTripPlan(tripPlan.getTripPlanId());
-		if (updateTarget == null) {
-			return;
-		}
 
 		BusLocationParam busLocationParam = new BusLocationParam();
 		busLocationParam.setRouteId(tripPlan.getRouteId());
@@ -90,11 +90,10 @@ public class TripPlanServiceImpl implements TripPlanService {
 		busLocationParam.setEndCreatedAt(endDateTime);
 		List<BusLocation> locations = busLocationService.getBusLoactions(busLocationParam);
 
-		String todayTripRecordYn = "N";
 		if (!locations.isEmpty() && locations.size() > 0) {
-			todayTripRecordYn = "Y";
+			return "Y";
 		}
-		updateTarget.setTodayTripRecordYn(todayTripRecordYn);
-		tripPlanRepository.save(updateTarget);
+
+		return "N";
 	}
 }

@@ -23,7 +23,11 @@
     String spareYnValue = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
     String schoolBreakReductionYnValue = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
     String schoolBreakReductionStartAtValue = StringUtils.defaultString(tripPlan.getFormatedSchoolBreakReductionStartAt(), "");
+    String tripStopYnValue = StringUtils.defaultString(tripPlan.getTripStopYn(), "N");
+    String tripStopStartAtValue = StringUtils.defaultString(tripPlan.getFormatedTripStopStartAt(), "");
+
     schoolBreakReductionStartAtValue = schoolBreakReductionStartAtValue.replace("/", "-");
+    tripStopStartAtValue = tripStopStartAtValue.replace("/", "-");
 
     List<PlateType> plateTypeList = new ArrayList();
     Map<String, PlateType> plateTypeCodeMap = CodeUtil.getPlateTypes();
@@ -51,6 +55,7 @@
             var weekendOperationYn = $(':radio[name="weekendOperationYn"]:checked').val();
             var spareYn = $(':radio[name="spareYn"]:checked').val();
             var schoolBreakReductionYn = $(':radio[name="schoolBreakReductionYn"]:checked').val();
+            var tripStopYn = $(':radio[name="tripStopYn"]:checked').val();
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
@@ -83,6 +88,16 @@
                 }
             }
 
+            if (tripStopYn == "Y") {
+                var tripStopStartAt = $("#tripStopStartAt").val();
+                tripStopStartAt = $.trim(tripStopStartAt);
+
+                if (tripStopStartAt == "") {
+                    alert("운행중단일자를 입력해주세요.");
+                    return;
+                }
+            }
+
             $.ajax({
               method: "POST",
               url: "/busMng/addTripPlanProc",
@@ -94,6 +109,8 @@
                   , spareYn: spareYn
                   , schoolBreakReductionYn: schoolBreakReductionYn
                   , schoolBreakReductionStartAt: schoolBreakReductionStartAt
+                  , tripStopYn: tripStopYn
+                  , tripStopStartAt: tripStopStartAt
               }
             })
             .done(function(msg) {
@@ -118,6 +135,7 @@
             var weekendOperationYn = $(':radio[name="weekendOperationYn"]:checked').val();
             var spareYn = $(':radio[name="spareYn"]:checked').val();
             var schoolBreakReductionYn = $(':radio[name="schoolBreakReductionYn"]:checked').val();
+            var tripStopYn = $(':radio[name="tripStopYn"]:checked').val();
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
@@ -150,6 +168,16 @@
                 }
             }
 
+            if (tripStopYn == "Y") {
+                var tripStopStartAt = $("#tripStopStartAt").val();
+                tripStopStartAt = $.trim(tripStopStartAt);
+
+                if (tripStopStartAt == "") {
+                    alert("운행중단일자를 입력해주세요.");
+                    return;
+                }
+            }
+
             $.ajax({
               method: "POST",
               url: "/busMng/editTripPlanProc",
@@ -162,6 +190,8 @@
                   , spareYn: spareYn
                   , schoolBreakReductionYn: schoolBreakReductionYn
                   , schoolBreakReductionStartAt: schoolBreakReductionStartAt
+                  , tripStopYn: tripStopYn
+                  , tripStopStartAt: tripStopStartAt
               }
             })
             .done(function(msg) {
@@ -258,6 +288,21 @@
         <div class="form-group">
             <label>방학감차 시작일</label>
             <input class="form-control form-control-sm" type="date" id="schoolBreakReductionStartAt" name="schoolBreakReductionStartAt" data-input-value="<%= schoolBreakReductionStartAtValue %>">
+        </div>
+        <div class="form-group">
+            <label>운행중단여부</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tripStopYn" id="tripStop_Y" value="Y" data-input-value="<%= tripStopYnValue %>">
+                <label class="form-check-label" for="tripStop_Y">운행중단 O</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="tripStopYn" id="tripStop_N" value="N" data-input-value="<%= tripStopYnValue %>">
+                <label class="form-check-label" for="tripStop_N">운행중단 X</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>운행중단일자</label>
+            <input class="form-control form-control-sm" type="date" id="tripStopStartAt" name="tripStopStartAt" data-input-value="<%= tripStopStartAtValue %>">
         </div>
 
         <div class="contentAlignRight bottomMargin topMargin">

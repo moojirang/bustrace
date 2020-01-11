@@ -166,8 +166,8 @@ public class BusMngController {
 		String spareYn = StringUtils.defaultString(request.getParameter("spareYn"), "N");
 		String schoolBreakReductionYn = StringUtils.defaultString(request.getParameter("schoolBreakReductionYn"), "N");
 		String schoolBreakReductionStartAt = StringUtils.defaultString(request.getParameter("schoolBreakReductionStartAt"), "");
-
-		schoolBreakReductionStartAt = schoolBreakReductionStartAt.replace("-", "");
+		String tripStopYn = StringUtils.defaultString(request.getParameter("tripStopYn"), "N");
+		String tripStopStartAt = StringUtils.defaultString(request.getParameter("tripStopStartAt"), "");
 
 		TripPlan tripPlan = new TripPlan();
 		if (!"".equals(tripPlanId)) {
@@ -180,17 +180,30 @@ public class BusMngController {
 		tripPlan.setSpareYn(spareYn);
 		tripPlan.setSchoolBreakReductionYn(schoolBreakReductionYn);
 		if ("Y".equals(schoolBreakReductionYn) && !"".equals(schoolBreakReductionStartAt)) {
-			String year = schoolBreakReductionStartAt.substring(0, 4);
-			String month = schoolBreakReductionStartAt.substring(4, 6);
-			String day = schoolBreakReductionStartAt.substring(6, 8);
-			month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
-			day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
-			LocalDateTime schoolBreakReductionStartAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 0, 0, 0);
-
-			tripPlan.setSchoolBreakReductionStartAt(schoolBreakReductionStartAtLdt);
+			tripPlan.setSchoolBreakReductionStartAt(getLocalDateTime(schoolBreakReductionStartAt));
+		}
+		tripPlan.setTripStopYn(tripStopYn);
+		if ("Y".equals(tripStopYn) && !"".equals(tripStopStartAt)) {
+			tripPlan.setTripStopStartAt(getLocalDateTime(tripStopStartAt));
 		}
 
 		return tripPlan;
+	}
+
+	private LocalDateTime getLocalDateTime(String dateStr) {
+		dateStr = StringUtils.defaultString(dateStr, "");
+		dateStr = dateStr.replace("-", "");
+		dateStr = dateStr.replace("/", "");
+
+		if (dateStr.length() < 8)
+			return LocalDateTime.now();
+
+		String year = dateStr.substring(0, 4);
+		String month = dateStr.substring(4, 6);
+		String day = dateStr.substring(6, 8);
+		month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
+		day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
+		return LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 0, 0, 0);
 	}
 
 }

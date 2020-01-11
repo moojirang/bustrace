@@ -22,9 +22,20 @@
 
     <script>
         $(function () {
+            setStyleTripPlanList();
+        });
+
+        function setStyleTripPlanList() {
+            setTripStopBg();
             setImportConfigBg();
             setImportTripPlanRecordBg();
-        });
+        }
+
+        function setTripStopBg() {
+            $("#tripPlanList tr").each(function() {
+                changeClassByAttrValue($(this), "data-trip-stop", "Y", "", "bg-light");
+            });
+        }
 
         function setImportConfigBg() {
             changeBgByActiveValue($(".import-config"), "badge-light", "badge-dark", "Y");
@@ -112,7 +123,7 @@
             <% } %>
         </div>
 
-         <table class="table table-sm">
+         <table class="table table-sm" id="tripPlanList">
              <thead>
              <tr>
                  <th scope="col">#</th>
@@ -138,10 +149,11 @@
                 String spareYN = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
                 String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
                 String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
+                String tripStopYn = StringUtils.defaultString(tripPlan.getTripStopYn(), "N");
                 String previousDayTripRecordYn = StringUtils.defaultString(tripPlan.getYesterdayTripRecordYn(), "N");
                 String todayTripRecordYn = StringUtils.defaultString(tripPlan.getTodayTripRecordYn(), "N");
              %>
-                 <tr>
+                 <tr data-trip-stop="<%= tripStopYn %>">
                      <td scope="row"><%= index++ %></td>
                      <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
                      <td>

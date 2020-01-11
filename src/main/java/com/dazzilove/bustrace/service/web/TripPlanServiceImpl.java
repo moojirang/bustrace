@@ -49,6 +49,8 @@ public class TripPlanServiceImpl implements TripPlanService {
 		updateTarget.setSpareYn(tripPlan.getSpareYn());
 		updateTarget.setSchoolBreakReductionYn(tripPlan.getSchoolBreakReductionYn());
 		updateTarget.setSchoolBreakReductionStartAt(tripPlan.getSchoolBreakReductionStartAt());
+		updateTarget.setTripStopYn(tripPlan.getTripStopYn());
+		updateTarget.setTripStopStartAt(tripPlan.getTripStopStartAt());
 		updateTarget.setUpdatedAt(LocalDateTime.now());
 		tripPlanRepository.save(updateTarget);
 

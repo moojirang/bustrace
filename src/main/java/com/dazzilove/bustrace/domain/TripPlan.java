@@ -22,6 +22,8 @@ public class TripPlan {
 	private String spareYn;
 	private String schoolBreakReductionYn;
 	private LocalDateTime schoolBreakReductionStartAt;
+	private String tripStopYn;
+	private LocalDateTime tripStopStartAt;
 	private String yesterdayTripRecordYn;
 	private String todayTripRecordYn;
 	private LocalDateTime createdAt;
@@ -45,6 +47,16 @@ public class TripPlan {
 				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getYear()))
 				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getMonthValue()))
 				, formatTwoLength(String.valueOf(schoolBreakReductionStartAt.getDayOfMonth())));
+	}
+
+	public String getFormatedTripStopStartAt() {
+		if (this.tripStopStartAt == null) {
+			return "";
+		}
+		return String.format("%s/%s/%s"
+				, formatTwoLength(String.valueOf(tripStopStartAt.getYear()))
+				, formatTwoLength(String.valueOf(tripStopStartAt.getMonthValue()))
+				, formatTwoLength(String.valueOf(tripStopStartAt.getDayOfMonth())));
 	}
 
 	public boolean isAddValidate() {

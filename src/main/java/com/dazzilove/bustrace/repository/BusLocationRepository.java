@@ -19,6 +19,10 @@ public interface BusLocationRepository extends MongoRepository<BusLocation, UUID
     @Query("{'routeId':?0, 'createdAt' : { '$gt' : ?1, '$lt':?2 }}")
     List<BusLocation> findByRouteIdAndCreatedAtRange(String routeId, LocalDateTime startCreatedAt, LocalDateTime endCreatedAt);
 
+
+    @Query("{'routeId':?0, 'plateNo':?1 'createdAt' : { '$gt' : ?2, '$lt':?3 }}")
+    List<BusLocation> findByRouteIdAndPlateNoAndCreatedAtRange(String routeId, String plateNo, LocalDateTime startCreatedAt, LocalDateTime endCreatedAt);
+
     @Query("{}")
     Stream<BusLocation> findAllByCustomQueryWithStream();
 }

@@ -54,7 +54,7 @@ public class RouteServiceImpl implements RouteService {
 						int todayTripRecordCount = 0;
 
 						for(TripPlan tempTripPlan: tripPlans) {
-							if ("Y".equals(tempTripPlan.getPreviousDayTripRecordYn())) {
+							if ("Y".equals(tempTripPlan.getYesterdayTripRecordYn())) {
 								yesterdayTripRecordCount++;
 							}
 							if ("Y".equals(tempTripPlan.getTodayTripRecordYn())) {

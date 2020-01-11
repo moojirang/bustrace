@@ -74,7 +74,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 
 			basicDateTime = basicDateTime.minusDays(1);
 			getTripRecordYnByDay(tripPlan, basicDateTime);
-			updateTarget.setPreviousDayTripRecordYn(getTripRecordYnByDay(tripPlan, basicDateTime));
+			updateTarget.setYesterdayTripRecordYn(getTripRecordYnByDay(tripPlan, basicDateTime));
 			tripPlanRepository.save(updateTarget);
 		}
 	}

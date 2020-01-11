@@ -125,7 +125,7 @@
                 String spareYN = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
                 String schoolBreakReductionYN = StringUtils.defaultString(tripPlan.getSchoolBreakReductionYn(), "N");
                 String schoolBreakReductionStartAt = tripPlan.getFormatedSchoolBreakReductionStartAt();
-                String previousDayTripRecordYn = StringUtils.defaultString(tripPlan.getPreviousDayTripRecordYn(), "N");
+                String previousDayTripRecordYn = StringUtils.defaultString(tripPlan.getYesterdayTripRecordYn(), "N");
                 String todayTripRecordYn = StringUtils.defaultString(tripPlan.getTodayTripRecordYn(), "N");
              %>
                  <tr>

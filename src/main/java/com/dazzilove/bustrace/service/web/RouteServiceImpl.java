@@ -50,21 +50,21 @@ public class RouteServiceImpl implements RouteService {
 						e.printStackTrace();
 					}
 					if (!tripPlans.isEmpty()) {
-						int previousDayTripHaveNoRecordTripPlanCount = 0;
-						int todayTripHaveNoRecordTripPlanCount = 0;
+						int yesterdayTripRecordCount = 0;
+						int todayTripRecordCount = 0;
 
 						for(TripPlan tempTripPlan: tripPlans) {
-							if ("N".equals(tempTripPlan.getPreviousDayTripRecordYn())) {
-								previousDayTripHaveNoRecordTripPlanCount++;
+							if ("Y".equals(tempTripPlan.getPreviousDayTripRecordYn())) {
+								yesterdayTripRecordCount++;
 							}
-							if ("N".equals(tempTripPlan.getTodayTripRecordYn())) {
-								todayTripHaveNoRecordTripPlanCount++;
+							if ("Y".equals(tempTripPlan.getTodayTripRecordYn())) {
+								todayTripRecordCount++;
 							}
 						}
 
 						tempBus.setTotalTripPlanCount(tripPlans.size());
-						tempBus.setPreviousDayTripHaveNoRecordTripPlanCount(previousDayTripHaveNoRecordTripPlanCount);
-						tempBus.setTodayTripHaveNoRecordTripPlanCount(todayTripHaveNoRecordTripPlanCount);
+						tempBus.setYesterdayTripRecordCount(yesterdayTripRecordCount);
+						tempBus.setTodayTripRecordCount(todayTripRecordCount);
 					}
 				});
 		return busList;

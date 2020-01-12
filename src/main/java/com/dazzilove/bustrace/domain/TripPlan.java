@@ -26,6 +26,8 @@ public class TripPlan {
 	private LocalDateTime tripStopStartedAt;
 	private String yesterdayTripRecordYn;
 	private String todayTripRecordYn;
+	private String deleteYn;
+	private LocalDateTime deletedAt;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 
@@ -80,6 +82,13 @@ public class TripPlan {
 		if("".equals(this.id))
 			return false;
 		if(!isAddValidate())
+			return false;
+
+		return true;
+	}
+
+	public boolean isDeleteValidate() {
+		if("".equals(this.id))
 			return false;
 
 		return true;

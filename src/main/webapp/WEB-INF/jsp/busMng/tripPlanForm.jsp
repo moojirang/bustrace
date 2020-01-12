@@ -25,6 +25,7 @@
     String schoolBreakReductionStartedAtValue = StringUtils.defaultString(tripPlan.getFormatedSchoolBreakReductionStartedAt(), "");
     String tripStopYnValue = StringUtils.defaultString(tripPlan.getTripStopYn(), "N");
     String tripStopStartedAtValue = StringUtils.defaultString(tripPlan.getFormatedTripStopStartedAt(), "");
+    String deleteYn = StringUtils.defaultString(tripPlan.getDeleteYn(), "N");
 
     schoolBreakReductionStartedAtValue = schoolBreakReductionStartedAtValue.replace("/", "-");
     tripStopStartedAtValue = tripStopStartedAtValue.replace("/", "-");
@@ -35,6 +36,12 @@
         plateTypeList.add(value);
     });
 %>
+<% if("Y".equals(deleteYn)) { %>
+<script>
+    alert("삭제된 정보 입니다.");
+    history.back();
+</script>
+<% } %>
 <!doctype html>
 <html lang="ko">
 <head>
@@ -203,6 +210,24 @@
             });
         }
 
+        function delBus() {
+            var tripPlanId = $("#tripPlanId").val();
+            $.ajax({
+              method: "POST",
+              url: "/busMng/delTripPlanProc",
+              data: {
+                  tripPlanId : tripPlanId
+              }
+            })
+            .done(function(msg) {
+                alert(msg);
+                location.href = "/busMng/busMngInfo?routeId=" + routeId;
+            })
+            .fail(function() {
+                alert("error");
+            });
+        }
+
         function goBack() {
             history.back();
         }
@@ -309,6 +334,7 @@
             <% if("ADD".equals(pageMode)) { %>
                 <button type="button" class="btn btn-sm btn-primary" onclick="addBus()">추가</button>
             <% } else { %>
+                <button type="button" class="btn btn-sm btn-danger" onclick="delBus()">삭제</button>
                 <button type="button" class="btn btn-sm btn-primary" onclick="editBus()">수정</button>
             <% } %>
         </div>

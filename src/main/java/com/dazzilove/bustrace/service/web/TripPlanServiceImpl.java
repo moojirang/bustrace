@@ -29,6 +29,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 		tripPlanRepository.insert(tripPlan);
 	}
 
+	@Override
 	public List<TripPlan> findByRouteId(String routeId) throws Exception {
 		return tripPlanRepository.findByRouteId(routeId);
 	}

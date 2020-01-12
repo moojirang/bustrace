@@ -113,7 +113,7 @@
 
             $.ajax({
               method: "POST",
-              url: "/busMng/addTripPlanProc",
+              url: "/busMng/addTripPlan",
               data: {
                   routeId : routeId
                   , plateNo: plateNo
@@ -199,7 +199,7 @@
 
             $.ajax({
               method: "POST",
-              url: "/busMng/editTripPlanProc",
+              url: "/busMng/editTripPlan",
               data: {
                   tripPlanId : tripPlanId
                   , routeId : routeId
@@ -227,7 +227,7 @@
             var tripPlanId = $("#tripPlanId").val();
             $.ajax({
               method: "POST",
-              url: "/busMng/delTripPlanProc",
+              url: "/busMng/delTripPlan",
               data: {
                   tripPlanId : tripPlanId
               }

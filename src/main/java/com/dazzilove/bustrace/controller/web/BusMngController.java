@@ -100,7 +100,7 @@ public class BusMngController {
         return mav;
     }
 
-    @RequestMapping("/busMng/addTripPlanProc")
+    @RequestMapping("/busMng/addTripPlan")
 	@ResponseBody
 	public String addTripPlan(ServletRequest request) throws Exception {
 
@@ -137,7 +137,7 @@ public class BusMngController {
 		return mav;
 	}
 
-	@RequestMapping("/busMng/editTripPlanProc")
+	@RequestMapping("/busMng/editTripPlan")
 	@ResponseBody
 	public String editTripPlan(ServletRequest request) throws Exception {
 
@@ -157,7 +157,7 @@ public class BusMngController {
 		return "수정 완료 되었습니다.";
 	}
 
-	@RequestMapping("/busMng/delTripPlanProc")
+	@RequestMapping("/busMng/delTripPlan")
 	@ResponseBody
 	public String delTripPlan(ServletRequest request) throws Exception {
 

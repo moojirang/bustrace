@@ -53,7 +53,17 @@ public class TripPlanServiceImpl implements TripPlanService {
 		updateTarget.setTripStopStartedAt(tripPlan.getTripStopStartedAt());
 		updateTarget.setUpdatedAt(LocalDateTime.now());
 		tripPlanRepository.save(updateTarget);
+	}
 
+	@Override
+	public void deleteTripPlan(TripPlan tripPlan) throws Exception {
+		TripPlan updateTarget = getTripPlan(tripPlan.getTripPlanId());
+		if("".equals(updateTarget.getTripPlanId()))
+			throw new Exception("정보가 올바르지 않습니다.");
+		updateTarget.setDeleteYn("Y");
+		updateTarget.setDeletedAt(LocalDateTime.now());
+		updateTarget.setUpdatedAt(LocalDateTime.now());
+		tripPlanRepository.save(updateTarget);
 	}
 
 	@Override

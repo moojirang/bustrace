@@ -157,6 +157,26 @@ public class BusMngController {
 		return "수정 완료 되었습니다.";
 	}
 
+	@RequestMapping("/busMng/delTripPlanProc")
+	@ResponseBody
+	public String delTripPlan(ServletRequest request) throws Exception {
+
+		TripPlan tripPlan = convertTripPlanByRequest(request);
+
+		if(!tripPlan.isDeleteValidate()) {
+			return "값이 올바르지 않습니다.";
+		}
+
+		try {
+			tripPlanService.deleteTripPlan(tripPlan);
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "삭제 중 에러가 발생 했습니다.";
+		}
+
+		return "삭제 완료 되었습니다.";
+	}
+
 	private TripPlan convertTripPlanByRequest(ServletRequest request) throws Exception {
 		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");
 		String routeId = StringUtils.defaultString(request.getParameter("routeId"), "");

@@ -3,6 +3,8 @@ package com.dazzilove.bustrace.service.web;
 import com.dazzilove.bustrace.domain.BusLocation;
 import com.dazzilove.bustrace.domain.BusLocationParam;
 import com.dazzilove.bustrace.domain.TripPlan;
+import com.dazzilove.bustrace.domain.TripPlanHistory;
+import com.dazzilove.bustrace.repository.TripPlanHistoryRepository;
 import com.dazzilove.bustrace.repository.TripPlanRepository;
 import com.dazzilove.bustrace.service.BusLocationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class TripPlanServiceImpl implements TripPlanService {
 	TripPlanRepository tripPlanRepository;
 
 	@Autowired
+    TripPlanHistoryRepository tripPlanHistoryRepository;
+
+	@Autowired
 	BusLocationService busLocationService;
 
 	@Override
@@ -27,6 +32,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 		tripPlan.setId(UUID.randomUUID());
 		tripPlan.setCreatedAt(LocalDateTime.now());
 		tripPlanRepository.insert(tripPlan);
+        addTripPlanHistory(tripPlan);
 	}
 
 	@Override
@@ -55,6 +61,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 		updateTarget.setTripStopStartedAt(tripPlan.getTripStopStartedAt());
 		updateTarget.setUpdatedAt(LocalDateTime.now());
 		tripPlanRepository.save(updateTarget);
+        addTripPlanHistory(tripPlan);
 	}
 
 	@Override
@@ -66,6 +73,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 		updateTarget.setDeletedAt(LocalDateTime.now());
 		updateTarget.setUpdatedAt(LocalDateTime.now());
 		tripPlanRepository.save(updateTarget);
+        addTripPlanHistory(tripPlan);
 	}
 
 	@Override
@@ -92,6 +100,14 @@ public class TripPlanServiceImpl implements TripPlanService {
 			tripPlanRepository.save(updateTarget);
 		}
 	}
+
+	private void addTripPlanHistory(TripPlan tripPlan) {
+        TripPlanHistory tripPlanHistory = new TripPlanHistory();
+        tripPlanHistory.setHistoryId(UUID.randomUUID());
+        tripPlanHistory.setHistoryCreatedAt(LocalDateTime.now());
+        tripPlanHistory.setTripPlan(tripPlan);
+        tripPlanHistoryRepository.save(tripPlanHistory);
+    }
 
 	private String getTripRecordYnByDay(TripPlan tripPlan, LocalDateTime basicDateTime) throws Exception {
 		LocalDateTime startDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 0, 0, 0);

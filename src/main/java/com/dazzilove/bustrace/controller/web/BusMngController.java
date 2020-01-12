@@ -179,6 +179,7 @@ public class BusMngController {
 
 	private TripPlan convertTripPlanByRequest(ServletRequest request) throws Exception {
 		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");
+		int turnNumber = Integer.parseInt(StringUtils.defaultString(request.getParameter("turnNumber"), "0"));
 		String routeId = StringUtils.defaultString(request.getParameter("routeId"), "");
 		String plateNo = StringUtils.defaultString(request.getParameter("plateNo"), "");
 		String plateType = StringUtils.defaultString(request.getParameter("plateType"), "");
@@ -195,6 +196,7 @@ public class BusMngController {
 		}
 		tripPlan.setRouteId(routeId);
 		tripPlan.setPlateNo(plateNo);
+		tripPlan.setTurnNumber(turnNumber);
 		tripPlan.setPlateType(plateType);
 		tripPlan.setWeekendOperationYn(weekendOperationYn);
 		tripPlan.setSpareYn(spareYn);

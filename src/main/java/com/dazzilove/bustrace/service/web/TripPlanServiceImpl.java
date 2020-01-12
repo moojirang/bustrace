@@ -44,6 +44,7 @@ public class TripPlanServiceImpl implements TripPlanService {
 		TripPlan updateTarget = getTripPlan(tripPlan.getTripPlanId());
 		updateTarget.setRouteId(tripPlan.getRouteId());
 		updateTarget.setPlateNo(tripPlan.getPlateNo());
+		updateTarget.setTurnNumber(tripPlan.getTurnNumber());
 		updateTarget.setPlateType(tripPlan.getPlateType());
 		updateTarget.setWeekendOperationYn(tripPlan.getWeekendOperationYn());
 		updateTarget.setSpareYn(tripPlan.getSpareYn());

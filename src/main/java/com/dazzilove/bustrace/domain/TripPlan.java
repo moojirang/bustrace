@@ -16,6 +16,7 @@ public class TripPlan {
 	private String routeName;
 	private String routeId;
 	private String plateNo;
+	private Integer turnNumber;
 	private String plateType;
 	private String plateTypeName;
 	private String weekendOperationYn;
@@ -33,6 +34,14 @@ public class TripPlan {
 
 	public String getTripPlanId() {
 		return this.id.toString();
+	}
+
+	public Integer getTurnNumber() {
+		return (this.turnNumber == null) ? 0 : this.turnNumber;
+	}
+
+	public String getDeleteYn() {
+		return (this.deleteYn == null) ? "N" : this.deleteYn;
 	}
 
 	public String getShortPlateNo() {

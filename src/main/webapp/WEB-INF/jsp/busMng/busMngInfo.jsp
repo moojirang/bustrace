@@ -126,7 +126,7 @@
          <table class="table table-sm" id="tripPlanList">
              <thead>
              <tr>
-                 <th scope="col">#</th>
+                 <th scope="col">순번</th>
                  <th scope="col">타입</th>
                  <th scope="col">차량번호</th>
                  <th scope="col">주말운행</th>
@@ -142,6 +142,7 @@
                 String tripPlanId = tripPlan.getTripPlanId();
                 String plateType = tripPlan.getPlateType();
                 String plateNo = tripPlan.getShortPlateNo();
+                int turnNumber = tripPlan.getTurnNumber();
                 PlateType plateTypeCodeInfo = plateTypeCodeMap.get(plateType);
                 String busImgSrc = plateTypeCodeInfo.getImageSrc();
                 String plateTypeName = plateTypeCodeInfo.getName();
@@ -154,7 +155,7 @@
                 String todayTripRecordYn = StringUtils.defaultString(tripPlan.getTodayTripRecordYn(), "N");
              %>
                  <tr data-trip-stop="<%= tripStopYn %>">
-                     <td scope="row"><%= index++ %></td>
+                     <td scope="row"><%= turnNumber %></td>
                      <td><img src="<%= busImgSrc%>" style="width:25px;" alt="<%= plateTypeName %>" title="<%= plateTypeName %>" /></td>
                      <td>
                          <a href="#" onclick="editTripPlan('<%= tripPlanId %>');"><%= plateNo %></a>

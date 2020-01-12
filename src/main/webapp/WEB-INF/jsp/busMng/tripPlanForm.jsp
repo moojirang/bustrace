@@ -18,6 +18,7 @@
     String routeName = tripPlan.getRouteName();
 
     String plateNoValue = StringUtils.defaultString(tripPlan.getPlateNo(), "");
+    int turnNumberValue = tripPlan.getTurnNumber();
     String plateTypeValue = StringUtils.defaultString(tripPlan.getPlateType(), "");
     String weekendOperationYnValue = StringUtils.defaultString(tripPlan.getWeekendOperationYn(), "N");
     String spareYnValue = StringUtils.defaultString(tripPlan.getSpareYn(), "N");
@@ -58,6 +59,7 @@
 
             var routeId = $("#routeId").val();
             var plateNo = $("#plateNo").val();
+            var turnNumber = $("#turnNumber").val();
             var plateType = $(':radio[name="plateTypes"]:checked').val();
             var weekendOperationYn = $(':radio[name="weekendOperationYn"]:checked').val();
             var spareYn = $(':radio[name="spareYn"]:checked').val();
@@ -66,6 +68,10 @@
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
+                return;
+            }
+            if (turnNumber == "") {
+                alert("순번을 입력해주세요.");
                 return;
             }
             if (plateType == undefined) {
@@ -111,6 +117,7 @@
               data: {
                   routeId : routeId
                   , plateNo: plateNo
+                  , turnNumber: turnNumber
                   , plateType: plateType
                   , weekendOperationYn: weekendOperationYn
                   , spareYn: spareYn
@@ -138,6 +145,7 @@
             var tripPlanId = $("#tripPlanId").val();
             var routeId = $("#routeId").val();
             var plateNo = $("#plateNo").val();
+            var turnNumber = $("#turnNumber").val();
             var plateType = $(':radio[name="plateTypes"]:checked').val();
             var weekendOperationYn = $(':radio[name="weekendOperationYn"]:checked').val();
             var spareYn = $(':radio[name="spareYn"]:checked').val();
@@ -146,6 +154,10 @@
 
             if (plateNo == "" || plateNo.length < 4) {
                 alert("차량번호를 입력해주세요.");
+                return;
+            }
+            if (turnNumber == "") {
+                alert("순번을 입력해주세요.");
                 return;
             }
             if (plateType == undefined) {
@@ -192,6 +204,7 @@
                   tripPlanId : tripPlanId
                   , routeId : routeId
                   , plateNo: plateNo
+                  , turnNumber: turnNumber
                   , plateType: plateType
                   , weekendOperationYn: weekendOperationYn
                   , spareYn: spareYn
@@ -257,6 +270,10 @@
         <div class="form-group">
             <label>차량번호</label>
             <input type="text" class="form-control" id="plateNo" placeholder="경기75바3160" data-input-value="<%= plateNoValue %>">
+        </div>
+        <div class="form-group">
+            <label>순번</label>
+            <input type="text" class="form-control" id="turnNumber" placeholder="1" data-input-value="<%= turnNumberValue %>">
         </div>
         <div class="form-group">
             <label>차량타입</label>

@@ -42,7 +42,8 @@ public class RouteServiceImpl implements RouteService {
 
 	public List<TripPlan> getTripPlans(String routeId) throws Exception {
 		return tripPlanService.findByRouteId(routeId).stream()
-				.filter((TripPlan tempTripPlan) -> ("N".equals(StringUtils.defaultString(tempTripPlan.getDeleteYn(), "N"))))
+				.filter((TripPlan tempTripPlan) -> ("N".equals(tempTripPlan.getDeleteYn())))
+				.sorted((TripPlan a, TripPlan b) -> ((a.getTurnNumber() > b.getTurnNumber()) ? 1 : -1))
 				.collect(Collectors.toList());
 	}
 

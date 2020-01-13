@@ -70,7 +70,7 @@ public class Route {
     }
 
     public boolean isDeleteValidate() {
-        if("".equals(this.routeId))
+        if("".equals(this.id.toString()))
             return false;
         return true;
     }

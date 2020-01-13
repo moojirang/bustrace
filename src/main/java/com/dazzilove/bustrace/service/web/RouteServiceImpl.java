@@ -74,38 +74,6 @@ public class RouteServiceImpl implements RouteService {
 				.collect(Collectors.toList());
 	}
 
-	@Override
-	public List<Bus> getRoutes() throws Exception {
-		List<Bus> busList = new Bus().getBusList();
-		busList.stream()
-				.forEach(tempBus -> {
-					List<TripPlan> tripPlans = null;
-					try {
-						tripPlans = getTripPlans(tempBus.getRouteId());
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					if (!tripPlans.isEmpty()) {
-						int yesterdayTripRecordCount = 0;
-						int todayTripRecordCount = 0;
-
-						for(TripPlan tempTripPlan: tripPlans) {
-							if ("Y".equals(tempTripPlan.getYesterdayTripRecordYn())) {
-								yesterdayTripRecordCount++;
-							}
-							if ("Y".equals(tempTripPlan.getTodayTripRecordYn())) {
-								todayTripRecordCount++;
-							}
-						}
-
-						tempBus.setTotalTripPlanCount(tripPlans.size());
-						tempBus.setYesterdayTripRecordCount(yesterdayTripRecordCount);
-						tempBus.setTodayTripRecordCount(todayTripRecordCount);
-					}
-				});
-		return busList;
-	}
-
     @Override
     public List<Route> getRoutes2() throws Exception {
 	    List<Route> routeList = routeRepository.findAll().stream()

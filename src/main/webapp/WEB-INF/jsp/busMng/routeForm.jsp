@@ -261,7 +261,6 @@
     </div>
     <form id="form1" name="form1">
         <input type="hidden" id="pageMode" value="<%= pageMode %>" />
-        <input type="hidden" id="_id" value="<%= _id %>" />
         <% if (!"".equals(_id)) { %>
         <div class="form-group">
             <label>관리번호</label>

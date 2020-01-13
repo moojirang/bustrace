@@ -270,10 +270,12 @@ public class BusMngController {
         String companyName = StringUtils.defaultString(request.getParameter("companyName"), "");
         String peekAlloc = StringUtils.defaultString(request.getParameter("peekAlloc"), "");
         String nPeekAlloc = StringUtils.defaultString(request.getParameter("nPeekAlloc"), "");
+        String startStationId = StringUtils.defaultString(request.getParameter("startStationId"), "");
         String startStationName = StringUtils.defaultString(request.getParameter("startStationName"), "");
         String upFirstTime = StringUtils.defaultString(request.getParameter("upFirstTime"), "");
         String upLastTime = StringUtils.defaultString(request.getParameter("upLastTime"), "");
         String endStationId = StringUtils.defaultString(request.getParameter("endStationId"), "");
+        String endStationName = StringUtils.defaultString(request.getParameter("endStationName"), "");
         String downFirstTime = StringUtils.defaultString(request.getParameter("downFirstTime"), "");
         String downLastTime = StringUtils.defaultString(request.getParameter("downLastTime"), "");
 
@@ -286,10 +288,12 @@ public class BusMngController {
         route.setCompanyName(companyName);
         route.setPeekAlloc(peekAlloc);
         route.setNPeekAlloc(nPeekAlloc);
+        route.setStartStationId(startStationId);
         route.setStartStationName(startStationName);
         route.setUpFirstTime(upFirstTime);
         route.setUpLastTime(upLastTime);
         route.setEndStationId(endStationId);
+        route.setEndStationName(endStationName);
         route.setDownFirstTime(downFirstTime);
         route.setDownLastTime(downLastTime);
         return route;

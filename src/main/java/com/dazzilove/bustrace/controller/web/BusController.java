@@ -3,10 +3,10 @@ package com.dazzilove.bustrace.controller.web;
 import com.dazzilove.bustrace.domain.Bus;
 import com.dazzilove.bustrace.domain.BusLocation;
 import com.dazzilove.bustrace.domain.BusLocationParam;
+import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
 import com.dazzilove.bustrace.service.web.RouteService;
-import com.dazzilove.bustrace.service.wsdl.BusRouteInfo;
 import com.dazzilove.bustrace.service.ws.BusRouteStation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +36,8 @@ public class BusController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busList");
 
-        List<Bus> busList = routeService.getRoutes();
-        mav.addObject("busList", busList);
-
+        List<Route> routeList = routeService.getRoutes();
+        mav.addObject("routeList", routeList);
 
         return mav;
     }
@@ -48,7 +47,7 @@ public class BusController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("routeInfo");
 
-        String routeId = request.getParameter("routeId");
+        String _id = request.getParameter("_id");
         String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
         String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();
 
@@ -77,17 +76,19 @@ public class BusController {
             endCreatedAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 23, 59, 59);
         }
 
+        Route route = routeService.getOnlyRouteInfo(_id);
+        mav.addObject("route", route);
+
+        String routeId = route.getRouteId();
+
         BusLocationParam busLocationParam = new BusLocationParam();
         busLocationParam.setRouteId(routeId);
         busLocationParam.setStartCreatedAt(startCreatedAtLdt);
         busLocationParam.setEndCreatedAt(endCreatedAtLdt);
 
-        BusRouteInfo busRouteInfo = busRouteService.getBusRouteInfoItem(routeId);
-        mav.addObject("busRouteInfo", busRouteInfo);
-
         List<com.dazzilove.bustrace.service.wsdl.BusRouteStation> busRouteStationListTemp = busRouteService.getBusRouteStationList(routeId);
         List<BusRouteStation> busRouteStationList = new ArrayList<>();
-        if (!busRouteStationListTemp.isEmpty()) {
+        if (busRouteStationListTemp != null && !busRouteStationListTemp.isEmpty()) {
             busRouteStationListTemp
                     .stream()
                     .forEach(busRouteStation -> {

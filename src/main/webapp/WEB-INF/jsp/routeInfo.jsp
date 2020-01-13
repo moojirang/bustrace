@@ -1,23 +1,24 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
-<%@ page import="com.dazzilove.bustrace.service.wsdl.BusRouteInfo" %>
 <%@ page import="com.dazzilove.bustrace.domain.*" %>
 <%@ page import="com.dazzilove.bustrace.service.ws.BusStation" %>
 <%@ page import="com.dazzilove.bustrace.utils.CodeUtil" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    BusRouteInfo busRouteInfo = (BusRouteInfo) request.getAttribute("busRouteInfo");
+    Route route = (Route) request.getAttribute("route");
+    String _id = "";
     String routeId = "";
     String routeName = "";
-    if (busRouteInfo != null) {
-        routeId = busRouteInfo.getRouteId();
-        routeName = busRouteInfo.getRouteName();
+    if (route != null) {
+        _id = route.getId().toString();
+        routeId = route.getRouteId();
+        routeName = route.getRouteName();
     }
 
     List<Bus> plateNoList = (List<Bus>) request.getAttribute("plateNoList");
-    if (plateNoList.isEmpty()) {
+    if (plateNoList == null || plateNoList.isEmpty()) {
         plateNoList = new ArrayList();
     }
 
@@ -344,21 +345,21 @@
     </ul>
 
     <div id="defaultInfoTabArea" style="display: none;">
-        <% if (busRouteInfo != null) { %>
+        <% if (route != null) { %>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item">노선번호 = <%= busRouteInfo.getRouteName() %> (<%= busRouteInfo.getRouteId() %>)</li>
-            <li class="list-group-item">운수업체 = <%= busRouteInfo.getCompanyName() %></li>
-            <li class="list-group-item">평일최소 배차시간 = <%= busRouteInfo.getPeekAlloc() %></li>
-            <li class="list-group-item">평일최대 배차시간 = <%= busRouteInfo.getNPeekAlloc() %></li>
+            <li class="list-group-item">노선번호 = <%= route.getRouteName() %> (<%= route.getRouteId() %>)</li>
+            <li class="list-group-item">운수업체 = <%= route.getCompanyName() %></li>
+            <li class="list-group-item">평일최소 배차시간 = <%= route.getPeekAlloc() %></li>
+            <li class="list-group-item">평일최대 배차시간 = <%= route.getNPeekAlloc() %></li>
             <li class="list-group-item">기점
-                <div>기점정류소 = <%= busRouteInfo.getStartStationName() %> (<%= busRouteInfo.getStartStationId() %>)</div>
-                <div>평일기점 첫차시간 = <%= busRouteInfo.getUpFirstTime() %></div>
-                <div>평일기점 막차시간 = <%= busRouteInfo.getUpLastTime() %></div>
+                <div>기점정류소 = <%= route.getStartStationName() %> (<%= route.getStartStationId() %>)</div>
+                <div>평일기점 첫차시간 = <%= route.getUpFirstTime() %></div>
+                <div>평일기점 막차시간 = <%= route.getUpLastTime() %></div>
             </li>
             <li class="list-group-item">종점
-                <div>종점정류소 = <%= busRouteInfo.getEndStationName() %> (<%= busRouteInfo.getEndStationId() %>)</div>
-                <div>평일종점 첫차시간 = <%= busRouteInfo.getDownFirstTime() %></div>
-                <div>평일종점 막차시간 = <%= busRouteInfo.getDownLastTime() %></div>
+                <div>종점정류소 = <%= route.getEndStationName() %> (<%= route.getEndStationId() %>)</div>
+                <div>평일종점 첫차시간 = <%= route.getDownFirstTime() %></div>
+                <div>평일종점 막차시간 = <%= route.getDownLastTime() %></div>
             </li>
         </ul>
         <% } %>
@@ -366,6 +367,7 @@
 
     <div id="stationsTabArea">
         <form name="searchForm" id="searchForm">
+            <input type="hidden" id="_id" name="_id" value="<%= _id %>" />
             <input type="hidden" id="routeId" name="routeId" value="<%= routeId %>" />
             <div class="form-row topPadding">
                 <div class="form-group">

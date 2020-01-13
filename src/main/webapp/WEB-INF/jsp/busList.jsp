@@ -1,11 +1,12 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.dazzilove.bustrace.domain.Bus" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dazzilove.bustrace.domain.Route" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-    List<Bus> busList = (List<Bus>) request.getAttribute("busList");
-    if (busList == null) {
-        busList = new ArrayList<>();
+    List<Route> routeList = (List<Route>) request.getAttribute("routeList");
+    if (routeList == null) {
+        routeList = new ArrayList<>();
     }
 %>
 <!doctype html>
@@ -53,13 +54,13 @@
         </thead>
         <tbody>
         <% int number = 1; %>
-        <% for(Bus bus : busList) { %>
+        <% for(Route route : routeList) { %>
         <tr>
             <th scope="row"><%= number++ %></th>
-            <td><a href="/routeInfo?routeId=<%= bus.getRouteId() %>"><%= bus.getRouteName() %></a></td>
-            <td><span class="badge badge-light tripplan-tot-count"><%= bus.getTotalTripPlanCount() %></span></td>
-            <td><span class="badge badge-light tripplan-div-count"><%= bus.getYesterdayTripRecordCount() %></span></td>
-            <td><span class="badge badge-light tripplan-div-count" ><%= bus.getTodayTripRecordCount() %></span></td>
+            <td><a href="/routeInfo?_id=<%= route.getId().toString() %>"><%= route.getRouteName() %></a></td>
+            <td><span class="badge badge-light tripplan-tot-count"><%= route.getTotalTripPlanCount() %></span></td>
+            <td><span class="badge badge-light tripplan-div-count"><%= route.getYesterdayTripRecordCount() %></span></td>
+            <td><span class="badge badge-light tripplan-div-count" ><%= route.getTodayTripRecordCount() %></span></td>
         </tr>
         <% } %>
         </tbody>

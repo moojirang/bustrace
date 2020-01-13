@@ -8,6 +8,11 @@
     Route route = (Route) request.getAttribute("route");
     route = (route == null)? new Route() : route;
 
+    String _id = "";
+    if (route.getId() != null) {
+        _id = route.getId().toString();
+    }
+
     Map<String, PlateType> plateTypeCodeMap = CodeUtil.getPlateTypes();
     List<PlateType> plateTypeList = new ArrayList();
     plateTypeCodeMap.forEach((key, value) -> {
@@ -21,9 +26,15 @@
     <%@include file="/WEB-INF/jsp/include/basicHeaderInfo.jsp"%>
 
     <script>
+        var _id = "<%= _id %>";
+
         $(function () {
             setStyleTripPlanList();
         });
+
+        function editRoute() {
+            location.href = "/busMng/viewEditRoute?_id=" + _id;
+        }
 
         function setStyleTripPlanList() {
             setTripStopBg();
@@ -46,15 +57,30 @@
         }
 
         function addTripPlan(routeId) {
-            location.href = '/busMng/viewAddTripPlan?routeId=' + routeId;
+            location.href = '/busMng/viewAddTripPlan?_id=' + _id;
         }
 
         function editTripPlan(tripPlanId) {
-            location.href = "/busMng/viewEditTripPlan?tripPlanId=" + tripPlanId;
+            location.href = "/busMng/viewEditTripPlan?_id=" + _id + "&tripPlanId=" + tripPlanId;
         }
 
         function goList() {
             location.href = "/busMng/busMngList";
+        }
+
+        function delRoute() {
+            $.ajax({
+                method: "POST",
+                url: "/busMng/delRoute",
+                data: {_id : _id}
+            })
+                .done(function(msg) {
+                    alert(msg);
+                    location.href = "/busMng/busMngList";
+                })
+                .fail(function() {
+                    alert("error");
+                });
         }
     </script>
 </head>
@@ -97,6 +123,10 @@
                 <div>평일종점 막차시간 = <%= route.getDownLastTime() %></div>
             </li>
         </ul>
+        <div class="contentAlignRight bottomMargin topMargin">
+            <button type="button" class="btn btn-sm btn-danger" onclick="delRoute()">삭제</button>
+            <button type="button" class="btn btn-sm btn-primary" onclick="editRoute()">수정</button>
+        </div>
     </div>
 
     <div id="tripPlanTabArea" style="display: block;">

@@ -27,6 +27,7 @@
 
     <script>
         var _id = "<%= _id %>";
+
         $(function () {
             setStyleTripPlanList();
         });
@@ -65,6 +66,21 @@
 
         function goList() {
             location.href = "/busMng/busMngList";
+        }
+
+        function delRoute() {
+            $.ajax({
+                method: "POST",
+                url: "/busMng/delRoute",
+                data: {_id : _id}
+            })
+                .done(function(msg) {
+                    alert(msg);
+                    location.href = "/busMng/busMngList";
+                })
+                .fail(function() {
+                    alert("error");
+                });
         }
     </script>
 </head>
@@ -108,6 +124,7 @@
             </li>
         </ul>
         <div class="contentAlignRight bottomMargin topMargin">
+            <button type="button" class="btn btn-sm btn-danger" onclick="delRoute()">삭제</button>
             <button type="button" class="btn btn-sm btn-primary" onclick="editRoute()">수정</button>
         </div>
     </div>

@@ -128,7 +128,7 @@ public class BusMngController {
         mav.setViewName("busMng/busMngInfo");
 
         String _id = (String) request.getParameter("_id");
-        mav.addObject("route", getRouteInfo2(_id));
+        mav.addObject("route", getRouteInfo(_id));
 
         return mav;
     }
@@ -136,10 +136,6 @@ public class BusMngController {
     private Route getRouteInfo(String _id) throws Exception {
 		return routeService.getRouteInfo(_id);
 	}
-
-    private Route getRouteInfo2(String _id) throws Exception {
-        return routeService.getRouteInfo(_id);
-    }
 
     @RequestMapping("/busMng/viewAddTripPlan")
     public ModelAndView viewAddTripPlan(ServletRequest request) throws Exception {

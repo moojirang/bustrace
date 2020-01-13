@@ -14,19 +14,19 @@
         _id = ("ADD".equals(pageMode)) ? "" : route.getId().toString();
     }
 
-    String routeId = route.getRouteId();
-    String routeName = route.getRouteName();
-    String companyName = route.getCompanyName();
-    String peekAlloc = route.getPeekAlloc();
-    String nPeekAlloc = route.getNPeekAlloc();
-    String startStationId = route.getStartStationId();
-    String startStationName = route.getStartStationName();
-    String upFirstTime = route.getUpFirstTime();
-    String upLastTime = route.getUpLastTime();
-    String endStationId = route.getEndStationId();
-    String endStationName = route.getEndStationName();
-    String downFirstTime = route.getDownFirstTime();
-    String downLastTime = route.getDownLastTime();
+    String routeId = StringUtils.defaultString(route.getRouteId());
+    String routeName = StringUtils.defaultString(route.getRouteName());
+    String companyName = StringUtils.defaultString(route.getCompanyName());
+    String peekAlloc = StringUtils.defaultString(route.getPeekAlloc());
+    String nPeekAlloc = StringUtils.defaultString(route.getNPeekAlloc());
+    String startStationId = StringUtils.defaultString(route.getStartStationId());
+    String startStationName = StringUtils.defaultString(route.getStartStationName());
+    String upFirstTime = StringUtils.defaultString(route.getUpFirstTime());
+    String upLastTime = StringUtils.defaultString(route.getUpLastTime());
+    String endStationId = StringUtils.defaultString(route.getEndStationId());
+    String endStationName = StringUtils.defaultString(route.getEndStationName());
+    String downFirstTime = StringUtils.defaultString(route.getDownFirstTime());
+    String downLastTime = StringUtils.defaultString(route.getDownLastTime());
 
 %>
 <% if("Y".equals(route.getDeleteYn())) { %>

@@ -35,10 +35,92 @@ public class BusMngController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/busMngList");
 
-		List<Bus> busList = routeService.getRoutes();
-        mav.addObject("busList", busList);
+        List<Route> routeList = routeService.getRoutes2();
+        mav.addObject("routeList", routeList);
 
         return mav;
+    }
+
+    @RequestMapping("/busMng/viewAddRoute")
+    public ModelAndView viewAddRoute(ServletRequest request) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("busMng/routeForm");
+        mav.addObject("pageMode", "ADD");
+        return mav;
+    }
+
+    @RequestMapping("/busMng/addRoute")
+    @ResponseBody
+    public String addRoute(ServletRequest request) throws Exception {
+
+        Route route = convertRouteByRequest(request);
+
+        if(!route.isAddValidate()) {
+            return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
+        }
+
+        try {
+            routeService.addRoute(route);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "등록 중 에러가 발생 했습니다.";
+        }
+
+        return "등록 완료 되었습니다.";
+    }
+
+    @RequestMapping("/busMng/viewEditRoute")
+    public ModelAndView viewEditRoute(ServletRequest request) throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("busMng/routeForm");
+        mav.addObject("pageMode", "EDIT");
+
+        String _id = StringUtils.defaultString(request.getParameter("_id"), "");
+
+        Route route = routeService.getOnlyRouteInfo(_id);
+        mav.addObject("route", route);
+
+        return mav;
+    }
+
+    @RequestMapping("/busMng/editRoute")
+    @ResponseBody
+    public String editRoute(ServletRequest request) throws Exception {
+
+        Route route = convertRouteByRequest(request);
+
+        if(!route.isEditValidate()) {
+            return "값이 올바르지 않습니다. 필요한 값을 모두 입력했는지 확인하세요.";
+        }
+
+        try {
+            routeService.editRoute(route);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "수정 중 에러가 발생 했습니다.";
+        }
+
+        return "수정 완료 되었습니다.";
+    }
+
+    @RequestMapping("/busMng/delRoute")
+    @ResponseBody
+    public String delRoute(ServletRequest request) throws Exception {
+
+        Route route = convertRouteByRequest(request);
+
+        if(!route.isDeleteValidate()) {
+            return "값이 올바르지 않습니다.";
+        }
+
+        try {
+            routeService.deleteRoute(route);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return "삭제 중 에러가 발생 했습니다.";
+        }
+
+        return "삭제 완료 되었습니다.";
     }
 
     @RequestMapping("/busMng/busMngInfo")
@@ -46,8 +128,8 @@ public class BusMngController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/busMngInfo");
 
-        String routeId = (String) request.getParameter("routeId");
-        mav.addObject("route", getRouteInfo(routeId));
+        String _id = (String) request.getParameter("_id");
+        mav.addObject("route", getRouteInfo2(_id));
 
         return mav;
     }
@@ -82,6 +164,10 @@ public class BusMngController {
 
 		return route;
 	}
+
+    private Route getRouteInfo2(String _id) throws Exception {
+        return routeService.getRouteInfo2(_id);
+    }
 
     @RequestMapping("/busMng/viewAddTripPlan")
     public ModelAndView viewAddTripPlan(ServletRequest request) throws Exception {
@@ -176,6 +262,38 @@ public class BusMngController {
 
 		return "삭제 완료 되었습니다.";
 	}
+
+    private Route convertRouteByRequest(ServletRequest request) throws Exception {
+        String _id = StringUtils.defaultString(request.getParameter("_id"), "");
+        String routeId = StringUtils.defaultString(request.getParameter("routeId"), "");
+        String routeName = StringUtils.defaultString(request.getParameter("routeName"), "");
+        String companyName = StringUtils.defaultString(request.getParameter("companyName"), "");
+        String peekAlloc = StringUtils.defaultString(request.getParameter("peekAlloc"), "");
+        String nPeekAlloc = StringUtils.defaultString(request.getParameter("nPeekAlloc"), "");
+        String startStationName = StringUtils.defaultString(request.getParameter("startStationName"), "");
+        String upFirstTime = StringUtils.defaultString(request.getParameter("upFirstTime"), "");
+        String upLastTime = StringUtils.defaultString(request.getParameter("upLastTime"), "");
+        String endStationId = StringUtils.defaultString(request.getParameter("endStationId"), "");
+        String downFirstTime = StringUtils.defaultString(request.getParameter("downFirstTime"), "");
+        String downLastTime = StringUtils.defaultString(request.getParameter("downLastTime"), "");
+
+        Route route = new Route();
+        if(!"".equals(_id)) {
+            route = routeService.getOnlyRouteInfo(_id);
+        }
+        route.setRouteId(routeId);
+        route.setRouteName(routeName);
+        route.setCompanyName(companyName);
+        route.setPeekAlloc(peekAlloc);
+        route.setNPeekAlloc(nPeekAlloc);
+        route.setStartStationName(startStationName);
+        route.setUpFirstTime(upFirstTime);
+        route.setUpLastTime(upLastTime);
+        route.setEndStationId(endStationId);
+        route.setDownFirstTime(downFirstTime);
+        route.setDownLastTime(downLastTime);
+        return route;
+    }
 
 	private TripPlan convertTripPlanByRequest(ServletRequest request) throws Exception {
 		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");

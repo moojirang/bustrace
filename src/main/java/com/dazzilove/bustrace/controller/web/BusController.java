@@ -49,7 +49,6 @@ public class BusController {
         mav.setViewName("routeInfo");
 
         String _id = request.getParameter("_id");
-        String routeId = request.getParameter("routeId");
         String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
         String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();
 
@@ -78,17 +77,19 @@ public class BusController {
             endCreatedAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 23, 59, 59);
         }
 
+        Route route = routeService.getOnlyRouteInfo(_id);
+        mav.addObject("route", route);
+
+        String routeId = route.getRouteId();
+
         BusLocationParam busLocationParam = new BusLocationParam();
         busLocationParam.setRouteId(routeId);
         busLocationParam.setStartCreatedAt(startCreatedAtLdt);
         busLocationParam.setEndCreatedAt(endCreatedAtLdt);
 
-        BusRouteInfo busRouteInfo = busRouteService.getBusRouteInfoItem(routeId);
-        mav.addObject("busRouteInfo", busRouteInfo);
-
         List<com.dazzilove.bustrace.service.wsdl.BusRouteStation> busRouteStationListTemp = busRouteService.getBusRouteStationList(routeId);
         List<BusRouteStation> busRouteStationList = new ArrayList<>();
-        if (!busRouteStationListTemp.isEmpty()) {
+        if (busRouteStationListTemp != null && !busRouteStationListTemp.isEmpty()) {
             busRouteStationListTemp
                     .stream()
                     .forEach(busRouteStation -> {

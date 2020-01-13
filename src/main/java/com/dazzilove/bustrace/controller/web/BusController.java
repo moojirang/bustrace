@@ -3,6 +3,7 @@ package com.dazzilove.bustrace.controller.web;
 import com.dazzilove.bustrace.domain.Bus;
 import com.dazzilove.bustrace.domain.BusLocation;
 import com.dazzilove.bustrace.domain.BusLocationParam;
+import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
 import com.dazzilove.bustrace.service.web.RouteService;
@@ -36,9 +37,8 @@ public class BusController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busList");
 
-        List<Bus> busList = routeService.getRoutes();
-        mav.addObject("busList", busList);
-
+        List<Route> routeList = routeService.getRoutes2();
+        mav.addObject("routeList", routeList);
 
         return mav;
     }
@@ -48,6 +48,7 @@ public class BusController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("routeInfo");
 
+        String _id = request.getParameter("_id");
         String routeId = request.getParameter("routeId");
         String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
         String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();

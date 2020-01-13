@@ -21,26 +21,6 @@ public class RouteServiceImpl implements RouteService {
 	@Autowired
     RouteRepository routeRepository;
 
-	@Override
-	public Route getRouteInfoByRouteId(String routeId) throws Exception {
-		Route route = new Route();
-
-		DataGatherScheduler dataGatherScheduler = new DataGatherScheduler();
-		dataGatherScheduler.setEnabled(true);
-		dataGatherScheduler.setSchedule(DataGatherScheduler.SCHEDULE_1_MINUTE);
-		route.setDataGatherScheduler(dataGatherScheduler);
-
-		Map<String, PlateType> plateTypeMap = CodeUtil.getPlateTypes();
-
-		List<TripPlan> tripPlans = tripPlanService.findByRouteId(routeId);
-		route.setTripPlanList(getTripPlans(routeId));
-
-		List<TripPlan> tripedPlans = new ArrayList<>();
-		route.setTripPlanListTheDayBefore(tripedPlans);
-
-		return route;
-	}
-
     @Override
     public Route getRouteInfo(String _id) throws Exception {
         Route route = getOnlyRouteInfo(_id);

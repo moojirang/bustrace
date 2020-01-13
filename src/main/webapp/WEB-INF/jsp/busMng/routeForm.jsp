@@ -19,10 +19,12 @@
     String companyName = route.getCompanyName();
     String peekAlloc = route.getPeekAlloc();
     String nPeekAlloc = route.getNPeekAlloc();
+    String startStationId = route.getStartStationId();
     String startStationName = route.getStartStationName();
     String upFirstTime = route.getUpFirstTime();
     String upLastTime = route.getUpLastTime();
     String endStationId = route.getEndStationId();
+    String endStationName = route.getEndStationName();
     String downFirstTime = route.getDownFirstTime();
     String downLastTime = route.getDownLastTime();
 
@@ -47,10 +49,12 @@
             var companyName = $("#companyName").val();
             var peekAlloc = $("#peekAlloc").val();
             var nPeekAlloc = $("#nPeekAlloc").val();
+            var startStationId = $("#startStationId").val();
             var startStationName = $("#startStationName").val();
             var upFirstTime = $("#upFirstTime").val();
             var upLastTime = $("#upLastTime").val();
             var endStationId = $("#endStationId").val();
+            var endStationName = $("#endStationName").val();
             var downFirstTime = $("#downFirstTime").val();
             var downLastTime = $("#downLastTime").val();
 
@@ -74,7 +78,7 @@
                 alert("평일최대 배차시간을 입력해주세요.");
                 return;
             }
-            if (startStationName == "") {
+            if (startStationId == "" || startStationName == "") {
                 alert("기점정류소를 입력해주세요.");
                 return;
             }
@@ -86,7 +90,7 @@
                 alert("평일기점 막차시간을 입력해주세요.");
                 return;
             }
-            if (endStationId == "") {
+            if (endStationId == "" || endStationName == "") {
                 alert("종점정류소를 입력해주세요.");
                 return;
             }
@@ -108,10 +112,12 @@
                     , companyName: companyName
                     , peekAlloc: peekAlloc
                     , nPeekAlloc: nPeekAlloc
+                    , startStationId: startStationId
                     , startStationName: startStationName
                     , upFirstTime: upFirstTime
                     , upLastTime: upLastTime
                     , endStationId: endStationId
+                    , endStationName: endStationName
                     , downFirstTime: downFirstTime
                     , downLastTime: downLastTime
                 }
@@ -184,27 +190,29 @@
         </div>
         <div class="form-group">
             <label>기점정류소</label>
-            <input type="text" class="form-control" id="startStationName" placeholder="" data-input-value="<%= startStationName %>">
+            <input type="text" class="form-control" id="startStationId" placeholder="ID" data-input-value="<%= startStationId %>">
+            <input type="text" class="form-control" id="startStationName" placeholder="NAME" data-input-value="<%= startStationName %>">
         </div>
         <div class="form-group">
             <label>평일기점 첫차시간</label>
-            <input type="text" class="form-control" id="upFirstTime" placeholder="" data-input-value="<%= upFirstTime %>">
+            <input type="text" class="form-control" id="upFirstTime" placeholder="00:00" data-input-value="<%= upFirstTime %>">
         </div>
         <div class="form-group">
             <label>평일기점 막차시간</label>
-            <input type="text" class="form-control" id="upLastTime" placeholder="" data-input-value="<%= upLastTime %>">
+            <input type="text" class="form-control" id="upLastTime" placeholder="00:00" data-input-value="<%= upLastTime %>">
         </div>
         <div class="form-group">
             <label>종점정류소</label>
-            <input type="text" class="form-control" id="endStationId" placeholder="" data-input-value="<%= endStationId %>">
+            <input type="text" class="form-control" id="endStationId" placeholder="ID" data-input-value="<%= endStationId %>">
+            <input type="text" class="form-control" id="endStationName" placeholder="NAME" data-input-value="<%= endStationName %>">
         </div>
         <div class="form-group">
             <label>평일종점 첫차시간</label>
-            <input type="text" class="form-control" id="downFirstTime" placeholder="" data-input-value="<%= downFirstTime %>">
+            <input type="text" class="form-control" id="downFirstTime" placeholder="00:00" data-input-value="<%= downFirstTime %>">
         </div>
         <div class="form-group">
             <label>평일종점 막차시간</label>
-            <input type="text" class="form-control" id="downLastTime" placeholder="" data-input-value="<%= downLastTime %>">
+            <input type="text" class="form-control" id="downLastTime" placeholder="00:00" data-input-value="<%= downLastTime %>">
         </div>
 
         <div class="contentAlignRight bottomMargin topMargin">

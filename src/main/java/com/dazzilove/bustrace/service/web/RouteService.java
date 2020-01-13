@@ -9,7 +9,6 @@ import java.util.List;
 public interface RouteService {
 	Route getRouteInfo(String routeId) throws Exception;
 	List<TripPlan> getTripPlans(String routeId) throws Exception;
-	List<Bus> getRoutes() throws Exception;
 
     List<Route> getRoutes2() throws Exception;
 

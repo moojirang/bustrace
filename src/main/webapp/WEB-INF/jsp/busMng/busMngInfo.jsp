@@ -57,11 +57,11 @@
         }
 
         function addTripPlan(routeId) {
-            location.href = '/busMng/viewAddTripPlan?routeId=' + routeId;
+            location.href = '/busMng/viewAddTripPlan?_id=' + _id;
         }
 
         function editTripPlan(tripPlanId) {
-            location.href = "/busMng/viewEditTripPlan?tripPlanId=" + tripPlanId;
+            location.href = "/busMng/viewEditTripPlan?_id=" + _id + "&tripPlanId=" + tripPlanId;
         }
 
         function goList() {

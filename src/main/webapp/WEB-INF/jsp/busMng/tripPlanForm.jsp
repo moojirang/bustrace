@@ -9,6 +9,8 @@
     Route route = (Route) request.getAttribute("route");
     route = (route == null) ? new Route() : route;
 
+    String _id = route.getId().toString();
+
     TripPlan tripPlan = (TripPlan) request.getAttribute("tripPlan");
     tripPlan = (tripPlan == null) ? new TripPlan() : tripPlan;
 
@@ -49,6 +51,7 @@
     <%@include file="/WEB-INF/jsp/include/basicHeaderInfo.jsp"%>
 
     <script>
+        var _id = "<%= _id %>";
         var routeId = "<%= routeId %>";
 
         $(function () {
@@ -130,9 +133,9 @@
             .done(function(msg) {
                 var confirmResult = confirm(msg + "\n추가로 등록하시겠습니까?");
                 if (confirmResult) {
-                    location.href = "/busMng/viewAddTripPlan?routeId=" + routeId;
+                    location.href = "/busMng/viewAddTripPlan?_id=" + _id;
                 } else {
-                    location.href = "/busMng/busMngInfo?routeId=" + routeId;
+                    location.href = "/busMng/busMngInfo?_id=" + _id;
                 }
             })
             .fail(function() {
@@ -216,7 +219,7 @@
             })
             .done(function(msg) {
                 alert(msg);
-                location.href = "/busMng/busMngInfo?routeId=" + routeId;
+                location.href = "/busMng/busMngInfo?_id=" + _id;
             })
             .fail(function() {
                 alert("error");
@@ -234,7 +237,7 @@
             })
             .done(function(msg) {
                 alert(msg);
-                location.href = "/busMng/busMngInfo?routeId=" + routeId;
+                location.href = "/busMng/busMngInfo?_id=" + _id;
             })
             .fail(function() {
                 alert("error");

@@ -133,39 +133,12 @@ public class BusMngController {
         return mav;
     }
 
-    private Route getRouteInfo(String routeId) throws Exception {
-		BusRouteInfo busRouteInfo = busRouteService.getBusRouteInfoItem(routeId);
-
-		Route route = routeService.getRouteInfo(routeId);
-		if(busRouteInfo != null) {
-			route.setCompanyId(busRouteInfo.getCompanyId());
-			route.setCompanyName(busRouteInfo.getCompanyName());
-			route.setCompanyTel(busRouteInfo.getCompanyTel());
-			route.setDistrictCd(busRouteInfo.getDistrictCd());
-			route.setDownFirstTime(busRouteInfo.getDownFirstTime());
-			route.setDownLastTime(busRouteInfo.getDownLastTime());
-			route.setEndMobileNo(busRouteInfo.getEndMobileNo());
-			route.setEndStationId(busRouteInfo.getEndStationId());
-			route.setEndStationName(busRouteInfo.getEndStationName());
-			route.setPeekAlloc(busRouteInfo.getPeekAlloc());
-			route.setRegionName(busRouteInfo.getRegionName());
-			route.setRouteId(busRouteInfo.getRouteId());
-			route.setRouteName(busRouteInfo.getRouteName());
-			route.setRouteTypeCd(busRouteInfo.getRouteTypeCd());
-			route.setRouteTypeName(busRouteInfo.getRouteTypeName());
-			route.setStartMobileNo(busRouteInfo.getStartMobileNo());
-			route.setStartStationId(busRouteInfo.getStartStationId());
-			route.setStartStationName(busRouteInfo.getStartStationName());
-			route.setUpFirstTime(busRouteInfo.getUpFirstTime());
-			route.setUpLastTime(busRouteInfo.getUpLastTime());
-			route.setNPeekAlloc(busRouteInfo.getNPeekAlloc());
-		}
-
-		return route;
+    private Route getRouteInfo(String _id) throws Exception {
+		return routeService.getRouteInfo(_id);
 	}
 
     private Route getRouteInfo2(String _id) throws Exception {
-        return routeService.getRouteInfo2(_id);
+        return routeService.getRouteInfo(_id);
     }
 
     @RequestMapping("/busMng/viewAddTripPlan")
@@ -174,11 +147,12 @@ public class BusMngController {
         mav.setViewName("busMng/tripPlanForm");
 		mav.addObject("pageMode", "ADD");
 
-		String routeId = (String) request.getParameter("routeId");
-		Route route = getRouteInfo(routeId);
+		String _id = (String) request.getParameter("_id");
+		Route route = getRouteInfo(_id);
+        mav.addObject("route", route);
 
 		TripPlan tripPlan = new TripPlan();
-		tripPlan.setRouteId(routeId);
+		tripPlan.setRouteId(route.getRouteId());
 		tripPlan.setRouteName(route.getRouteName());
 		mav.addObject("tripPlan", tripPlan);
 
@@ -211,11 +185,13 @@ public class BusMngController {
 		mav.setViewName("busMng/tripPlanForm");
 		mav.addObject("pageMode", "EDIT");
 
+        String _id = StringUtils.defaultString(request.getParameter("_id"), "");
 		String tripPlanId = StringUtils.defaultString(request.getParameter("tripPlanId"), "");
 
-		TripPlan tripPlan = tripPlanService.getTripPlan(tripPlanId);
-		Route route = getRouteInfo(tripPlan.getRouteId());
+        Route route = getRouteInfo(_id);
+        mav.addObject("route", route);
 
+		TripPlan tripPlan = tripPlanService.getTripPlan(tripPlanId);
 		tripPlan.setRouteName(route.getRouteName());
 		mav.addObject("tripPlan", tripPlan);
 

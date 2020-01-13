@@ -22,7 +22,7 @@ public class RouteServiceImpl implements RouteService {
     RouteRepository routeRepository;
 
 	@Override
-	public Route getRouteInfo(String routeId) throws Exception {
+	public Route getRouteInfoByRouteId(String routeId) throws Exception {
 		Route route = new Route();
 
 		DataGatherScheduler dataGatherScheduler = new DataGatherScheduler();
@@ -42,7 +42,7 @@ public class RouteServiceImpl implements RouteService {
 	}
 
     @Override
-    public Route getRouteInfo2(String _id) throws Exception {
+    public Route getRouteInfo(String _id) throws Exception {
         Route route = getOnlyRouteInfo(_id);
 
 //        DataGatherScheduler dataGatherScheduler = new DataGatherScheduler();

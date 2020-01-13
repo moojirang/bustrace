@@ -8,6 +8,11 @@
     Route route = (Route) request.getAttribute("route");
     route = (route == null)? new Route() : route;
 
+    String _id = "";
+    if (route.getId() != null) {
+        _id = route.getId().toString();
+    }
+
     Map<String, PlateType> plateTypeCodeMap = CodeUtil.getPlateTypes();
     List<PlateType> plateTypeList = new ArrayList();
     plateTypeCodeMap.forEach((key, value) -> {
@@ -21,9 +26,14 @@
     <%@include file="/WEB-INF/jsp/include/basicHeaderInfo.jsp"%>
 
     <script>
+        var _id = "<%= _id %>";
         $(function () {
             setStyleTripPlanList();
         });
+
+        function editRoute() {
+            location.href = "/busMng/viewEditRoute?_id=" + _id;
+        }
 
         function setStyleTripPlanList() {
             setTripStopBg();
@@ -97,6 +107,9 @@
                 <div>평일종점 막차시간 = <%= route.getDownLastTime() %></div>
             </li>
         </ul>
+        <div class="contentAlignRight bottomMargin topMargin">
+            <button type="button" class="btn btn-sm btn-primary" onclick="editRoute()">수정</button>
+        </div>
     </div>
 
     <div id="tripPlanTabArea" style="display: block;">

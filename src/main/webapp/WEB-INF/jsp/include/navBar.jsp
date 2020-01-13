@@ -30,8 +30,11 @@
             <li class="nav-item" data-menu="3">
                 <a class="nav-link" href="/busMng/busMngList">노선관리</a>
             </li>
+            <li class="nav-item" data-menu="5">
+                <span class="nav-link">- 노선등록/수정/삭제</span>
+            </li>
             <li class="nav-item" data-menu="4">
-                <span class="nav-link">- 노선관리상세 <span class="sr-only">(current)</span></span>
+                <span class="nav-link">- 노선관리상세</span>
             </li>
         </ul>
     </div>

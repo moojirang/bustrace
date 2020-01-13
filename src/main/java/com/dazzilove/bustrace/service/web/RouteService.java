@@ -10,7 +10,7 @@ public interface RouteService {
 	Route getRouteInfo(String routeId) throws Exception;
 	List<TripPlan> getTripPlans(String routeId) throws Exception;
 
-    List<Route> getRoutes2() throws Exception;
+    List<Route> getRoutes() throws Exception;
 
     void addRoute(Route route) throws Exception;
     void editRoute(Route route) throws Exception;

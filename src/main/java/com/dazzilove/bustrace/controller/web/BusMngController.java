@@ -1,6 +1,5 @@
 package com.dazzilove.bustrace.controller.web;
 
-import com.dazzilove.bustrace.domain.Bus;
 import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.service.BusRouteService;
@@ -35,7 +34,7 @@ public class BusMngController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/busMngList");
 
-        List<Route> routeList = routeService.getRoutes2();
+        List<Route> routeList = routeService.getRoutes();
         mav.addObject("routeList", routeList);
 
         return mav;

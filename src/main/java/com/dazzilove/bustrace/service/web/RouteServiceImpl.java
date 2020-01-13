@@ -75,7 +75,7 @@ public class RouteServiceImpl implements RouteService {
 	}
 
     @Override
-    public List<Route> getRoutes2() throws Exception {
+    public List<Route> getRoutes() throws Exception {
 	    List<Route> routeList = routeRepository.findAll().stream()
                 .filter(tempRoute -> "N".equals(tempRoute.getDeleteYn())).collect(Collectors.toList());
         routeList.stream()

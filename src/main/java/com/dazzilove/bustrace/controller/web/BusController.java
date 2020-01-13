@@ -7,7 +7,6 @@ import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
 import com.dazzilove.bustrace.service.web.RouteService;
-import com.dazzilove.bustrace.service.wsdl.BusRouteInfo;
 import com.dazzilove.bustrace.service.ws.BusRouteStation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class BusController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busList");
 
-        List<Route> routeList = routeService.getRoutes2();
+        List<Route> routeList = routeService.getRoutes();
         mav.addObject("routeList", routeList);
 
         return mav;

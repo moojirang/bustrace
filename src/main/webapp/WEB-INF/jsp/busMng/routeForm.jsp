@@ -43,6 +43,10 @@
     <script>
         var _id = "<%= _id %>";
 
+        $(function () {
+            setInputCheckedByValue();
+        });
+
         function addRoute() {
             var routeId = $("#routeId").val();
             var routeName = $("#routeName").val();

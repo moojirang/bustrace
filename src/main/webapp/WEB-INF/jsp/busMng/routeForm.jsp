@@ -140,7 +140,92 @@
         }
 
         function editRoute() {
-            alert("editRoute");
+            var routeId = $("#routeId").val();
+            var routeName = $("#routeName").val();
+            var companyName = $("#companyName").val();
+            var peekAlloc = $("#peekAlloc").val();
+            var nPeekAlloc = $("#nPeekAlloc").val();
+            var startStationId = $("#startStationId").val();
+            var startStationName = $("#startStationName").val();
+            var upFirstTime = $("#upFirstTime").val();
+            var upLastTime = $("#upLastTime").val();
+            var endStationId = $("#endStationId").val();
+            var endStationName = $("#endStationName").val();
+            var downFirstTime = $("#downFirstTime").val();
+            var downLastTime = $("#downLastTime").val();
+
+            if (routeId == "") {
+                alert("라우트ID를 입력해주세요.");
+                return;
+            }
+            if (routeName == "") {
+                alert("노선번호를 입력해주세요.");
+                return;
+            }
+            if (companyName == "") {
+                alert("운수업체를 입력해주세요.");
+                return;
+            }
+            if (peekAlloc == "") {
+                alert("평일최소 배차시간을 입력해주세요.");
+                return;
+            }
+            if (nPeekAlloc == "") {
+                alert("평일최대 배차시간을 입력해주세요.");
+                return;
+            }
+            if (startStationId == "" || startStationName == "") {
+                alert("기점정류소를 입력해주세요.");
+                return;
+            }
+            if (upFirstTime == "") {
+                alert("평일기점 첫차시간을 입력해주세요.");
+                return;
+            }
+            if (upLastTime == "") {
+                alert("평일기점 막차시간을 입력해주세요.");
+                return;
+            }
+            if (endStationId == "" || endStationName == "") {
+                alert("종점정류소를 입력해주세요.");
+                return;
+            }
+            if (downFirstTime == "") {
+                alert("평일종점 첫차시간을 입력해주세요.");
+                return;
+            }
+            if (downLastTime == "") {
+                alert("평일종점 막차시간을 입력해주세요.");
+                return;
+            }
+
+            $.ajax({
+                method: "POST",
+                url: "/busMng/editRoute",
+                data: {
+                    _id : _id
+                    , routeId : routeId
+                    , routeName: routeName
+                    , companyName: companyName
+                    , peekAlloc: peekAlloc
+                    , nPeekAlloc: nPeekAlloc
+                    , startStationId: startStationId
+                    , startStationName: startStationName
+                    , upFirstTime: upFirstTime
+                    , upLastTime: upLastTime
+                    , endStationId: endStationId
+                    , endStationName: endStationName
+                    , downFirstTime: downFirstTime
+                    , downLastTime: downLastTime
+                }
+            })
+            .done(function(msg) {
+                alert(msg);
+                location.href = "/busMng/busMngInfo?_id=" + _id;
+            })
+            .fail(function() {
+                alert("error");
+            });
         }
 
         function delRoute() {

@@ -62,6 +62,8 @@ public class Route {
     }
 
     public boolean isEditValidate() {
+        if("".equals(this.id.toString()))
+            return false;
         if("".equals(this.routeId))
             return false;
         if("".equals(this.routeName))

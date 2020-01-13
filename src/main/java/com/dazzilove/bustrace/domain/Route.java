@@ -2,13 +2,18 @@ package com.dazzilove.bustrace.domain;
 
 import lombok.Data;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Data
 @ToString
 public class Route {
 
+    @Id
+    private UUID id;
 	private String companyId;
 	private String companyName;
 	private String companyTel;
@@ -20,7 +25,7 @@ public class Route {
 	private String endStationName;
 	private String peekAlloc;
 	private String regionName;
-	private String routeId;
+    private String routeId;
 	private String routeName;
 	private String routeTypeCd;
 	private String routeTypeName;
@@ -35,4 +40,38 @@ public class Route {
 	private List<TripPlan> tripPlanList; // 운행 계획 정보
 	private List<TripPlan> tripPlanListTheDayBefore; // 전일 운행 정보
 
+    private String deleteYn;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime deletedAt;
+
+    private int totalTripPlanCount;
+    private int yesterdayTripRecordCount;
+    private int todayTripRecordCount;
+
+    public String getDeleteYn() {
+        return (this.deleteYn == null) ? "N" : this.deleteYn;
+    }
+
+    public boolean isAddValidate() {
+        if("".equals(this.routeId))
+            return false;
+        if("".equals(this.routeName))
+            return false;
+        return true;
+    }
+
+    public boolean isEditValidate() {
+        if("".equals(this.routeId))
+            return false;
+        if("".equals(this.routeName))
+            return false;
+        return true;
+    }
+
+    public boolean isDeleteValidate() {
+        if("".equals(this.routeId))
+            return false;
+        return true;
+    }
 }

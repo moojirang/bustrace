@@ -229,7 +229,18 @@
         }
 
         function delRoute() {
-            alert("delRoute");
+            $.ajax({
+                method: "POST",
+                url: "/busMng/delRoute",
+                data: {_id : _id}
+            })
+            .done(function(msg) {
+                alert(msg);
+                location.href = "/busMng/busMngList";
+            })
+            .fail(function() {
+                alert("error");
+            });
         }
 
         function goBack() {

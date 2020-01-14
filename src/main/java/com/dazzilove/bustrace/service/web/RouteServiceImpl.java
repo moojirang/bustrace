@@ -119,6 +119,7 @@ public class RouteServiceImpl implements RouteService {
         updateTarget.setUpLastTime(route.getUpLastTime());
         updateTarget.setNPeekAlloc(route.getNPeekAlloc());
         updateTarget.setUpdatedAt(LocalDateTime.now());
+        updateTarget.setDataGatherScheduler(route.getDataGatherScheduler());
         routeRepository.save(updateTarget);
     }
 

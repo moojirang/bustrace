@@ -122,6 +122,20 @@
                 <div>평일종점 첫차시간 = <%= route.getDownFirstTime() %></div>
                 <div>평일종점 막차시간 = <%= route.getDownLastTime() %></div>
             </li>
+            <li class="list-group-item">데이터 수집 배치
+                <%
+                    DataGatherScheduler dataGatherScheduler = route.getDataGatherScheduler();
+                    String scheduls = ""; // TODO 추후 코드로 변경
+                    switch (dataGatherScheduler.getSchedule()) {
+                        case "1": scheduls = "1분"; break;
+                        case "2": scheduls = "5분"; break;
+                        case "3": scheduls = "15분"; break;
+                        case "4": scheduls = "1시간"; break;
+                    }
+                %>
+                <div>배치실행여부 = <%= (dataGatherScheduler.isEnabled()) ? "Y" : "N" %></div>
+                <div>배치실행주기 = <%= scheduls %></div>
+            </li>
         </ul>
         <div class="contentAlignRight bottomMargin topMargin">
             <button type="button" class="btn btn-sm btn-danger" onclick="delRoute()">삭제</button>

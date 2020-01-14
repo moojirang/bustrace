@@ -28,6 +28,14 @@
     String downFirstTime = StringUtils.defaultString(route.getDownFirstTime());
     String downLastTime = StringUtils.defaultString(route.getDownLastTime());
 
+    String dataGatherBatchUseYnValue = "N";
+    String dataGatherBatchScheduleValue = "";
+    DataGatherScheduler dataGatherScheduler = route.getDataGatherScheduler();
+    if (dataGatherScheduler != null) {
+        dataGatherBatchUseYnValue = (dataGatherScheduler.isEnabled()) ? "Y" : "N";
+        dataGatherBatchScheduleValue = dataGatherScheduler.getSchedule();
+    }
+
 %>
 <% if("Y".equals(route.getDeleteYn())) { %>
 <script>
@@ -61,6 +69,8 @@
             var endStationName = $("#endStationName").val();
             var downFirstTime = $("#downFirstTime").val();
             var downLastTime = $("#downLastTime").val();
+            var dataGatherBatchEnabled = $("input:checkbox[id='dataGatherBatchEnabled']").is(":checked");
+            var dataGatherBatchSchedule = $("#dataGatherBatchSchedule").val();
 
             if (routeId == "") {
                 alert("라우트ID를 입력해주세요.");
@@ -106,6 +116,12 @@
                 alert("평일종점 막차시간을 입력해주세요.");
                 return;
             }
+            if (dataGatherBatchEnabled) {
+                if (dataGatherBatchSchedule == "") {
+                    alert("배치실행주기를 선택하세요.");
+                    return;
+                }
+            }
 
             $.ajax({
                 method: "POST",
@@ -124,6 +140,8 @@
                     , endStationName: endStationName
                     , downFirstTime: downFirstTime
                     , downLastTime: downLastTime
+                    , dataGatherBatchEnabled: (dataGatherBatchEnabled) ? "Y" : "N"
+                    , dataGatherBatchSchedule: dataGatherBatchSchedule
                 }
             })
             .done(function(msg) {
@@ -153,6 +171,8 @@
             var endStationName = $("#endStationName").val();
             var downFirstTime = $("#downFirstTime").val();
             var downLastTime = $("#downLastTime").val();
+            var dataGatherBatchEnabled = $("input:checkbox[id='dataGatherBatchEnabled']").is(":checked");
+            var dataGatherBatchSchedule = $("#dataGatherBatchSchedule").val();
 
             if (routeId == "") {
                 alert("라우트ID를 입력해주세요.");
@@ -198,6 +218,12 @@
                 alert("평일종점 막차시간을 입력해주세요.");
                 return;
             }
+            if (dataGatherBatchEnabled) {
+                if (dataGatherBatchSchedule == "") {
+                    alert("배치실행주기를 선택하세요.");
+                    return;
+                }
+            }
 
             $.ajax({
                 method: "POST",
@@ -217,6 +243,8 @@
                     , endStationName: endStationName
                     , downFirstTime: downFirstTime
                     , downLastTime: downLastTime
+                    , dataGatherBatchEnabled: (dataGatherBatchEnabled) ? "Y" : "N"
+                    , dataGatherBatchSchedule: dataGatherBatchSchedule
                 }
             })
             .done(function(msg) {
@@ -312,6 +340,24 @@
         <div class="form-group">
             <label>평일종점 막차시간</label>
             <input type="text" class="form-control" id="downLastTime" placeholder="00:00" data-input-value="<%= downLastTime %>">
+        </div>
+        <div class="form-group">
+            <label>데이터 수집 배치</label>
+            <div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input type="checkbox" id="dataGatherBatchEnabled" data-checked-YN="<%= dataGatherBatchUseYnValue %>" aria-label="데이터 수집 배치를 실행하려면 체크하세요.">
+                        </div>
+                    </div>
+                    <select class="custom-select" id="dataGatherBatchSchedule" data-input-value="<%= dataGatherBatchScheduleValue %>">
+                        <option value="">선택</option>
+                        <option value="1">1분</option>
+                        <option value="2">5분</option>
+                        <option value="3">15분</option>
+                        <option value="4">1시간</option>
+                    </select>
+                </div>
         </div>
 
         <div class="contentAlignRight bottomMargin topMargin">

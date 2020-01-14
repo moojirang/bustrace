@@ -1,5 +1,6 @@
 package com.dazzilove.bustrace.controller.web;
 
+import com.dazzilove.bustrace.domain.DataGatherScheduler;
 import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.service.BusRouteService;
@@ -249,6 +250,8 @@ public class BusMngController {
         String endStationName = StringUtils.defaultString(request.getParameter("endStationName"), "");
         String downFirstTime = StringUtils.defaultString(request.getParameter("downFirstTime"), "");
         String downLastTime = StringUtils.defaultString(request.getParameter("downLastTime"), "");
+        String dataGatherBatchEnabled = StringUtils.defaultString(request.getParameter("dataGatherBatchEnabled"), "N");
+        String dataGatherBatchSchedule = StringUtils.defaultString(request.getParameter("dataGatherBatchSchedule"), "");
 
         Route route = new Route();
         if(!"".equals(_id)) {
@@ -267,6 +270,19 @@ public class BusMngController {
         route.setEndStationName(endStationName);
         route.setDownFirstTime(downFirstTime);
         route.setDownLastTime(downLastTime);
+
+        DataGatherScheduler dataGatherScheduler = route.getDataGatherScheduler();
+        if (dataGatherScheduler == null) {
+            dataGatherScheduler = new DataGatherScheduler();
+        }
+        dataGatherScheduler.setEnabled(("Y".equals(dataGatherBatchEnabled)) ? true : false);
+        if(dataGatherScheduler.isEnabled()) {
+            dataGatherScheduler.setSchedule(dataGatherBatchSchedule);
+        } else {
+            dataGatherScheduler.setSchedule("");
+        }
+        route.setDataGatherScheduler(dataGatherScheduler);
+
         return route;
     }
 

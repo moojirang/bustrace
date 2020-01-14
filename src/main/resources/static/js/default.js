@@ -37,10 +37,22 @@ function setInputCheckedByValue() {
                 obj.attr("checked", "checked");
             }
         }
+        if (type == "checkbox") {
+            var val = obj.val();
+            var dataInputValue = obj.attr("data-checked-YN");
+            if(dataInputValue == "Y") {
+                obj.attr("checked", "checked");
+            }
+        }
         if (type == "date" || type == "text") {
             var dataInputValue = obj.attr("data-input-value");
             obj.val(dataInputValue);
         }
+    });
+
+    $("select").each(function() {
+        var dataInputValue = $(this).attr("data-input-value");
+        $(this).val(dataInputValue);
     });
 }
 

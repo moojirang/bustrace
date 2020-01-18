@@ -11,6 +11,7 @@ public class LocationParam {
 
 	private String routeId;
 	private String plateNo;
+	private String stationId;
 	private LocalDateTime startCreatedAt;
 	private LocalDateTime endCreatedAt;
 

@@ -1,5 +1,6 @@
 package com.dazzilove.bustrace.domain;
 
+import com.dazzilove.bustrace.utils.CodeUtil;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -31,4 +32,40 @@ public class Location {
     private String remainSeatCnt;
     /** 생성시간 */
     private LocalDateTime createdAt;
+
+    public String getPlateTypeName() {
+        return CodeUtil.getPlateType(this.plateType).getName();
+    }
+
+    private String formatTwoLength(String string) {
+        String returnValue = string;
+        returnValue = (returnValue == null) ? "" : returnValue;
+        returnValue = returnValue.trim();
+        returnValue = (returnValue.length() == 1) ? "0" + returnValue : returnValue;
+        return returnValue;
+    }
+
+    public String getFormatedCreatedAt() {
+        return String.format("%s/%s/%s %s:%s"
+                , formatTwoLength(String.valueOf(createdAt.getYear()))
+                , formatTwoLength(String.valueOf(createdAt.getMonthValue()))
+                , formatTwoLength(String.valueOf(createdAt.getDayOfMonth()))
+                , formatTwoLength(String.valueOf(createdAt.getHour()))
+                , formatTwoLength(String.valueOf(createdAt.getMinute())));
+    }
+
+    public String getFormatedCreatedAtByHalftime() {
+        int minute = createdAt.getMinute();
+        minute = (minute <= 30) ? 0 : 31;
+        return String.format("%s/%s/%s %s:%s"
+                , formatTwoLength(String.valueOf(createdAt.getYear()))
+                , formatTwoLength(String.valueOf(createdAt.getMonthValue()))
+                , formatTwoLength(String.valueOf(createdAt.getDayOfMonth()))
+                , formatTwoLength(String.valueOf(createdAt.getHour()))
+                , formatTwoLength(String.valueOf(minute)));
+    }
+
+    public int createdAtDiff(final Location location) {
+        return this.createdAt.compareTo(location.getCreatedAt());
+    }
 }

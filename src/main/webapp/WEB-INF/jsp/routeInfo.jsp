@@ -1,8 +1,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="com.dazzilove.bustrace.service.ws.BusRouteStation" %>
 <%@ page import="com.dazzilove.bustrace.domain.*" %>
-<%@ page import="com.dazzilove.bustrace.service.ws.BusStation" %>
 <%@ page import="com.dazzilove.bustrace.utils.CodeUtil" %>
 <%@ page import="org.apache.commons.lang.StringUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -35,10 +33,16 @@
         }
     }
 
-    List<BusRouteStation> busRouteStationList = (List<BusRouteStation>) request.getAttribute("busRouteStationList");
-    if (busRouteStationList == null) {
-        busRouteStationList = new ArrayList<>();
+/*
+    List<BusRouteStatioan> busRouteStatioanList = (List<BusRouteStatioan>) request.getAttribute("busRouteStatioanList");
+    if (busRouteStatioanList == null) {
+        busRouteStatioanList = new ArrayList<>();
     }
+*/
+    
+    List<Station> stations = (List<Station>) request.getAttribute("stationList");
+    if (stations == null)
+        stations = new ArrayList<>();
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String nowDay = sdf.format(new Date());
@@ -75,7 +79,7 @@
                 $(this).removeClass("active");
             });
             $(obj).addClass("active");
-            busLocationItemFilter();
+            locationItemFilter();
         }
 
         function resetWayGroupBtn(obj) {
@@ -83,7 +87,7 @@
                 $(this).removeClass("active");
             });
             $(obj).addClass("active");
-            busLocationItemFilter();
+            locationItemFilter();
         }
 
         function showAllStationDetailInfo(obj) {
@@ -270,8 +274,8 @@
         }
     </script>
     <script>
-        function busLocationItemFilter() {
-            $(".busLocationLiItem").each(function() {
+        function locationItemFilter() {
+            $(".locationLiItem").each(function() {
                 $(this).css("display", "none");
 
                 var isDisplay = false;
@@ -471,50 +475,50 @@
         <ul class="list-group list-group-flush">
             <%
                 String wayInfo = "";
-                BusStation busStation = new BusStation();
+                //BusStation busStation = new BusStation();
             %>
-            <% for(BusRouteStation busRouteStation : busRouteStationList) { %>
+            <% for(Station station : stations) { %>
                 <%
-                    String stationId = busRouteStation.getStationId();
-                    if ("descend-way".equals(wayInfo) || "Y".equals(busRouteStation.getTurnYn())) {
+                    String stationId = station.getStationId();
+                    if ("descend-way".equals(wayInfo) || "Y".equals(station.getTurnYn())) {
                         wayInfo = "descend-way";
                     } else {
                         wayInfo = "ascend-way";
                     }
                     boolean isStarStation = false;
-                    String starStationId = busStation.getStartStationIdMap().get(stationId);
+                    String starStationId = ""; //busStation.getStartStationIdMap().get(stationId);
                     if (starStationId != null) {
                         isStarStation = true;
                     }
                     String starYn = (isStarStation) ? "Y" : "N";
 
-                    int remainSeatCntZeroCnt = busRouteStation.getRemainSeatCntZeroCnt();
+                    int remainSeatCntZeroCnt = station.getRemainSeatCntZeroCnt();
                     String remainSeatCntZeroClass = (remainSeatCntZeroCnt > 0) ? "remainSeatCntZero" : "";
 
                 %>
-            <li class="list-group-item busLocationLiItem <%= remainSeatCntZeroClass %>"
+            <li class="list-group-item locationLiItem <%= remainSeatCntZeroClass %>"
                 data-way-info="<%= wayInfo %>"
                 data-star-yn="<%= starYn %>" >
                 <img src="/img/star.png" class="icon-size-small <%= (isStarStation) ? "icon-check" : "icon-no-check" %>" />
                 <span>
                     <span onclick="toggleStationDetailInfo(this)">
-                        <%= busRouteStation.getStationName() %>
+                        <%= station.getStationName() %>
                         <span class="font-smaller font-gray">(<span class="stationId"><%= stationId %></span>)</span>
                     </span>
                     <%--<span class="badge badge-secondary badge-stationDetailInfo timeline" onclick="toggleStationDetailInfoTab(this)">Timeline</span>--%>
                     <%--<span class="badge badge-light badge-stationDetailInfo bus" onclick="toggleStationDetailInfoTab(this)">Bus</span>--%>
 
-                    <% List<BusLocation> busLocationList = busRouteStation.getBusLocationList(); %>
-                    <% busLocationList = (busLocationList.isEmpty()) ? new ArrayList<>() : busLocationList; %>
+                    <% List<Location> locationList = station.getLocations(); %>
+                    <% locationList = (locationList.isEmpty()) ? new ArrayList<>() : locationList; %>
                     <div class="stationDetailInfo timeline">
                         <ul class="list-group list-group-flush font-smaller">
-                            <% for(BusLocation busLocation: busLocationList) { %>
+                            <% for(Location location: locationList) { %>
                             <%
-                                String formatedCreatedAt = busLocation.getFormatedCreatedAt();
-                                String plateNo = busLocation.getPlateNo();
-                                String plateType = busLocation.getPlateType();
-                                String plateTypeName = busLocation.getPlateTypeName();
-                                String remainSeatCnt = StringUtils.defaultString(busLocation.getRemainSeatCnt(), "0");
+                                String formatedCreatedAt = location.getFormatedCreatedAt();
+                                String plateNo = location.getPlateNo();
+                                String plateType = location.getPlateType();
+                                String plateTypeName = location.getPlateTypeName();
+                                String remainSeatCnt = StringUtils.defaultString(location.getRemainSeatCnt(), "0");
 
                                 int platNoLen = plateNo.length();
                                 String shortPlateNo = plateNo.substring(platNoLen -4, platNoLen);

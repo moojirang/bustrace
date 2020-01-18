@@ -1,7 +1,7 @@
 package com.dazzilove.bustrace.task;
 
 import com.dazzilove.bustrace.service.BusLocationService;
-import com.dazzilove.bustrace.service.web.LocationService;
+import com.dazzilove.bustrace.service.batch.DeduplicationLocationService;
 import com.dazzilove.bustrace.service.web.TripPlanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ public class BusLocationTask {
     private BusLocationService busLocationService;
 
     @Autowired
-    private LocationService locationService;
+    private DeduplicationLocationService deduplicationLocationService;
 
     @Autowired
     private TripPlanService tripPlanService;
@@ -49,7 +49,7 @@ public class BusLocationTask {
         tripRecordUpdate();
     }
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "10 10 1 * * ?")
     public void scheduleLocationSaveTask() {
         List<String> routes = new ArrayList<>();
         routes.add("216000047"); // 5602
@@ -64,7 +64,14 @@ public class BusLocationTask {
 
         for(String routeId: routes) {
             try {
-                locationService.deduplicationLocation(routeId, LocalDateTime.now().minusDays(1));
+//                LocalDateTime baseDateTime = LocalDateTime.of(2020, 1, 1, 0, 0, 0);
+//                LocalDateTime startCreatedAt = LocalDateTime.of(baseDateTime.getYear(), baseDateTime.getMonth(), baseDateTime.getDayOfMonth(), 0, 0, 0);
+//                LocalDateTime endCreatedAt = LocalDateTime.of(baseDateTime.getYear(), baseDateTime.getMonth(), baseDateTime.getDayOfMonth(), 23, 59, 59);
+
+                LocalDateTime startCreatedAt = LocalDateTime.of(2019, 11, 1, 0, 0, 0);
+                LocalDateTime endCreatedAt = LocalDateTime.of(2020, 1, 17, 23, 59, 59);
+
+                deduplicationLocationService.deduplicationLocation(routeId, startCreatedAt, endCreatedAt);
             } catch (Exception e) {
                 e.printStackTrace();
             }

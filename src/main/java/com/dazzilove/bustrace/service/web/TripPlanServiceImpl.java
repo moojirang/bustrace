@@ -1,7 +1,7 @@
 package com.dazzilove.bustrace.service.web;
 
 import com.dazzilove.bustrace.domain.BusLocation;
-import com.dazzilove.bustrace.domain.BusLocationParam;
+import com.dazzilove.bustrace.domain.LocationParam;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.domain.TripPlanHistory;
 import com.dazzilove.bustrace.repository.TripPlanHistoryRepository;
@@ -113,12 +113,12 @@ public class TripPlanServiceImpl implements TripPlanService {
 		LocalDateTime startDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 0, 0, 0);
 		LocalDateTime endDateTime = LocalDateTime.of(basicDateTime.getYear(), basicDateTime.getMonth(), basicDateTime.getDayOfMonth(), 23, 59, 59);
 
-		BusLocationParam busLocationParam = new BusLocationParam();
-		busLocationParam.setRouteId(tripPlan.getRouteId());
-		busLocationParam.setPlateNo(tripPlan.getPlateNo());
-		busLocationParam.setStartCreatedAt(startDateTime);
-		busLocationParam.setEndCreatedAt(endDateTime);
-		List<BusLocation> locations = busLocationService.getBusLoactionsByPlateNo(busLocationParam);
+		LocationParam locationParam = new LocationParam();
+		locationParam.setRouteId(tripPlan.getRouteId());
+		locationParam.setPlateNo(tripPlan.getPlateNo());
+		locationParam.setStartCreatedAt(startDateTime);
+		locationParam.setEndCreatedAt(endDateTime);
+		List<BusLocation> locations = busLocationService.getBusLoactionsByPlateNo(locationParam);
 
 		if (!locations.isEmpty() && locations.size() > 0) {
 			return "Y";

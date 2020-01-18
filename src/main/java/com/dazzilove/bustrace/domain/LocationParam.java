@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @ToString
-public class BusLocationParam {
+public class LocationParam {
 
 	private String routeId;
 	private String plateNo;

@@ -2,7 +2,7 @@ package com.dazzilove.bustrace.controller.web;
 
 import com.dazzilove.bustrace.domain.Bus;
 import com.dazzilove.bustrace.domain.BusLocation;
-import com.dazzilove.bustrace.domain.BusLocationParam;
+import com.dazzilove.bustrace.domain.LocationParam;
 import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
@@ -81,10 +81,10 @@ public class BusController {
 
         String routeId = route.getRouteId();
 
-        BusLocationParam busLocationParam = new BusLocationParam();
-        busLocationParam.setRouteId(routeId);
-        busLocationParam.setStartCreatedAt(startCreatedAtLdt);
-        busLocationParam.setEndCreatedAt(endCreatedAtLdt);
+        LocationParam locationParam = new LocationParam();
+        locationParam.setRouteId(routeId);
+        locationParam.setStartCreatedAt(startCreatedAtLdt);
+        locationParam.setEndCreatedAt(endCreatedAtLdt);
 
         List<com.dazzilove.bustrace.service.wsdl.BusRouteStation> busRouteStationListTemp = busRouteService.getBusRouteStationList(routeId);
         List<BusRouteStation> busRouteStationList = new ArrayList<>();
@@ -105,7 +105,7 @@ public class BusController {
                         busRouteStationList.add(temp);
                     });
             Map<String, Bus> plateNoMap = new HashMap<>();
-            List<BusLocation> busLocationList = busLocationService.getBusLoactions(busLocationParam);
+            List<BusLocation> busLocationList = busLocationService.getBusLoactions(locationParam);
             if (!busLocationList.isEmpty()) {
                 busLocationList.stream()
                         .forEach(busLocation -> {
@@ -149,6 +149,10 @@ public class BusController {
 
             }
             mav.addObject("busRouteStationList", busRouteStationList);
+
+
+
+
 
             List<Bus> plateNoList = new ArrayList<>();
             plateNoMap.forEach((key, value) -> {

@@ -1,12 +1,11 @@
 package com.dazzilove.bustrace.service;
 
 import com.dazzilove.bustrace.domain.BusLocation;
-import com.dazzilove.bustrace.domain.BusLocationParam;
+import com.dazzilove.bustrace.domain.LocationParam;
 import com.dazzilove.bustrace.domain.mapper.BusLocationMapper;
 import com.dazzilove.bustrace.repository.BusLocationRepository;
 import com.dazzilove.bustrace.service.ws.BusLocationList;
 import com.dazzilove.bustrace.service.ws.BusLocationListResponse;
-import com.mongodb.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -71,19 +68,19 @@ public class BusLocationServiceImpl implements BusLocationService {
     }
 
     @Override
-    public List<BusLocation> getBusLoactions(BusLocationParam busLocationParam) throws Exception {
+    public List<BusLocation> getBusLoactions(LocationParam locationParam) throws Exception {
         return busLocationRepository.findByRouteIdAndCreatedAtRange(
-                  busLocationParam.getRouteId()
-                , busLocationParam.getStartCreatedAt()
-                , busLocationParam.getEndCreatedAt());
+                  locationParam.getRouteId()
+                , locationParam.getStartCreatedAt()
+                , locationParam.getEndCreatedAt());
     }
 
     @Override
-    public List<BusLocation> getBusLoactionsByPlateNo(BusLocationParam busLocationParam) throws Exception {
+    public List<BusLocation> getBusLoactionsByPlateNo(LocationParam locationParam) throws Exception {
         return busLocationRepository.findByRouteIdAndPlateNoAndCreatedAtRange(
-                busLocationParam.getRouteId()
-                , busLocationParam.getPlateNo()
-                , busLocationParam.getStartCreatedAt()
-                , busLocationParam.getEndCreatedAt());
+                locationParam.getRouteId()
+                , locationParam.getPlateNo()
+                , locationParam.getStartCreatedAt()
+                , locationParam.getEndCreatedAt());
     }
 }

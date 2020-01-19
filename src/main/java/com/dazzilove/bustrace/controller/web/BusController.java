@@ -123,14 +123,39 @@ public class BusController {
                     tempLocationParam.setStartCreatedAt(locationParam.getStartCreatedAt());
                     tempLocationParam.setEndCreatedAt(locationParam.getEndCreatedAt());
                     try {
-                        List<Location> locations = locationService.getLocations(tempLocationParam);
-                        station.getLocations().addAll(locations);
+                        station.getLocations().addAll(getPreviousPeriodLocations(tempLocationParam));
+                        station.getLocations().addAll(getTodayLocations(tempLocationParam));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
 
         return stations;
+    }
+
+    private List<Location> getTodayLocations(LocationParam locationParam) throws Exception {
+        List<Location> locations = new ArrayList<>();
+
+        busLocationService.getBusLoactions(locationParam).stream()
+            .forEach(busLocation -> {
+                Location location = new Location();
+                location.setRouteId(busLocation.getRouteId());
+                location.setStationId(busLocation.getStationId());
+                location.setStationSeq(busLocation.getStationSeq());
+                location.setEndBus(busLocation.getEndBus());
+                location.setLowPlate(busLocation.getLowPlate());
+                location.setPlateNo(busLocation.getPlateNo());
+                location.setPlateType(busLocation.getPlateType());
+                location.setRemainSeatCnt(busLocation.getRemainSeatCnt());
+                location.setCreatedAt(busLocation.getCreatedAt());
+                locations.add(location);
+            });
+
+        return locations;
+    }
+
+    private List<Location> getPreviousPeriodLocations(LocationParam locationParam) throws Exception {
+        return locationService.getLocations(locationParam);
     }
 
     private List<Bus> getPlateNoList(List<Station> stationList) {

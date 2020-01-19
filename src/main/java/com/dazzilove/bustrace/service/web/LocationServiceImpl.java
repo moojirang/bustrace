@@ -33,9 +33,9 @@ public class LocationServiceImpl implements LocationService {
 		if (routeid.length() > 0)
 			list.add(Aggregation.match(Criteria.where("routeId").is(routeid)));
 		if (plateNo.length() > 0)
-			list.add(Aggregation.match(Criteria.where("routeId").is(plateNo)));
+			list.add(Aggregation.match(Criteria.where("plateNo").is(plateNo)));
 		if (stationId.length() > 0)
-			list.add(Aggregation.match(Criteria.where("routeId").is(stationId)));
+			list.add(Aggregation.match(Criteria.where("stationId").is(stationId)));
 		if (startCreatedAt != null)
 			list.add(Aggregation.match(Criteria.where("createdAt").gte(startCreatedAt)));
 		if (endCreatedAt != null)

@@ -40,7 +40,7 @@ public class LocationServiceImpl implements LocationService {
 			list.add(Aggregation.match(Criteria.where("createdAt").gte(startCreatedAt)));
 		if (endCreatedAt != null)
 			list.add(Aggregation.match(Criteria.where("createdAt").lte(endCreatedAt)));
-		list.add(Aggregation.sort(Sort.Direction.ASC, "routeId", "plateNo", "stationId", "createdAt"));
+		list.add(Aggregation.sort(Sort.Direction.ASC, "routeId", "createdAt", "plateNo", "stationId"));
 		TypedAggregation<BusLocation> agg = Aggregation.newAggregation(BusLocation.class, list);
 
 		List<Location> locations = mongoOperations.aggregate(agg, Location.class, Location.class).getMappedResults();

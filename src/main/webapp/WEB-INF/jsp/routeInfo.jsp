@@ -466,7 +466,7 @@
                 <select class="custom-select" onchange="changePlateNoSelect(this);">
                     <option>All</option>
                     <% for(Bus bus : plateNoList) { %>
-                    <option><%= bus.getPlateNo() %> (<%= bus.getPlateTypeName() %>)</option>
+                    <option value="<%= bus.getPlateNo() %>"><%= bus.getPlateNo() %> (<%= bus.getPlateTypeName() %>)</option>
                     <% } %>
                 </select>
             </div>

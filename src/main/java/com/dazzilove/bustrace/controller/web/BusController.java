@@ -85,11 +85,11 @@ public class BusController {
         locationParam.setStartCreatedAt(startCreatedAtLdt);
         locationParam.setEndCreatedAt(endCreatedAtLdt);
 
-        List<Station> staionList = getStationListIncludeLocations(locationParam);
-        mav.addObject("staionList", staionList);
+        List<Station> stationList = getStationListIncludeLocations(locationParam);
+        mav.addObject("stationList", stationList);
 
         List<Bus> plateNoList = new ArrayList<>();
-        mav.addObject("plateNoList", getPlateNoList(staionList));
+        mav.addObject("plateNoList", getPlateNoList(stationList));
 
         return mav;
     }
@@ -133,11 +133,11 @@ public class BusController {
         return stations;
     }
 
-    private List<Bus> getPlateNoList(List<Station> staionList) {
+    private List<Bus> getPlateNoList(List<Station> stationList) {
         List<Bus> plateNoList = new ArrayList<>();
 
         Map<String, Bus> plateNoMap = new HashMap<>();
-        staionList.stream()
+        stationList.stream()
                 .forEach(station -> {
                     List<Location> locations = station.getLocations();
                     locations.stream()

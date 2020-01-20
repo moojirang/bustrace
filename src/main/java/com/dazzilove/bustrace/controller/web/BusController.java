@@ -49,31 +49,21 @@ public class BusController {
         mav.setViewName("routeInfo");
 
         String _id = request.getParameter("_id");
-        String startCreatedAt = StringUtils.defaultString(request.getParameter("startCreatedAt"), "").trim();
-        String endCreatedAt = StringUtils.defaultString(request.getParameter("endCreatedAt"), "").trim();
-
-        startCreatedAt = startCreatedAt.replace("-", "");
-        endCreatedAt = endCreatedAt.replace("-", "");
+        String createdAt = StringUtils.defaultString(request.getParameter("createdAt"), "").trim().replace("-", "");
 
         LocalDateTime startCreatedAtLdt = LocalDateTime.now();
         LocalDateTime endCreatedAtLdt = LocalDateTime.now();
-        if ("".equals(startCreatedAt) || "".equals(endCreatedAt)) {
+        if ("".equals(createdAt)) {
             LocalDate localDate = LocalDate.now();
             startCreatedAtLdt = LocalDateTime.of(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), 0, 0, 0);
             endCreatedAtLdt = LocalDateTime.of(localDate.getYear(), localDate.getMonthValue(), localDate.getDayOfMonth(), 23, 59, 59);
         } else {
-            String year = startCreatedAt.substring(0, 4);
-            String month = startCreatedAt.substring(4, 6);
-            String day = startCreatedAt.substring(6, 8);
+            String year = createdAt.substring(0, 4);
+            String month = createdAt.substring(4, 6);
+            String day = createdAt.substring(6, 8);
             month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
             day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
             startCreatedAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 0, 0, 0);
-
-            year = endCreatedAt.substring(0, 4);
-            month = endCreatedAt.substring(4, 6);
-            day = endCreatedAt.substring(6, 8);
-            month = (month.indexOf("0") == 0) ? month.substring(1,2) : month;
-            day = (day.indexOf("0") == 0) ? day.substring(1,2) : day;
             endCreatedAtLdt = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day), 23, 59, 59);
         }
 

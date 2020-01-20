@@ -6,14 +6,22 @@ import com.dazzilove.bustrace.domain.mapper.BusLocationMapper;
 import com.dazzilove.bustrace.repository.BusLocationRepository;
 import com.dazzilove.bustrace.service.ws.BusLocationList;
 import com.dazzilove.bustrace.service.ws.BusLocationListResponse;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +42,9 @@ public class BusLocationServiceImpl implements BusLocationService {
 
     @Autowired
     private BusLocationRepository busLocationRepository;
+
+    @Autowired
+    private MongoOperations mongoOperations;
 
     @Override
     public List<BusLocationList> getBusLocation(String routeId) throws Exception {
@@ -69,10 +80,31 @@ public class BusLocationServiceImpl implements BusLocationService {
 
     @Override
     public List<BusLocation> getBusLoactions(LocationParam locationParam) throws Exception {
-        return busLocationRepository.findByRouteIdAndCreatedAtRange(
-                  locationParam.getRouteId()
-                , locationParam.getStartCreatedAt()
-                , locationParam.getEndCreatedAt());
+        String routeid = StringUtils.defaultString(locationParam.getRouteId(), "").trim();
+        String plateNo = StringUtils.defaultString(locationParam.getPlateNo(), "").trim();
+        String stationId = StringUtils.defaultString(locationParam.getStationId(), "").trim();
+        LocalDateTime startCreatedAt = locationParam.getStartCreatedAt();
+        LocalDateTime endCreatedAt = locationParam.getEndCreatedAt();
+
+        List<AggregationOperation> list = new ArrayList<AggregationOperation>();
+        if (routeid.length() > 0)
+            list.add(Aggregation.match(Criteria.where("routeId").is(routeid)));
+        if (plateNo.length() > 0)
+            list.add(Aggregation.match(Criteria.where("plateNo").is(plateNo)));
+        if (stationId.length() > 0)
+            list.add(Aggregation.match(Criteria.where("stationId").is(stationId)));
+        if (startCreatedAt != null)
+            list.add(Aggregation.match(Criteria.where("createdAt").gte(startCreatedAt)));
+        if (endCreatedAt != null)
+            list.add(Aggregation.match(Criteria.where("createdAt").lte(endCreatedAt)));
+        list.add(Aggregation.sort(Sort.Direction.ASC, "routeId", "createdAt", "plateNo", "stationId"));
+        TypedAggregation<BusLocation> agg = Aggregation.newAggregation(BusLocation.class, list);
+
+        List<BusLocation> locations = mongoOperations.aggregate(agg, BusLocation.class, BusLocation.class).getMappedResults();
+        if (locations == null)
+            locations = new ArrayList<>();
+
+        return locations;
     }
 
     @Override

@@ -113,8 +113,15 @@ public class BusController {
                     tempLocationParam.setStartCreatedAt(locationParam.getStartCreatedAt());
                     tempLocationParam.setEndCreatedAt(locationParam.getEndCreatedAt());
                     try {
-                        station.getLocations().addAll(getPreviousPeriodLocations(tempLocationParam));
-                        station.getLocations().addAll(getTodayLocations(tempLocationParam));
+                        LocalDateTime createdAtDate = locationParam.getStartCreatedAt();
+                        LocalDateTime nowDate = LocalDateTime.now();
+                        String createdAt = String.valueOf(createdAtDate.getYear()) + String.valueOf(createdAtDate.getMonthValue()) + String.valueOf(createdAtDate.getDayOfMonth());
+                        String now = String.valueOf(nowDate.getYear()) + String.valueOf(nowDate.getMonthValue()) + String.valueOf(nowDate.getDayOfMonth());
+                        if (createdAt.equals(now)) {
+                            station.getLocations().addAll(getTodayLocations(tempLocationParam));
+                        } else {
+                            station.getLocations().addAll(getPreviousPeriodLocations(tempLocationParam));
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

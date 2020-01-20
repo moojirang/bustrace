@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletRequest;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class BusController {
@@ -133,8 +135,15 @@ public class BusController {
     private List<Location> getTodayLocations(LocationParam locationParam) throws Exception {
         List<Location> locations = new ArrayList<>();
 
-        busLocationService.getBusLoactions(locationParam).stream()
-            .forEach(busLocation -> {
+        List<BusLocation> busLocations = busLocationService.getBusLoactions(locationParam);
+        busLocations.stream().sorted((busLocation1, busLocation2) -> busLocation2.createdAtDiff(busLocation1));    // 시간 역순으로 정렬
+
+        final long baseSecondsDiff = 15*60;
+        LocalDateTime creatdAtBefore = LocalDateTime.now();
+        for(BusLocation busLocation: busLocations) {
+            LocalDateTime createdAt = busLocation.getCreatedAt();
+            long secondsDiff = Duration.between(createdAt, creatdAtBefore).getSeconds();
+            if (secondsDiff >= baseSecondsDiff) {
                 Location location = new Location();
                 location.setRouteId(busLocation.getRouteId());
                 location.setStationId(busLocation.getStationId());
@@ -146,9 +155,11 @@ public class BusController {
                 location.setRemainSeatCnt(busLocation.getRemainSeatCnt());
                 location.setCreatedAt(busLocation.getCreatedAt());
                 locations.add(location);
-            });
+            }
+            creatdAtBefore = createdAt;
+        }
 
-        return locations;
+        return locations.stream().sorted((location1, location2) -> location1.createdAtDiff(location2)).collect(Collectors.toList());
     }
 
     private List<Location> getPreviousPeriodLocations(LocationParam locationParam) throws Exception {

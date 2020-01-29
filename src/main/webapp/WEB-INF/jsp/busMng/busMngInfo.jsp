@@ -109,6 +109,11 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item">라우트ID = <%= route.getRouteId() %></li>
             <li class="list-group-item">노선번호 = <%= route.getRouteName() %></li>
+            <li class="list-group-item">운행정보
+                <div>평일 운행 대수 = <%= route.getWeekdayCount() %></div>
+                <div>주말 운행 대수 = <%= route.getWeekendCount() %></div>
+                <div>2층버스 운행 대수 = <%= route.getDoubleDeckerCount() %></div>
+            </li>
             <li class="list-group-item">운수업체 = <%= route.getCompanyName() %></li>
             <li class="list-group-item">평일최소 배차시간 = <%= route.getPeekAlloc() %></li>
             <li class="list-group-item">평일최대 배차시간 = <%= route.getNPeekAlloc() %></li>

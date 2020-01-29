@@ -120,6 +120,9 @@ public class RouteServiceImpl implements RouteService {
         updateTarget.setNPeekAlloc(route.getNPeekAlloc());
         updateTarget.setUpdatedAt(LocalDateTime.now());
         updateTarget.setDataGatherScheduler(route.getDataGatherScheduler());
+        updateTarget.setWeekdayCount(route.getWeekdayCount());
+        updateTarget.setWeekendCount(route.getWeekendCount());
+        updateTarget.setDoubleDeckerCount(route.getDoubleDeckerCount());
         routeRepository.save(updateTarget);
     }
 

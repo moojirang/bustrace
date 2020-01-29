@@ -36,6 +36,10 @@ public class Route {
 	private String upLastTime;
 	private String nPeekAlloc;
 
+	private int weekdayCount;
+	private int weekendCount;
+	private int doubleDeckerCount;
+
 	private DataGatherScheduler dataGatherScheduler;
 	private List<TripPlan> tripPlanList; // 운행 계획 정보
 	private List<TripPlan> tripPlanListTheDayBefore; // 전일 운행 정보

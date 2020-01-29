@@ -239,6 +239,9 @@ public class BusMngController {
         String _id = StringUtils.defaultString(request.getParameter("_id"), "");
         String routeId = StringUtils.defaultString(request.getParameter("routeId"), "");
         String routeName = StringUtils.defaultString(request.getParameter("routeName"), "");
+        String weekdayCount = StringUtils.defaultString(request.getParameter("weekdayCount"), "0");
+        String weekendCount = StringUtils.defaultString(request.getParameter("weekendCount"), "0");
+        String doubleDeckerCount = StringUtils.defaultString(request.getParameter("doubleDeckerCount"), "0");
         String companyName = StringUtils.defaultString(request.getParameter("companyName"), "");
         String peekAlloc = StringUtils.defaultString(request.getParameter("peekAlloc"), "");
         String nPeekAlloc = StringUtils.defaultString(request.getParameter("nPeekAlloc"), "");
@@ -270,6 +273,9 @@ public class BusMngController {
         route.setEndStationName(endStationName);
         route.setDownFirstTime(downFirstTime);
         route.setDownLastTime(downLastTime);
+        route.setWeekdayCount(Integer.valueOf(weekdayCount));
+        route.setWeekendCount(Integer.valueOf(weekendCount));
+        route.setDoubleDeckerCount(Integer.valueOf(doubleDeckerCount));
 
         DataGatherScheduler dataGatherScheduler = route.getDataGatherScheduler();
         if (dataGatherScheduler == null) {

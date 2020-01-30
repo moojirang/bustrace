@@ -112,7 +112,8 @@
             <li class="list-group-item">운행정보
                 <div>평일 운행 대수 = <%= route.getWeekdayCount() %></div>
                 <div>주말 운행 대수 = <%= route.getWeekendCount() %></div>
-                <div>2층버스 운행 대수 = <%= route.getDoubleDeckerCount() %></div>
+                <div>2층버스 평일 운행 대수 = <%= route.getWeekdayDoubleDeckerCount() %></div>
+                <div>2층버스 주말 운행 대수 = <%= route.getWeekendDoubleDeckerCount() %></div>
             </li>
             <li class="list-group-item">운수업체 = <%= route.getCompanyName() %></li>
             <li class="list-group-item">평일최소 배차시간 = <%= route.getPeekAlloc() %></li>

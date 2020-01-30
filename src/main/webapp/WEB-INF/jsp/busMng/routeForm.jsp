@@ -18,7 +18,8 @@
     String routeName = StringUtils.defaultString(route.getRouteName());
     String weekdayCount = String.valueOf(route.getWeekdayCount());
     String weekendCount = String.valueOf(route.getWeekendCount());
-    String doubleDeckerCount = String.valueOf(route.getDoubleDeckerCount());
+    String weekdayDoubleDeckerCount = String.valueOf(route.getWeekdayDoubleDeckerCount());
+    String weekendDoubleDeckerCount = String.valueOf(route.getWeekendDoubleDeckerCount());
     String companyName = StringUtils.defaultString(route.getCompanyName());
     String peekAlloc = StringUtils.defaultString(route.getPeekAlloc());
     String nPeekAlloc = StringUtils.defaultString(route.getNPeekAlloc());
@@ -63,7 +64,8 @@
             var routeName = $("#routeName").val();
             var weekdayCount = $("#weekdayCount").val();
             var weekendCount = $("#weekendCount").val();
-            var doubleDeckerCount = $("#doubleDeckerCount").val();
+            var weekdayDoubleDeckerCount = $("#weekdayDoubleDeckerCount").val();
+            var weekendDoubleDeckerCount = $("#weekendDoubleDeckerCount").val();
             var companyName = $("#companyName").val();
             var peekAlloc = $("#peekAlloc").val();
             var nPeekAlloc = $("#nPeekAlloc").val();
@@ -94,8 +96,12 @@
                 alert("주말 운행 대수를 입력해주세요.");
                 return;
             }
-            if (doubleDeckerCount == "") {
-                alert("2층버스 운행 대수를 입력해주세요.");
+            if (weekdayDoubleDeckerCount == "") {
+                alert("2층버스 평일 운행 대수를 입력해주세요.");
+                return;
+            }
+            if (weekendDoubleDeckerCount == "") {
+                alert("2층버스 주말 운행 대수를 입력해주세요.");
                 return;
             }
             if (companyName == "") {
@@ -149,7 +155,8 @@
                     , routeName: routeName
                     , weekdayCount: weekdayCount
                     , weekendCount: weekendCount
-                    , doubleDeckerCount: doubleDeckerCount
+                    , weekdayDoubleDeckerCount: weekdayDoubleDeckerCount
+                    , weekendDoubleDeckerCount: weekendDoubleDeckerCount
                     , companyName: companyName
                     , peekAlloc: peekAlloc
                     , nPeekAlloc: nPeekAlloc
@@ -183,7 +190,8 @@
             var routeName = $("#routeName").val();
             var weekdayCount = $("#weekdayCount").val();
             var weekendCount = $("#weekendCount").val();
-            var doubleDeckerCount = $("#doubleDeckerCount").val();
+            var weekdayDoubleDeckerCount = $("#weekdayDoubleDeckerCount").val();
+            var weekendDoubleDeckerCount = $("#weekendDoubleDeckerCount").val();
             var companyName = $("#companyName").val();
             var peekAlloc = $("#peekAlloc").val();
             var nPeekAlloc = $("#nPeekAlloc").val();
@@ -214,8 +222,12 @@
                 alert("주말 운행 대수를 입력해주세요.");
                 return;
             }
-            if (doubleDeckerCount == "") {
-                alert("2층버스 운행 대수를 입력해주세요.");
+            if (weekdayDoubleDeckerCount == "") {
+                alert("2층버스 평일 운행 대수를 입력해주세요.");
+                return;
+            }
+            if (weekendDoubleDeckerCount == "") {
+                alert("2층버스 주말 운행 대수를 입력해주세요.");
                 return;
             }
             if (companyName == "") {
@@ -270,7 +282,8 @@
                     , routeName: routeName
                     , weekdayCount: weekdayCount
                     , weekendCount: weekendCount
-                    , doubleDeckerCount: doubleDeckerCount
+                    , weekdayDoubleDeckerCount: weekdayDoubleDeckerCount
+                    , weekendDoubleDeckerCount: weekendDoubleDeckerCount
                     , companyName: companyName
                     , peekAlloc: peekAlloc
                     , nPeekAlloc: nPeekAlloc
@@ -351,8 +364,12 @@
             <input type="text" class="form-control" id="weekendCount" placeholder="" data-input-value="<%= weekendCount %>">
         </div>
         <div class="form-group">
-            <label>2층버스 운행 대수</label>
-            <input type="text" class="form-control" id="doubleDeckerCount" placeholder="" data-input-value="<%= doubleDeckerCount %>">
+            <label>2층버스 평일 운행 대수</label>
+            <input type="text" class="form-control" id="weekdayDoubleDeckerCount" placeholder="" data-input-value="<%= weekdayDoubleDeckerCount %>">
+        </div>
+        <div class="form-group">
+            <label>2층버스 주말 운행 대수</label>
+            <input type="text" class="form-control" id="weekendDoubleDeckerCount" placeholder="" data-input-value="<%= weekendDoubleDeckerCount %>">
         </div>
         <div class="form-group">
             <label>운수업체</label>

@@ -38,7 +38,8 @@ public class Route {
 
 	private int weekdayCount;
 	private int weekendCount;
-	private int doubleDeckerCount;
+	private int weekdayDoubleDeckerCount;
+    private int weekendDoubleDeckerCount;
 
 	private DataGatherScheduler dataGatherScheduler;
 	private List<TripPlan> tripPlanList; // 운행 계획 정보
@@ -52,6 +53,7 @@ public class Route {
     private int totalTripPlanCount;
     private int yesterdayTripRecordCount;
     private int todayTripRecordCount;
+    private int todayDoubleDeckerTripRecordCount;
 
     public String getDeleteYn() {
         return (this.deleteYn == null) ? "N" : this.deleteYn;

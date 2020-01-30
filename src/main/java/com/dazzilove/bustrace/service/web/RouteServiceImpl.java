@@ -122,7 +122,8 @@ public class RouteServiceImpl implements RouteService {
         updateTarget.setDataGatherScheduler(route.getDataGatherScheduler());
         updateTarget.setWeekdayCount(route.getWeekdayCount());
         updateTarget.setWeekendCount(route.getWeekendCount());
-        updateTarget.setDoubleDeckerCount(route.getDoubleDeckerCount());
+        updateTarget.setWeekdayDoubleDeckerCount(route.getWeekdayDoubleDeckerCount());
+        updateTarget.setWeekendDoubleDeckerCount(route.getWeekendDoubleDeckerCount());
         routeRepository.save(updateTarget);
     }
 

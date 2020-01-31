@@ -82,4 +82,8 @@ public class Route {
             return false;
         return true;
     }
+
+    public boolean isDeleted() {
+        return "Y".equals(this.deleteYn);
+    }
 }

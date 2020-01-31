@@ -103,6 +103,10 @@ public class TripPlan {
 		return true;
 	}
 
+	public boolean isDeleted() {
+		return "Y".equals(this.deleteYn);
+	}
+
 	private String formatTwoLength(String string) {
 		String returnValue = string;
 		returnValue = (returnValue == null) ? "" : returnValue;

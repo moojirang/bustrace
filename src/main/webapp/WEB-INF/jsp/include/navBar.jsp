@@ -36,6 +36,12 @@
             <li class="nav-item" data-menu="4">
                 <span class="nav-link">- 노선관리상세</span>
             </li>
+            <li class="nav-item" data-menu="6">
+                <a class="nav-link">시스템관리</a>
+            </li>
+            <li class="nav-item" data-menu="7">
+                <a class="nav-link" href="/codeMng/codeList">- 코드관리</a>
+            </li>
         </ul>
     </div>
 </nav>

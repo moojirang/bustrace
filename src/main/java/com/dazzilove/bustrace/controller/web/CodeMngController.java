@@ -177,6 +177,7 @@ public class CodeMngController {
 		String paramCode = StringUtils.defaultString(request.getParameter("code"), "");
 		String paramName = StringUtils.defaultString(request.getParameter("name"), "");
 		int paramSortNumber = Integer.parseInt(StringUtils.defaultString(request.getParameter("sortNumber"), "99"));
+		String img = StringUtils.defaultString(request.getParameter("img"), "");
 		String paramVal1 = StringUtils.defaultString(request.getParameter("val1"), "");
 		String paramVal2 = StringUtils.defaultString(request.getParameter("val2"), "");
 		String paramVal3 = StringUtils.defaultString(request.getParameter("val3"), "");
@@ -192,6 +193,7 @@ public class CodeMngController {
 		detailCode.setCode(paramCode);
 		detailCode.setName(paramName);
 		detailCode.setSortNumber(paramSortNumber);
+		detailCode.setImg(img);
 		detailCode.setVal1(paramVal1);
 		detailCode.setVal2(paramVal2);
 		detailCode.setVal3(paramVal3);

@@ -1,0 +1,56 @@
+
+body { font-size: 10pt; font-family: Verdana, Geneva, Tahoma, sans-serif; }
+.content {
+    margin: 10px;
+    text-align: center;
+    padding-bottom: 20px;;
+}
+.title {
+    font-size: 18pt;
+    font-weight: bold;
+    padding: 7px;
+}
+.btns {
+    padding-bottom: 7px;
+    text-align: right;
+}
+.list {
+}
+.btn {
+    font-size: 10pt;
+    font-weight: bold;
+}
+.word-title {
+    background-color: #cccccc;
+    border-top: solid 1px black;
+    font-weight: bold;
+}
+.last-col {
+    border-right: solid 1px black;
+}
+.word-list {
+    padding:0px; margin:0px;
+    list-style: none;
+}
+.word-item {
+    display: block;
+}
+.word-height {
+    height: 28px; padding-top: 11px;
+}
+.word-no {
+    width: 5%; float: left;
+    border-left: solid 1px black;
+    border-bottom: solid 1px black;
+}
+.word-question {
+    width: 18%; float: left;
+    border-left: solid 1px black;
+    border-bottom: solid 1px black;
+}
+.word-answer {
+    width: 26%; float: left;
+    border-left: solid 1px black;
+    border-right: solid 1px black;
+    border-bottom: solid 1px black;
+}

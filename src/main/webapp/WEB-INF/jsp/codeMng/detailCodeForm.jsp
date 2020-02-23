@@ -22,6 +22,7 @@
     String code = "";
     String name = "";
     int sortNumber = 0;
+    String img = "";
     String val1 = "";
     String val2 = "";
     String val3 = "";
@@ -33,6 +34,7 @@
         code = StringUtils.defaultString(detailCodeInfo.getCode());
         name = StringUtils.defaultString(detailCodeInfo.getName());
         sortNumber = detailCodeInfo.getSortNumber();
+        img = StringUtils.defaultString(detailCodeInfo.getImg(), "");
         val1 = StringUtils.defaultString(detailCodeInfo.getVal1());
         val2 = StringUtils.defaultString(detailCodeInfo.getVal2());
         val3 = StringUtils.defaultString(detailCodeInfo.getVal2());
@@ -63,6 +65,7 @@
             var code = $("#code").val();
             var name = $("#name").val();
             var sortNumber = $("#sortNumber").val();
+            var img = $("#img").val();
             var val1 = $("#val1").val();
             var val2 = $("#val2").val();
             var val3 = $("#val3").val();
@@ -93,6 +96,7 @@
                   , code: code
                   , name: name
                   , sortNumber: sortNumber
+                  , img: img
                   , val1: val1
                   , val2: val2
                   , val3: val3
@@ -116,6 +120,7 @@
             var code = $("#code").val();
             var name = $("#name").val();
             var sortNumber = $("#sortNumber").val();
+            var img = $("#img").val();
             var val1 = $("#val1").val();
             var val2 = $("#val2").val();
             var val3 = $("#val3").val();
@@ -147,6 +152,7 @@
                   , code : code
                   , name: name
                   , sortNumber: sortNumber
+                  , img: img
                   , val1: val1
                   , val2: val2
                   , val3: val3
@@ -215,6 +221,10 @@
         <div class="form-group">
             <label>정렬순서</label>
             <input type="text" class="form-control" id="sortNumber" placeholder="" data-input-value="<%= sortNumber %>">
+        </div>
+        <div class="form-group">
+            <label>이미지</label>
+            <input type="text" class="form-control" id="img" placeholder="" data-input-value="<%= img %>">
         </div>
         <div class="form-group">
             <label>코드정보1</label>

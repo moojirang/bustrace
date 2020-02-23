@@ -18,6 +18,7 @@ public class DetailCode {
 	private String useYn;
 	private String delYn;
 	private String masterCode;
+	private String img;
 	private String val1, val2, val3;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;

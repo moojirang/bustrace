@@ -5,6 +5,7 @@ import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.BusRouteService;
 import com.dazzilove.bustrace.service.web.LocationService;
 import com.dazzilove.bustrace.service.web.RouteService;
+import com.dazzilove.bustrace.service.web.SpecialMessageService;
 import com.dazzilove.bustrace.service.wsdl.BusRouteStation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,9 @@ public class BusController {
 
     @Autowired
     private RouteService routeService;
+
+    @Autowired
+    private SpecialMessageService specialMessageService;
 
     @RequestMapping("/busList")
     public ModelAndView getBusList() throws Exception {
@@ -83,7 +87,14 @@ public class BusController {
         List<Bus> plateNoList = new ArrayList<>();
         mav.addObject("plateNoList", getPlateNoList(stationList));
 
+        List<SpecialMessage> specialMessageList = new ArrayList<>();
+        mav.addObject("specialMessageList", getSpecialMessageList(route.getRouteId()));
+
         return mav;
+    }
+
+    private List<SpecialMessage> getSpecialMessageList(String routeId) {
+        return specialMessageService.getSpecialMessageList(routeId);
     }
 
     private List<Station> getStationListIncludeLocations(LocationParam locationParam) throws Exception {

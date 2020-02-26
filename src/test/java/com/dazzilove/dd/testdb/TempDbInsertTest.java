@@ -130,7 +130,7 @@ public class TempDbInsertTest {
 		jsonObject = new JSONObject();jsonObject.put("key", "put");jsonObject.put("value", "두다, 놓다");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "rain");jsonObject.put("value", "비, 비가 오다");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "run");jsonObject.put("value", "달리다");jsonArray.put(jsonObject);
-		jsonObject = new JSONObject();jsonObject.put("key", "at");jsonObject.put("value", "좌석");jsonArray.put(jsonObject);
+		jsonObject = new JSONObject();jsonObject.put("key", "seat");jsonObject.put("value", "좌석");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "ship");jsonObject.put("value", "배");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "shoe");jsonObject.put("value", "신발, 구두");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "shoulder");jsonObject.put("value", "어깨");jsonArray.put(jsonObject);
@@ -258,7 +258,7 @@ public class TempDbInsertTest {
 		jsonObject = new JSONObject();jsonObject.put("key", "queen");jsonObject.put("value", "여왕");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "quiet");jsonObject.put("value", "조용한");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "red");jsonObject.put("value", "빨간");jsonArray.put(jsonObject);
-		jsonObject = new JSONObject();jsonObject.put("key", "rice");jsonObject.put("value", "쌀, 빱");jsonArray.put(jsonObject);
+		jsonObject = new JSONObject();jsonObject.put("key", "rice");jsonObject.put("value", "쌀, 밥");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "rich");jsonObject.put("value", "부유한");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "right");jsonObject.put("value", "오른쪽의, 옳은");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "sad");jsonObject.put("value", "슬픈");jsonArray.put(jsonObject);

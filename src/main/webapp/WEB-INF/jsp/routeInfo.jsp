@@ -20,6 +20,11 @@
         plateNoList = new ArrayList();
     }
 
+    List<SpecialMessage> specialMessageList = (List<SpecialMessage>) request.getAttribute("specialMessageList");
+    if (specialMessageList == null || specialMessageList.isEmpty()) {
+        specialMessageList = new ArrayList<>();
+    }
+
     List<PlateType> plateTypeList = new ArrayList();
     Map<String, PlateType> plateTypeCodeMap = CodeUtil.getPlateTypes();
     plateTypeCodeMap.forEach((key, value) -> {
@@ -564,7 +569,18 @@
     </div>
 
     <div id="specialInfoTabArea" style="display: none;">
+        <% if(specialMessageList.size() == 0) { %>
         <div style="text-align: center">특이사항 없습니다.</div>
+        <% } else { %>
+            <% for(SpecialMessage specialMessage: specialMessageList) { %>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <%= specialMessage.getFormatedCreatedAt() %> |
+                        <%= specialMessage.getMessage() %>
+                    </li>
+                </ul>
+            <% } %>
+        <% } %>
     </div>
 </div>
 </body>

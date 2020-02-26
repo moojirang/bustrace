@@ -67,6 +67,7 @@ public class RouteServiceImpl implements RouteService {
                         e.printStackTrace();
                     }
                     if (!tripPlans.isEmpty()) {
+                        tempRoute.setTripPlanList(tripPlans);
                         int yesterdayTripRecordCount = 0;
                         int todayTripRecordCount = 0;
 

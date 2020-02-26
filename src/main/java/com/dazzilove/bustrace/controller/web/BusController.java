@@ -84,10 +84,8 @@ public class BusController {
         List<Station> stationList = getStationListIncludeLocations(locationParam);
         mav.addObject("stationList", stationList);
 
-        List<Bus> plateNoList = new ArrayList<>();
         mav.addObject("plateNoList", getPlateNoList(stationList));
 
-        List<SpecialMessage> specialMessageList = new ArrayList<>();
         mav.addObject("specialMessageList", getSpecialMessageList(route.getRouteId()));
 
         return mav;

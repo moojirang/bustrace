@@ -4,12 +4,13 @@ import com.dazzilove.bustrace.domain.DataGatherScheduler;
 import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.service.BusRouteService;
+import com.dazzilove.bustrace.service.batch.DeduplicationLocationService;
 import com.dazzilove.bustrace.service.web.RouteService;
 import com.dazzilove.bustrace.service.web.TripPlanService;
-import com.dazzilove.bustrace.service.wsdl.BusRouteInfo;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,6 +30,9 @@ public class BusMngController {
 
     @Autowired
 	private TripPlanService tripPlanService;
+
+    @Autowired
+    private DeduplicationLocationService deduplicationLocationService;
 
     @RequestMapping("/busMng/busMngList")
     public ModelAndView viewBusMng() throws Exception {
@@ -234,6 +238,55 @@ public class BusMngController {
 
 		return "삭제 완료 되었습니다.";
 	}
+
+    @RequestMapping("/busMng/deduplicationLocation/{from}/{to}")
+    @ResponseBody
+    public String deduplicationLocation(
+            @PathVariable String from,
+            @PathVariable String to
+    ) throws Exception {
+
+        String result = "";
+        result += "from = " + from;
+        result += ", ";
+        result += "to = " + to;
+
+        LocalDateTime startCreatedAt = LocalDateTime.of(getYear(from), getMonth(from), getDay(from), 0, 0, 0);
+        LocalDateTime endCreatedAt = LocalDateTime.of(getYear(to), getMonth(to), getDay(to), 23, 59, 59);
+
+        result += "<br>";
+        result += ", startCreatedAt = " + startCreatedAt.toString();
+        result += ", endCreatedAt = " + endCreatedAt.toString();
+
+        List<Route> routes = routeService.getRoutes();
+        for(Route route: routes) {
+            try {
+                deduplicationLocationService.deduplicationLocation(route.getRouteId(), startCreatedAt, endCreatedAt);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return result;
+    }
+
+
+    private int getYear(String from) {
+        String temp = from.substring(0, 4);
+        return Integer.parseInt(temp);
+    }
+
+    private int getMonth(String from) {
+        String temp = from.substring(4, 6);
+        if (temp.indexOf("0") == 0) temp = temp.replace("0", "");
+        return Integer.parseInt(temp);
+    }
+
+    private int getDay(String from) {
+        String temp = from.substring(6, 8);
+        if (temp.indexOf("0") == 0) temp = temp.replace("0", "");
+        return Integer.parseInt(temp);
+    }
 
     private Route convertRouteByRequest(ServletRequest request) throws Exception {
         String _id = StringUtils.defaultString(request.getParameter("_id"), "");

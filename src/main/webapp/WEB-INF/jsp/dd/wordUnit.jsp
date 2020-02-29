@@ -10,10 +10,14 @@
     <head>
         <link href="/dd/css/wordTest.css" rel="stylesheet"/>
         <script>
-            const words = [];
+            var words = [];
             <% if (words != null) { %>
                 <% for(Word word: words) { %>
-                    words.push({'english':'<%= word.getEnglish() %>', 'korean':'<%= word.getKorean() %>', 'question':'', 'answer':''});
+                    words.push(
+                        {'english':'<%= word.getEnglish() %>'
+                            , 'korean':'<%= word.getKorean() %>'
+                            , 'question':'<%= word.getEnglish() %>'
+                            , 'answer':'<%= word.getKorean() %>'});
                 <% } %>
             <% } %>
         </script>
@@ -103,7 +107,13 @@
             }
 
             function createDataRows(ul) {
-                const suffledWords = getSuffledWords(words);
+                var suffledWords;
+                if (document.getElementById("suffleYn").value == "Y") {
+                    suffledWords = getSuffledWords(words);
+                } else {
+                    suffledWords = words;
+                }
+
                 var tempLi;
                 for(i=0; i<suffledWords.length; i++) {
                     var first = (i%2==0) ? true : false;
@@ -152,11 +162,9 @@
             function getSuffledWords(list) {
                 var suffleEngKor = document.getElementById("suffleEngKor").value;
                 var j, x, i;
-                var a = list;
-                for (i=0; i<a.length; i++) {
-                    x = a[i];
-                    x.question = x.english;
-                    x.answer = x.korean;
+                var a = [];
+                for (i=0; i<list.length; i++) {
+                    a.push(list[i]);
                 }
                 for (i = a.length; i; i -= 1) {
                     j = Math.floor(Math.random() * i);
@@ -180,6 +188,13 @@
             </div>
             <div class="btns">
                 <div>
+                    <label>
+                        Suffle
+                        <select id="suffleYn">
+                            <option value="Y" selected="selected">Y</option>
+                            <option value="N">N</option>
+                        </select>
+                    </label>
                     <label>Suffle Eng/Kor
                         <select id="suffleEngKor">
                             <option value="2">2</option>

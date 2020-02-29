@@ -4,11 +4,8 @@ import com.dazzilove.bustrace.domain.Code;
 import com.dazzilove.bustrace.domain.DetailCode;
 import com.dazzilove.bustrace.domain.PlateType;
 import com.dazzilove.bustrace.service.web.CodeService;
-import com.dazzilove.bustrace.service.web.CodeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +25,7 @@ public class CodeUtil {
 		init();
 	}
 
-	private void init() {
+	public void init() {
 		List<Code> codeList = new ArrayList<>();
 		try {
 			codeList = codeService.getCodeList();

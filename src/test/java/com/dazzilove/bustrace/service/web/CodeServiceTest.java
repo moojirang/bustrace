@@ -2,6 +2,7 @@ package com.dazzilove.bustrace.service.web;
 
 import com.dazzilove.bustrace.domain.Code;
 import com.dazzilove.bustrace.domain.DetailCode;
+import com.dazzilove.bustrace.repository.CodeRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,67 +16,226 @@ import java.util.UUID;
 public class CodeServiceTest {
 
     @Autowired
-    CodeService codeService;
+    CodeRepository codeRepository;
 
     @Test
     public void defaultCodeInsertTest() {
         insertPlateType();
+        insertWeekendOperation();
+        insertSpareTripYn();
+        insertSchoolBreakReductionYn();
+        insertTripStopYn();
     }
 
     private void insertPlateType() {
-        List<DetailCode> detailCode = new ArrayList<>();
-        DetailCode plateTypeDetailCode = new DetailCode();
-        plateTypeDetailCode.setId(UUID.randomUUID());
-        plateTypeDetailCode.setCode("1");
-        plateTypeDetailCode.setName("소형승합차");
-        plateTypeDetailCode.setImg("/img/bus1f_0.png");
-        plateTypeDetailCode.setSortNumber(1);
-        plateTypeDetailCode.setUseYn("Y");
-        plateTypeDetailCode.setDelYn("N");
-        plateTypeDetailCode.setCreatedAt(LocalDateTime.now());
-        plateTypeDetailCode.setUpdatedAt(LocalDateTime.now());
-        detailCode.add(plateTypeDetailCode);
+        List<DetailCode> detailCodes = new ArrayList<>();
 
-        plateTypeDetailCode = new DetailCode();
-        plateTypeDetailCode.setId(UUID.randomUUID());
-        plateTypeDetailCode.setCode("2");
-        plateTypeDetailCode.setName("중형승합차");
-        plateTypeDetailCode.setImg("/img/bus1f_1.png");
-        plateTypeDetailCode.setSortNumber(2);
-        detailCode.add(plateTypeDetailCode);
+        DetailCode detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("1");
+        detailCode.setName("소형승합차");
+        detailCode.setImg("/img/bus1f_0.png");
+        detailCode.setSortNumber(1);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
 
-        plateTypeDetailCode = new DetailCode();
-        plateTypeDetailCode.setId(UUID.randomUUID());
-        plateTypeDetailCode.setCode("3");
-        plateTypeDetailCode.setName("대형승합차");
-        plateTypeDetailCode.setImg("/img/bus1f_2.png");
-        plateTypeDetailCode.setSortNumber(3);
-        detailCode.add(plateTypeDetailCode);
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("2");
+        detailCode.setName("중형승합차");
+        detailCode.setImg("/img/bus1f_1.png");
+        detailCode.setSortNumber(2);
+        detailCodes.add(detailCode);
 
-        plateTypeDetailCode = new DetailCode();
-        plateTypeDetailCode.setId(UUID.randomUUID());
-        plateTypeDetailCode.setCode("4");
-        plateTypeDetailCode.setName("2층버스");
-        plateTypeDetailCode.setImg("/img/bus2f_2.png");
-        plateTypeDetailCode.setSortNumber(4);
-        detailCode.add(plateTypeDetailCode);
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("3");
+        detailCode.setName("대형승합차");
+        detailCode.setImg("/img/bus1f_2.png");
+        detailCode.setSortNumber(3);
+        detailCodes.add(detailCode);
 
-        plateTypeDetailCode = new DetailCode();
-        plateTypeDetailCode.setId(UUID.randomUUID());
-        plateTypeDetailCode.setCode("99");
-        plateTypeDetailCode.setName("전체");
-        plateTypeDetailCode.setImg("/img/bus.png");
-        plateTypeDetailCode.setSortNumber(99);
-        detailCode.add(plateTypeDetailCode);
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("4");
+        detailCode.setName("2층버스");
+        detailCode.setImg("/img/bus2f_2.png");
+        detailCode.setSortNumber(4);
+        detailCodes.add(detailCode);
 
-        Code plateType = new Code();
-        plateType.setId(UUID.randomUUID());
-        plateType.setCode("PLATE_TYPE");
-        plateType.setName("차량타입");
-        plateType.setUseYn("Y");
-        plateType.setDelYn("N");
-        plateType.setCreatedAt(LocalDateTime.now());
-        plateType.setUpdatedAt(LocalDateTime.now());
-        plateType.setDetailCodes(detailCode);
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("99");
+        detailCode.setName("전체");
+        detailCode.setImg("/img/bus.png");
+        detailCode.setSortNumber(99);
+        detailCodes.add(detailCode);
+
+        Code code = new Code();
+        code.setId(UUID.randomUUID());
+        code.setCode("PLATE_TYPE");
+        code.setName("차량타입");
+        code.setUseYn("Y");
+        code.setDelYn("N");
+        code.setCreatedAt(LocalDateTime.now());
+        code.setUpdatedAt(LocalDateTime.now());
+        code.setDetailCodes(detailCodes);
+
+        codeRepository.save(code);
+    }
+
+    private void insertWeekendOperation() {
+        List<DetailCode> detailCodes = new ArrayList<>();
+
+        DetailCode detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("Y");
+        detailCode.setName("주말운행 O");
+        detailCode.setSortNumber(1);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("N");
+        detailCode.setName("주말운행 X");
+        detailCode.setSortNumber(2);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        Code code = new Code();
+        code.setId(UUID.randomUUID());
+        code.setCode("WEEKEND_OPERATION_YN");
+        code.setName("주말운행여부");
+        code.setUseYn("Y");
+        code.setDelYn("N");
+        code.setCreatedAt(LocalDateTime.now());
+        code.setUpdatedAt(LocalDateTime.now());
+        code.setDetailCodes(detailCodes);
+
+        codeRepository.save(code);
+    }
+
+    private void insertSpareTripYn() {
+        List<DetailCode> detailCodes = new ArrayList<>();
+
+        DetailCode detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("Y");
+        detailCode.setName("예비차 O");
+        detailCode.setSortNumber(1);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("N");
+        detailCode.setName("예비차 X");
+        detailCode.setSortNumber(2);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        Code code = new Code();
+        code.setId(UUID.randomUUID());
+        code.setCode("SPARE_TRIP_YN");
+        code.setName("예비차여부");
+        code.setUseYn("Y");
+        code.setDelYn("N");
+        code.setCreatedAt(LocalDateTime.now());
+        code.setUpdatedAt(LocalDateTime.now());
+        code.setDetailCodes(detailCodes);
+
+        codeRepository.save(code);
+    }
+
+    private void insertSchoolBreakReductionYn() {
+        List<DetailCode> detailCodes = new ArrayList<>();
+
+        DetailCode detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("Y");
+        detailCode.setName("방학감차 O");
+        detailCode.setSortNumber(1);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("N");
+        detailCode.setName("방학감차 X");
+        detailCode.setSortNumber(2);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        Code code = new Code();
+        code.setId(UUID.randomUUID());
+        code.setCode("SCHOOL_BREAK_REDUCTION_YN");
+        code.setName("방학감차여부");
+        code.setUseYn("Y");
+        code.setDelYn("N");
+        code.setCreatedAt(LocalDateTime.now());
+        code.setUpdatedAt(LocalDateTime.now());
+        code.setDetailCodes(detailCodes);
+
+        codeRepository.save(code);
+    }
+
+    private void insertTripStopYn() {
+        List<DetailCode> detailCodes = new ArrayList<>();
+
+        DetailCode detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("Y");
+        detailCode.setName("운행중단 O");
+        detailCode.setSortNumber(1);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        detailCode = new DetailCode();
+        detailCode.setId(UUID.randomUUID());
+        detailCode.setCode("N");
+        detailCode.setName("운행중단 X");
+        detailCode.setSortNumber(2);
+        detailCode.setUseYn("Y");
+        detailCode.setDelYn("N");
+        detailCode.setCreatedAt(LocalDateTime.now());
+        detailCode.setUpdatedAt(LocalDateTime.now());
+        detailCodes.add(detailCode);
+
+        Code code = new Code();
+        code.setId(UUID.randomUUID());
+        code.setCode("TRIP_STOP_YN");
+        code.setName("운행중단여부");
+        code.setUseYn("Y");
+        code.setDelYn("N");
+        code.setCreatedAt(LocalDateTime.now());
+        code.setUpdatedAt(LocalDateTime.now());
+        code.setDetailCodes(detailCodes);
+
+        codeRepository.save(code);
     }
 }

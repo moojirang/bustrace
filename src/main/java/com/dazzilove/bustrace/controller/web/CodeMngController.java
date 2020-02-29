@@ -20,6 +20,21 @@ public class CodeMngController {
 	@Autowired
 	CodeService codeService;
 
+	@RequestMapping("/codeMng/refresh")
+	@ResponseBody
+	public String refresh() throws Exception {
+		String msg = "코드가 갱신되었습니다.";
+
+		try {
+			codeService.refresh();
+		} catch (Exception e) {
+			msg = "코드 갱신에 실패했습니다.";
+			e.printStackTrace();
+		}
+
+		return msg;
+	}
+
 	@RequestMapping("/codeMng/codeList")
 	public ModelAndView viewCodeList(ServletRequest request) throws Exception {
 		ModelAndView mav = new ModelAndView();

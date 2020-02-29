@@ -16,6 +16,20 @@
     $(function () {
     });
 
+    function refreshCode() {
+        $.ajax({
+            method: "GET",
+            url: "/codeMng/refresh",
+            data: { }
+        })
+        .done(function(msg) {
+            alert(msg);
+        })
+        .fail(function() {
+            alert("error");
+        });
+    }
+
     function addCode() {
         location.href = "/codeMng/viewAddCode";
     }
@@ -58,6 +72,7 @@
     </table>
 
     <div class="contentAlignRight bottomMargin topMargin">
+        <button type="button" class="btn btn-sm btn-secondary" onclick="refreshCode()">코드갱신</button>
         <button type="button" class="btn btn-sm btn-primary" onclick="addCode()">코드추가</button>
     </div>
 </div>

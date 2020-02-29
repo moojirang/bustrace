@@ -38,6 +38,11 @@
     plateTypeCodeMap.forEach((key, value) -> {
         plateTypeList.add(value);
     });
+
+    Code codeWeekendOperationYn = CodeUtil.getCode("WEEKEND_OPERATION_YN");
+    Code codeSpareTripYn = CodeUtil.getCode("SPARE_TRIP_YN");
+    Code codeSchoolBreakReductionYn = CodeUtil.getCode("SCHOOL_BREAK_REDUCTION_YN");
+    Code codeTripStopYn = CodeUtil.getCode("TRIP_STOP_YN");
 %>
 <% if("Y".equals(deleteYn)) { %>
 <script>
@@ -299,36 +304,36 @@
         </div>
         <div class="form-group">
             <label>주말운행여부</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="weekendOperationYn" id="weekendOperation_Y" value="Y" data-input-value="<%= weekendOperationYnValue %>">
-                <label class="form-check-label" for="weekendOperation_Y">주말운행 O</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="weekendOperationYn" id="weekendOperation_N" value="N" data-input-value="<%= weekendOperationYnValue %>">
-                <label class="form-check-label" for="weekendOperation_N">주말운행 X</label>
-            </div>
+            <% for(DetailCode detailCode: codeWeekendOperationYn.getDetailCodes()) { %>
+                <% String code = detailCode.getCode(); %>
+                <% String name = detailCode.getName(); %>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="weekendOperationYn" id="weekendOperation_<%= code %>" value="<%= code %>" data-input-value="<%= weekendOperationYnValue %>">
+                    <label class="form-check-label" for="weekendOperation_<%= code %>"><%= name %></label>
+                </div>
+            <% } %>
         </div>
         <div class="form-group">
             <label>예비차여부</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="spareYn" id="spare_Y" value="Y" data-input-value="<%= spareYnValue %>">
-                <label class="form-check-label" for="spare_Y">예비차 O</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="spareYn" id="spare_N" value="N" data-input-value="<%= spareYnValue %>">
-                <label class="form-check-label" for="spare_N">예비차 X</label>
-            </div>
+            <% for(DetailCode detailCode: codeSpareTripYn.getDetailCodes()) { %>
+                <% String code = detailCode.getCode(); %>
+                <% String name = detailCode.getName(); %>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="spareYn" id="spare_<%= code %>" value="<%= code %>" data-input-value="<%= spareYnValue %>">
+                    <label class="form-check-label" for="spare_<%= code %>"><%= name %></label>
+                </div>
+            <% } %>
         </div>
         <div class="form-group">
             <label>방학감차여부</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="schoolBreakReductionYn" id="schoolBreakReduction_Y" value="Y" data-input-value="<%= schoolBreakReductionYnValue %>">
-                <label class="form-check-label" for="schoolBreakReduction_Y">방학감차 O</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="schoolBreakReductionYn" id="schoolBreakReduction_N" value="N" data-input-value="<%= schoolBreakReductionYnValue %>">
-                <label class="form-check-label" for="schoolBreakReduction_N">방학감차 X</label>
-            </div>
+            <% for(DetailCode detailCode: codeSchoolBreakReductionYn.getDetailCodes()) { %>
+                <% String code = detailCode.getCode(); %>
+                <% String name = detailCode.getName(); %>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="schoolBreakReductionYn" id="schoolBreakReduction_<%= code %>" value="<%= code %>" data-input-value="<%= schoolBreakReductionYnValue %>">
+                    <label class="form-check-label" for="schoolBreakReduction_<%= code %>"><%= name %></label>
+                </div>
+            <% } %>
         </div>
         <div class="form-group">
             <label>방학감차 시작일</label>
@@ -336,14 +341,14 @@
         </div>
         <div class="form-group">
             <label>운행중단여부</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tripStopYn" id="tripStop_Y" value="Y" data-input-value="<%= tripStopYnValue %>">
-                <label class="form-check-label" for="tripStop_Y">운행중단 O</label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="tripStopYn" id="tripStop_N" value="N" data-input-value="<%= tripStopYnValue %>">
-                <label class="form-check-label" for="tripStop_N">운행중단 X</label>
-            </div>
+            <% for(DetailCode detailCode: codeTripStopYn.getDetailCodes()) { %>
+                <% String code = detailCode.getCode(); %>
+                <% String name = detailCode.getName(); %>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="tripStopYn" id="tripStop_<%= code %>" value="<%= code %>" data-input-value="<%= tripStopYnValue %>">
+                    <label class="form-check-label" for="tripStop_<%= code %>"><%= name %></label>
+                </div>
+            <% } %>
         </div>
         <div class="form-group">
             <label>운행중단일자</label>

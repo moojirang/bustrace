@@ -35,6 +35,10 @@ public class CodeUtil {
 		}
 	}
 
+	public static Code getCode(String codeId) {
+		return codes.get(codeId);
+	}
+
 	public static PlateType getPlateType(String code) {
 		return plateTypes.get(code);
 	}

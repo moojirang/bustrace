@@ -8,6 +8,9 @@
 <html lang="ko">
     <head>
         <link href="/dd/css/wordTest.css" rel="stylesheet"/>
+        <style>
+            .btn-area-exist-exam { display: none; }
+        </style>
         <script src="/dd/js/jquery-3.4.1.min.js"></script>
         <script>
             var words;
@@ -40,6 +43,8 @@
                     list.appendChild(ul);
 
                     printCreateDt();
+
+                    document.getElementsByClassName("btn-area-exist-exam")[0].style.display = "block";
 
                     createTitleRow(ul);
                     createDataRows(ul, data);
@@ -233,13 +238,15 @@
                     </label>
                     <button class="btn" text="Create" onclick="createQuestion()">Create Questions</button>
                 </div>
-                <div>
-                    <span id="createDt" style="font-weight: bold"></span>
-                    <button class="btn" text="Create" onclick="saveQuestion()">Save</button>
-                </div>
-                <div>
-                    <button class="btn" text="Create" onclick="hiddenAnswer()">Hidden Answers</button>
-                    <button class="btn" text="Create" onclick="showAnswer()">Show Answers</button>
+                <div class="btn-area-exist-exam">
+                    <div>
+                        <button class="btn" text="Create" onclick="hiddenAnswer()">Hidden Answers</button>
+                        <button class="btn" text="Create" onclick="showAnswer()">Show Answers</button>
+                    </div>
+                    <div>
+                        <span id="createDt" style="font-weight: bold"></span>
+                        <button class="btn" text="Create" onclick="saveQuestion()">Save</button>
+                    </div>
                 </div>
             </div>
             <div class="list" id="list"></div>

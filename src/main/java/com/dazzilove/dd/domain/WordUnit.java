@@ -14,6 +14,7 @@ public class WordUnit {
 	@Id private UUID id;
 	private String unitCode;
 	private String unitName;
+	private int wordUnitExamSeq;
 	private String testDt;
 	private List<Word> words = new ArrayList<>();
 

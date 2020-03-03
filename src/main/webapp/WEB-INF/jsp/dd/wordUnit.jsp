@@ -2,43 +2,70 @@
 <%@ page import="com.dazzilove.dd.domain.*" %>
 <%
     WordUnit wordUnit = (WordUnit) request.getAttribute("wordUnit");
-    List<Word> words = wordUnit.getWords();
 %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!doctype html>
 <html lang="ko">
     <head>
         <link href="/dd/css/wordTest.css" rel="stylesheet"/>
+        <script src="/dd/js/jquery-3.4.1.min.js"></script>
         <script>
-            var words = [];
-            <% if (words != null) { %>
-                <% for(Word word: words) { %>
-                    words.push(
-                        {'english':'<%= word.getEnglish() %>'
-                            , 'korean':'<%= word.getKorean() %>'
-                            , 'question':'<%= word.getEnglish() %>'
-                            , 'answer':'<%= word.getKorean() %>'});
-                <% } %>
-            <% } %>
+            var words;
+            var wordUnitExamSeq;
         </script>
         <script>
             function createQuestion() {
-                printCreateDt();
+                $.ajax({
+                    method: "GET",
+                    url: "/dd/getNewExamInfo",
+                    data: {
+                        "id" : "<%= wordUnit.getId() %>",
+                        "suffleYn": document.getElementById("suffleYn").value,
+                        "suffleEngKor": document.getElementById("suffleEngKor").value
+                    }
+                })
+                .done(function(data) {
+                    wordUnitExamSeq = data.wordUnitExamSeq;
 
-                var wordList = document.getElementById("words");
-                if (wordList != null) {
-                    wordList.remove();
-                }
+                    var wordList = document.getElementById("words");
+                    if (wordList != null) {
+                        wordList.remove();
+                    }
 
-                var list = document.getElementById("list");
+                    var list = document.getElementById("list");
 
-                var ul = document.createElement("ul");
-                ul.setAttribute("id", "words");
-                ul.setAttribute("class", "word-list");
-                list.appendChild(ul);
+                    var ul = document.createElement("ul");
+                    ul.setAttribute("id", "words");
+                    ul.setAttribute("class", "word-list");
+                    list.appendChild(ul);
 
-                createTitleRow(ul);
-                createDataRows(ul);
+                    printCreateDt();
+
+                    createTitleRow(ul);
+                    createDataRows(ul, data);
+                })
+                .fail(function() {
+                    alert("error");
+                });
+            }
+            
+            function saveQuestion() {
+                var examWords = {"words": words};
+                $.ajax({
+                    method: "POST",
+                    url: "/dd/saveWordUnitExam",
+                    data: {
+                        "id" : "<%= wordUnit.getId() %>",
+                        "wordUnitExamSeq": wordUnitExamSeq,
+                        "examWords" : JSON.stringify(examWords)
+                    }
+                })
+                .done(function(msg) {
+                    alert(msg);
+                })
+                .fail(function() {
+                    alert("error");
+                });
             }
 
             function hiddenAnswer() {
@@ -65,7 +92,7 @@
                 nowDtStr += ":" + nowDt.getMinutes();
                 nowDtStr += ":" + nowDt.getSeconds();
                 var createDt = document.getElementById("createDt");
-                createDt.innerHTML = "Created At " + nowDtStr;
+                createDt.innerHTML = "No " + wordUnitExamSeq + ", Created At " + nowDtStr;
             }
 
             function createTitleRow(ul) {
@@ -106,13 +133,9 @@
                 ul.append(li);
             }
 
-            function createDataRows(ul) {
-                var suffledWords;
-                if (document.getElementById("suffleYn").value == "Y") {
-                    suffledWords = getSuffledWords(words);
-                } else {
-                    suffledWords = words;
-                }
+            function createDataRows(ul, data) {
+                var suffledWords = data.words;
+                words = suffledWords;
 
                 var tempLi;
                 for(i=0; i<suffledWords.length; i++) {
@@ -184,7 +207,7 @@
     <body>
         <div class="content">
             <div class="title">
-                <span><%= wordUnit.getUnitName() %></span> <span>(시험일시 : <%= wordUnit.getTestDt() %>)</span>
+                <span><%= wordUnit.getUnitName() %></span>
             </div>
             <div class="btns">
                 <div>
@@ -211,8 +234,8 @@
                     <button class="btn" text="Create" onclick="createQuestion()">Create Questions</button>
                 </div>
                 <div>
-                    <span id="createDt"></span>
-                    <button class="btn" text="Create" onclick="showAnswer()">Save</button>
+                    <span id="createDt" style="font-weight: bold"></span>
+                    <button class="btn" text="Create" onclick="saveQuestion()">Save</button>
                 </div>
                 <div>
                     <button class="btn" text="Create" onclick="hiddenAnswer()">Hidden Answers</button>

@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
-public class WordTestServiceImpl implements WordTestService {
+public class WordUnitExamServiceImpl implements WordUnitExamService {
 
 	public static final String WORD_UNIT_EXAM_SEQ = "wordUnitExamSeq";
 

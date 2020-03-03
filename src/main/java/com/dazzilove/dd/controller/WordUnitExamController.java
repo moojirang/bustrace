@@ -3,12 +3,8 @@ package com.dazzilove.dd.controller;
 import com.dazzilove.dd.domain.Word;
 import com.dazzilove.dd.domain.WordUnit;
 import com.dazzilove.dd.domain.WordUnitExam;
-import com.dazzilove.dd.service.WordTestService;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.dazzilove.dd.service.WordUnitExamService;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +20,10 @@ import java.util.Map;
 import java.util.UUID;
 
 @Controller
-public class WordTestController {
+public class WordUnitExamController {
 
 	@Autowired
-	WordTestService wordTestService;
+	WordUnitExamService wordTestService;
 
 	@RequestMapping("/dd/wordUnitList")
 	public ModelAndView viewWordUnitList() throws Exception {

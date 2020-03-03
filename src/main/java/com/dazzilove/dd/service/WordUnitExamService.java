@@ -6,7 +6,7 @@ import com.dazzilove.dd.domain.WordUnitExam;
 import java.util.List;
 import java.util.UUID;
 
-public interface WordTestService {
+public interface WordUnitExamService {
 	void addTempWordUnit(WordUnit wordUnit);
 
 	WordUnit getWordUnit(UUID id);

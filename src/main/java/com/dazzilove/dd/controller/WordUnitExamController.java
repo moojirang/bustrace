@@ -23,13 +23,13 @@ import java.util.UUID;
 public class WordUnitExamController {
 
 	@Autowired
-	WordUnitExamService wordTestService;
+	WordUnitExamService wordUnitExamService;
 
 	@RequestMapping("/dd/wordUnitList")
 	public ModelAndView viewWordUnitList() throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("dd/wordUnitList");
-		mav.addObject(wordTestService.getWordUnitList());
+		mav.addObject(wordUnitExamService.getWordUnitList());
 		return mav;
 	}
 
@@ -40,7 +40,7 @@ public class WordUnitExamController {
 
 		String id = StringUtils.defaultString(request.getParameter("id"), "");
 
-		WordUnit wordUnit = wordTestService.getWordUnit(UUID.fromString(id));
+		WordUnit wordUnit = wordUnitExamService.getWordUnit(UUID.fromString(id));
 		mav.addObject("wordUnit", wordUnit);
 
 		return mav;
@@ -52,7 +52,7 @@ public class WordUnitExamController {
 		String id = request.getParameter("id");
 		String suffleYn = request.getParameter("suffleYn");
 		String suffleEngKorRate = request.getParameter("suffleEngKor");
-		return wordTestService.getExamWords(id, suffleYn, suffleEngKorRate);
+		return wordUnitExamService.getExamWords(id, suffleYn, suffleEngKorRate);
 	}
 
 	@RequestMapping("/dd/saveWordUnitExam")
@@ -88,7 +88,7 @@ public class WordUnitExamController {
 
 		String message = "저장했습니다.";
 		try {
-			wordTestService.saveWordUnitExam(wordUnitExam);
+			wordUnitExamService.saveWordUnitExam(wordUnitExam);
 		} catch (Exception e) {
 			message = "저장에 실패 했습니다.";
 		}

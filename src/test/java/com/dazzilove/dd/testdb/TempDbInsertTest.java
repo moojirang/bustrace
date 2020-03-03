@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -182,7 +181,7 @@ public class TempDbInsertTest {
 		jsonObject = new JSONObject();jsonObject.put("key", "black");jsonObject.put("value", "검은(색)");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "blue");jsonObject.put("value", "파란(색)");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "boy");jsonObject.put("value", "소년");jsonArray.put(jsonObject);
-		jsonObject = new JSONObject();jsonObject.put("key", "breadk");jsonObject.put("value", "깨뜨리다");jsonArray.put(jsonObject);
+		jsonObject = new JSONObject();jsonObject.put("key", "break");jsonObject.put("value", "깨뜨리다");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "breakfast");jsonObject.put("value", "아침 식사");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "bring");jsonObject.put("value", "가져오다");jsonArray.put(jsonObject);
 		jsonObject = new JSONObject();jsonObject.put("key", "brother");jsonObject.put("value", "남자형제, 오빠, 형, 남동생");jsonArray.put(jsonObject);

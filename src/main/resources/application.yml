@@ -9,9 +9,9 @@ logging:
     hello: INFO
     org:
       springframework:
-        ws: DEBUG
+        ws: INFO
         data:
-          mongodb: DEBUG
+          mongodb: INFO
 
 spring:
   application:

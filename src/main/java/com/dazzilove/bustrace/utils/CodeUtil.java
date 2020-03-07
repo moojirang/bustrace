@@ -4,40 +4,53 @@ import com.dazzilove.bustrace.domain.Code;
 import com.dazzilove.bustrace.domain.DetailCode;
 import com.dazzilove.bustrace.domain.PlateType;
 import com.dazzilove.bustrace.service.web.CodeService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
-public class CodeUtil {
+public class CodeUtil implements ApplicationContextAware, InitializingBean {
 
-	@Autowired
-	CodeService codeService;
+	private static ApplicationContext applicationContext;
 
 	public static Map<String, Code> codes = new HashMap<>();
 	public static Map<String, PlateType> plateTypes = new HashMap<>();
 
-	public CodeUtil(@Autowired CodeService codeService) {
-		this.codeService = codeService;
-		init();
+	private CodeUtil() {
+		//
 	}
 
-	public void init() {
+	public void setApplicationContext(ApplicationContext ctx) {
+	    applicationContext = ctx;
+    }
+
+	@Override
+	public void afterPropertiesSet() {
+		CodeUtil.init();
+	}
+
+	public static void init() {
 		List<Code> codeList = new ArrayList<>();
 		try {
+			CodeService codeService = applicationContext.getBean(CodeService.class);
 			codeList = codeService.getCodeList();
-		} catch (Exception e) { }
-		for(Code code: codeList) {
-			codes.put(code.getCode(), code);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
+		codes.clear();
+		codeList.forEach(code -> codes.put(code.getCode(), code));
 	}
 
 	public static Code getCode(String codeId) {
-		return codes.get(codeId);
+	    return codes.get(codeId);
 	}
 
 	public static PlateType getPlateType(String code) {
@@ -49,15 +62,14 @@ public class CodeUtil {
 		List<DetailCode> detailCodes = code.getDetailCodes();
 
 		Map<String, PlateType> newPlateTypes = new HashMap<>();
-		PlateType plateType;
 
-		for(DetailCode detailCode: detailCodes) {
-			plateType = new PlateType();
-			plateType.setCode(detailCode.getCode());
-			plateType.setName(detailCode.getName());
-			plateType.setImageSrc(detailCode.getImg());
-			newPlateTypes.put(plateType.getCode(), plateType);
-		}
+		newPlateTypes = detailCodes.stream().map(detailCode -> {
+			return PlateType.builder()
+					.code(detailCode.getCode())
+					.name(detailCode.getName())
+					.imageSrc(detailCode.getImg())
+					.build();
+		}).collect(Collectors.toMap(PlateType::getCode, p -> p));
 
 		if (plateTypes.isEmpty()) {
 			plateTypes = newPlateTypes;

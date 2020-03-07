@@ -1,10 +1,12 @@
 package com.dazzilove.bustrace.domain;
 
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PlateType {
 	private String code;
 	private String name;

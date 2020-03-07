@@ -3,6 +3,7 @@ package com.dazzilove.bustrace.controller.web;
 import com.dazzilove.bustrace.domain.Code;
 import com.dazzilove.bustrace.domain.DetailCode;
 import com.dazzilove.bustrace.service.web.CodeService;
+import com.dazzilove.bustrace.utils.CodeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,7 +27,7 @@ public class CodeMngController {
 		String msg = "코드가 갱신되었습니다.";
 
 		try {
-			codeService.refresh();
+			CodeUtil.init();
 		} catch (Exception e) {
 			msg = "코드 갱신에 실패했습니다.";
 			e.printStackTrace();

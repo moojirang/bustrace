@@ -1,8 +1,8 @@
 package com.dazzilove.bustrace.service.web;
 
-import com.dazzilove.bustrace.domain.*;
+import com.dazzilove.bustrace.domain.Code;
+import com.dazzilove.bustrace.domain.DetailCode;
 import com.dazzilove.bustrace.repository.CodeRepository;
-import com.dazzilove.bustrace.utils.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Service;
@@ -21,14 +21,6 @@ public class CodeServiceImpl implements CodeService {
 
 	@Autowired
 	MongoOperations mongoOperations;
-
-	@Autowired
-	CodeUtil codeUtil;
-
-	@Override
-	public void refresh() throws Exception {
-		codeUtil.init();
-	}
 
 	@Override
 	public void addCode(Code code) throws Exception {

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CodeService {
-	public void refresh() throws Exception;
 	public Code getCode(UUID id) throws Exception;
 	public List<Code> getCodeList() throws Exception;
 	public Code getCode(String id) throws Exception;

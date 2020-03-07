@@ -15,6 +15,7 @@ import java.util.Map;
 @Component
 public class CodeUtil {
 
+	@Autowired
 	CodeService codeService;
 
 	public static Map<String, Code> codes = new HashMap<>();

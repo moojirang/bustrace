@@ -1,6 +1,5 @@
 package com.dazzilove.bustrace.service.web;
 
-import com.dazzilove.bustrace.domain.Bus;
 import com.dazzilove.bustrace.domain.Route;
 import com.dazzilove.bustrace.domain.TripPlan;
 
@@ -18,4 +17,6 @@ public interface RouteService {
     Route getOnlyRouteInfo(String id) throws Exception;
 
     Route getRouteInfo(String id) throws Exception;
+
+    void saveRouteStations(String routeId);
 }

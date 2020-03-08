@@ -1,10 +1,17 @@
 package com.dazzilove.bustrace.service.web;
 
-import com.dazzilove.bustrace.domain.*;
+import com.dazzilove.bustrace.domain.PlateType;
+import com.dazzilove.bustrace.domain.Route;
+import com.dazzilove.bustrace.domain.Station;
+import com.dazzilove.bustrace.domain.TripPlan;
 import com.dazzilove.bustrace.repository.RouteRepository;
+import com.dazzilove.bustrace.repository.StationRepository;
+import com.dazzilove.bustrace.service.BusRouteClient;
+import com.dazzilove.bustrace.service.wsdl.BusRouteStation;
+import com.dazzilove.bustrace.service.wsdl.GetBusRouteStationListResponse;
+import com.dazzilove.bustrace.service.wsdl.ResMsgHeader;
 import com.dazzilove.bustrace.utils.CodeUtil;
 import org.apache.commons.lang.StringUtils;
-import org.bson.types.Code;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +26,16 @@ public class RouteServiceImpl implements RouteService {
 	TripPlanService tripPlanService;
 
 	@Autowired
+    StationService stationService;
+
+	@Autowired
     RouteRepository routeRepository;
+
+	@Autowired
+    StationRepository stationRepository;
+
+    @Autowired
+    private BusRouteClient busRouteClient;
 
     @Override
     public Route getRouteInfo(String _id) throws Exception {
@@ -42,7 +58,30 @@ public class RouteServiceImpl implements RouteService {
         return route;
     }
 
-	@Override
+    @Override
+    public void saveRouteStations(String routeId) {
+        List<BusRouteStation> busRouteStations = getBusRouteStationList(routeId);
+        if(!busRouteStations.isEmpty()) {
+            for(BusRouteStation busRouteStation: busRouteStations) {
+                String stationId = busRouteStation.getStationId();
+                Station station = getStation(stationId);
+                if (station != null) {
+                    String newStationSeq = StringUtils.defaultString(station.getStationSeq(), "").trim();
+                    if (newStationSeq.length() == 0) {
+                        Station newStation = new Station();
+                        newStation.setId(UUID.randomUUID());
+                        newStation.setRouteId(routeId);
+                        newStation.setStationId(busRouteStation.getStationId());
+                        newStation.setStationSeq(busRouteStation.getStationSeq());
+                        newStation.setStationName(busRouteStation.getStationName());
+                        stationRepository.save(newStation);
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
     public Route getOnlyRouteInfo(String _id) throws Exception {
 	    return getRoute(_id);
     }
@@ -142,5 +181,21 @@ public class RouteServiceImpl implements RouteService {
     private Route getRoute(String _id) {
         Optional<Route> tripPlan = routeRepository.findById(UUID.fromString(_id));
         return tripPlan.orElse(new Route());
+    }
+
+    private List<BusRouteStation> getBusRouteStationList(String routeId) {
+        GetBusRouteStationListResponse response = busRouteClient.getBusRouteStationList(routeId);
+        if (response != null && response.getReturn() != null) {
+            ResMsgHeader header = response.getReturn().getMsgHeader();
+            if (header != null && header.getResultCode() == 0) {
+                return response.getReturn().getMsgBody().getBusRouteStationList();
+            }
+        }
+        return null;
+    }
+
+    private Station getStation(String stationId) {
+        Station station = stationService.getStation(stationId);
+        return station;
     }
 }

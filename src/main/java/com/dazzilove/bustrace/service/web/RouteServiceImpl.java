@@ -64,7 +64,8 @@ public class RouteServiceImpl implements RouteService {
         if(!busRouteStations.isEmpty()) {
             for(BusRouteStation busRouteStation: busRouteStations) {
                 String stationId = busRouteStation.getStationId();
-                Station station = getStation(stationId);
+                String stationSeq = busRouteStation.getStationSeq();
+                Station station = getStation(stationId, stationSeq);
                 if (station != null) {
                     String newStationSeq = StringUtils.defaultString(station.getStationSeq(), "").trim();
                     if (newStationSeq.length() == 0) {
@@ -194,8 +195,8 @@ public class RouteServiceImpl implements RouteService {
         return null;
     }
 
-    private Station getStation(String stationId) {
-        Station station = stationService.getStation(stationId);
+    private Station getStation(String stationId, String stationSeq) {
+        Station station = stationService.getStation(stationId, stationSeq);
         return station;
     }
 }

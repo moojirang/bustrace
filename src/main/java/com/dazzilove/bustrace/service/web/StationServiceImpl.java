@@ -23,10 +23,12 @@ public class StationServiceImpl implements StationService {
     StationRepository stationRepository;
 
     @Override
-    public Station getStation(String stationId) {
+    public Station getStation(String stationId, String stationSeq) {
         List<AggregationOperation> list = new ArrayList<AggregationOperation>();
         if (stationId.length() > 0)
             list.add(Aggregation.match(Criteria.where("stationId").is(stationId)));
+        if (stationSeq.length() > 0)
+            list.add(Aggregation.match(Criteria.where("stationSeq").is(stationSeq)));
         TypedAggregation<Station> agg = Aggregation.newAggregation(Station.class, list);
 
         List<Station> stations = mongoOperations.aggregate(agg, Station.class, Station.class).getMappedResults();

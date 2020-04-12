@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface LocationService {
 	public List<Location> getLocations(LocationParam locationParam) throws Exception;
+
+    public Location getLastLocation(LocationParam locationParam) throws Exception;
 }

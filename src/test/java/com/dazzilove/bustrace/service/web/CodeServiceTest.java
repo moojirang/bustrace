@@ -3,6 +3,7 @@ package com.dazzilove.bustrace.service.web;
 import com.dazzilove.bustrace.domain.Code;
 import com.dazzilove.bustrace.domain.DetailCode;
 import com.dazzilove.bustrace.repository.CodeRepository;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +19,7 @@ public class CodeServiceTest {
     CodeRepository codeRepository;
 
     @Test
+    @Ignore
     public void defaultCodeInsertTest() {
         insertPlateType();
         insertWeekendOperation();

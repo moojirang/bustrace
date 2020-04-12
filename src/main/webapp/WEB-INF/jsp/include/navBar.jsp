@@ -21,26 +21,11 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item" data-menu="1">
-                <a class="nav-link" href="/busList">노선목록</a>
-            </li>
-            <li class="nav-item" data-menu="2">
-                <span class="nav-link">- 노선정보</span></span>
-            </li>
-            <li class="nav-item" data-menu="3">
-                <a class="nav-link" href="/busMng/busMngList">노선관리</a>
-            </li>
-            <li class="nav-item" data-menu="5">
-                <span class="nav-link">- 노선등록/수정/삭제</span>
-            </li>
-            <li class="nav-item" data-menu="4">
-                <span class="nav-link">- 노선관리상세</span>
-            </li>
             <li class="nav-item" data-menu="6">
                 <a class="nav-link">시스템관리</a>
             </li>
             <li class="nav-item" data-menu="7">
-                <a class="nav-link" href="/codeMng/codeList">- 코드관리</a>
+                <a class="nav-link" href="/batchMng/list">- 배치리스트</a>
             </li>
         </ul>
     </div>

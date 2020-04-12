@@ -1,0 +1,24 @@
+package com.dazzilove.bustrace.utils.alarmnotice;
+
+import jdk.nashorn.internal.ir.annotations.Ignore;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+public class KokaoAlarmNoticeTest {
+
+    @Autowired
+    KakaoAlarmNotice kakaoAlarmNotice;
+
+    @Test
+    @Ignore
+    void test() {
+        kakaoAlarmNotice.alarm("aaaa");
+    }
+
+    @Test
+    void getProfileTest() {
+        kakaoAlarmNotice.getProfile();
+    }
+}

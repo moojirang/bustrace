@@ -41,7 +41,12 @@ public class Bus {
     }
 
     public int plateNoDiff(Bus bus) {
-        return this.plateNo.compareTo(bus.getPlateNo());
+        try {
+            return this.plateNo.compareTo(bus.getPlateNo());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     public List<Bus> getBusList() {

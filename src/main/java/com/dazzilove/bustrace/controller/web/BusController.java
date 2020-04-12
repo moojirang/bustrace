@@ -10,15 +10,15 @@ import com.dazzilove.bustrace.service.wsdl.BusRouteStation;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletRequest;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class BusController {
@@ -38,7 +38,7 @@ public class BusController {
     @Autowired
     private SpecialMessageService specialMessageService;
 
-    @RequestMapping("/busList")
+//    @RequestMapping("/busList")
     public ModelAndView getBusList() throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busList");
@@ -49,7 +49,7 @@ public class BusController {
         return mav;
     }
 
-    @RequestMapping("/routeInfo")
+//    @RequestMapping("/routeInfo")
     public ModelAndView getRouteInfo(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("routeInfo");
@@ -120,7 +120,7 @@ public class BusController {
                 .forEach(station -> {
                     LocationParam tempLocationParam = new LocationParam();
                     tempLocationParam.setRouteId(locationParam.getRouteId());
-                    tempLocationParam.setStationId(station.getStationId());
+                    tempLocationParam.setStationId(station.getStationId().toString());
                     tempLocationParam.setStartCreatedAt(locationParam.getStartCreatedAt());
                     tempLocationParam.setEndCreatedAt(locationParam.getEndCreatedAt());
                     try {
@@ -129,9 +129,11 @@ public class BusController {
                         String createdAt = String.valueOf(createdAtDate.getYear()) + String.valueOf(createdAtDate.getMonthValue()) + String.valueOf(createdAtDate.getDayOfMonth());
                         String now = String.valueOf(nowDate.getYear()) + String.valueOf(nowDate.getMonthValue()) + String.valueOf(nowDate.getDayOfMonth());
                         if (createdAt.equals(now)) {
-                            station.getLocations().addAll(getTodayLocations(tempLocationParam));
+//                            station.getLocations().addAll(getTodayLocations(tempLocationParam));
+                            station.getLocations().add(getTodayLocation(tempLocationParam));
                         } else {
-                            station.getLocations().addAll(getPreviousPeriodLocations(tempLocationParam));
+//                            station.getLocations().addAll(getPreviousPeriodLocations(tempLocationParam));
+                            station.getLocations().add(getPreviousPeriodLastLocation(tempLocationParam));
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -141,39 +143,62 @@ public class BusController {
         return stations;
     }
 
-    private List<Location> getTodayLocations(LocationParam locationParam) throws Exception {
-        List<Location> locations = new ArrayList<>();
-
-        List<BusLocation> busLocations = busLocationService.getBusLoactions(locationParam);
-        busLocations.stream().sorted((busLocation1, busLocation2) -> busLocation2.createdAtDiff(busLocation1));    // 시간 역순으로 정렬
-
-        final long baseSecondsDiff = 15*60;
-        LocalDateTime creatdAtBefore = LocalDateTime.now();
-        for(BusLocation busLocation: busLocations) {
-            LocalDateTime createdAt = busLocation.getCreatedAt();
-            long secondsDiff = Duration.between(createdAt, creatdAtBefore).getSeconds();
-            if (secondsDiff >= baseSecondsDiff) {
-                Location location = new Location();
-                location.setRouteId(busLocation.getRouteId());
-                location.setStationId(busLocation.getStationId());
-                location.setStationSeq(busLocation.getStationSeq());
-                location.setEndBus(busLocation.getEndBus());
-                location.setLowPlate(busLocation.getLowPlate());
-                location.setPlateNo(busLocation.getPlateNo());
-                location.setPlateType(busLocation.getPlateType());
-                location.setRemainSeatCnt(busLocation.getRemainSeatCnt());
-                location.setCreatedAt(busLocation.getCreatedAt());
-                locations.add(location);
-            }
-            creatdAtBefore = createdAt;
+    private Location getTodayLocation(LocationParam locationParam) throws Exception {
+        BusLocation busLocation = busLocationService.getLastBusLocation(locationParam);
+        if (busLocation == null) {
+            return new Location();
         }
 
-        return locations.stream().sorted((location1, location2) -> location1.createdAtDiff(location2)).collect(Collectors.toList());
+        Location location = new Location();
+        location.setRouteId(busLocation.getRouteId());
+        location.setStationId(busLocation.getStationId());
+        location.setStationSeq(busLocation.getStationSeq());
+        location.setEndBus(busLocation.getEndBus());
+        location.setLowPlate(busLocation.getLowPlate());
+        location.setPlateNo(busLocation.getPlateNo());
+        location.setPlateType(busLocation.getPlateType());
+        location.setRemainSeatCnt(busLocation.getRemainSeatCnt());
+        location.setCreatedAt(busLocation.getCreatedAt());
+        return location;
     }
 
-    private List<Location> getPreviousPeriodLocations(LocationParam locationParam) throws Exception {
-        return locationService.getLocations(locationParam);
+    private Location getPreviousPeriodLastLocation(LocationParam locationParam) throws Exception {
+        return locationService.getLastLocation(locationParam);
     }
+
+//    private List<Location> getTodayLocations(LocationParam locationParam) throws Exception {
+//        List<Location> locations = new ArrayList<>();
+//
+//        List<BusLocation> busLocations = busLocationService.getBusLoactions(locationParam);
+//        busLocations.stream().sorted((busLocation1, busLocation2) -> busLocation2.createdAtDiff(busLocation1));    // 시간 역순으로 정렬
+//
+//        final long baseSecondsDiff = 15*60;
+//        LocalDateTime creatdAtBefore = LocalDateTime.now();
+//        for(BusLocation busLocation: busLocations) {
+//            LocalDateTime createdAt = busLocation.getCreatedAt();
+//            long secondsDiff = Duration.between(createdAt, creatdAtBefore).getSeconds();
+//            if (secondsDiff >= baseSecondsDiff) {
+//                Location location = new Location();
+//                location.setRouteId(busLocation.getRouteId());
+//                location.setStationId(busLocation.getStationId());
+//                location.setStationSeq(busLocation.getStationSeq());
+//                location.setEndBus(busLocation.getEndBus());
+//                location.setLowPlate(busLocation.getLowPlate());
+//                location.setPlateNo(busLocation.getPlateNo());
+//                location.setPlateType(busLocation.getPlateType());
+//                location.setRemainSeatCnt(busLocation.getRemainSeatCnt());
+//                location.setCreatedAt(busLocation.getCreatedAt());
+//                locations.add(location);
+//            }
+//            creatdAtBefore = createdAt;
+//        }
+//
+//        return locations.stream().sorted((location1, location2) -> location1.createdAtDiff(location2)).collect(Collectors.toList());
+//    }
+//
+//    private List<Location> getPreviousPeriodLocations(LocationParam locationParam) throws Exception {
+//        return locationService.getLocations(locationParam);
+//    }
 
     private List<Bus> getPlateNoList(List<Station> stationList) {
         List<Bus> plateNoList = new ArrayList<>();
@@ -194,7 +219,8 @@ public class BusController {
             plateNoList.add(value);
         });
 
-        plateNoList.sort((bus1, bus2) -> bus1.plateNoDiff(bus2));
+        if (plateNoList != null && plateNoList.size() > 1)
+            plateNoList.sort((bus1, bus2) -> bus1.plateNoDiff(bus2));
 
         return plateNoList;
     }

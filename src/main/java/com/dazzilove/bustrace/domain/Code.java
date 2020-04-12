@@ -7,14 +7,11 @@ import org.springframework.data.annotation.Id;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @ToString
 public class Code {
-	@Id private UUID id;
-
-	private String code;
+	@Id private String id;
 	private String name;
 	private String useYn;
 	private String delYn;

@@ -108,6 +108,37 @@ public class BusLocationServiceImpl implements BusLocationService {
     }
 
     @Override
+    public BusLocation getLastBusLocation(LocationParam locationParam) throws Exception {
+        String routeid = StringUtils.defaultString(locationParam.getRouteId(), "").trim();
+        String plateNo = StringUtils.defaultString(locationParam.getPlateNo(), "").trim();
+        String stationId = StringUtils.defaultString(locationParam.getStationId(), "").trim();
+        LocalDateTime startCreatedAt = locationParam.getStartCreatedAt();
+        LocalDateTime endCreatedAt = locationParam.getEndCreatedAt();
+
+        List<AggregationOperation> list = new ArrayList<AggregationOperation>();
+        if (routeid.length() > 0)
+            list.add(Aggregation.match(Criteria.where("routeId").is(routeid)));
+        if (plateNo.length() > 0)
+            list.add(Aggregation.match(Criteria.where("plateNo").is(plateNo)));
+        if (stationId.length() > 0)
+            list.add(Aggregation.match(Criteria.where("stationId").is(stationId)));
+        if (startCreatedAt != null)
+            list.add(Aggregation.match(Criteria.where("createdAt").gte(startCreatedAt)));
+        if (endCreatedAt != null)
+            list.add(Aggregation.match(Criteria.where("createdAt").lte(endCreatedAt)));
+        list.add(Aggregation.sort(Sort.Direction.ASC, "routeId", "plateNo", "stationId", "createdAt"));
+        list.add(Aggregation.limit(1));
+        TypedAggregation<BusLocation> agg = Aggregation.newAggregation(BusLocation.class, list);
+
+        List<BusLocation> locations = mongoOperations.aggregate(agg, BusLocation.class, BusLocation.class).getMappedResults();
+        if (locations == null || locations.size() == 0) {
+            return new BusLocation();
+        } {
+            return locations.get(0);
+        }
+    }
+
+    @Override
     public List<BusLocation> getBusLoactionsByPlateNo(LocationParam locationParam) throws Exception {
         return busLocationRepository.findByRouteIdAndPlateNoAndCreatedAtRange(
                 locationParam.getRouteId()

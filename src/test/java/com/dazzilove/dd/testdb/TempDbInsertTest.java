@@ -2,7 +2,7 @@ package com.dazzilove.dd.testdb;
 
 import com.dazzilove.dd.domain.Word;
 import com.dazzilove.dd.domain.WordUnit;
-import com.dazzilove.dd.service.WordTestService;
+import com.dazzilove.dd.service.WordUnitExamService;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +18,7 @@ import java.util.UUID;
 public class TempDbInsertTest {
 
 	@Autowired
-	WordTestService wordTestService;
+	WordUnitExamService wordTestService;
 
 	@Test
 	public void tempWordTestDbInsert() throws JSONException {

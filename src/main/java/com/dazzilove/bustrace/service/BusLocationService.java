@@ -16,4 +16,5 @@ public interface BusLocationService {
 
     public List<BusLocation> getBusLoactionsByPlateNo(LocationParam locationParam) throws Exception;
 
+    public BusLocation getLastBusLocation(LocationParam locationParam) throws Exception;
 }

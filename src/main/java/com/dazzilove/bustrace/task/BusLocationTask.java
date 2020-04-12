@@ -4,6 +4,7 @@ import com.dazzilove.bustrace.service.BusLocationService;
 import com.dazzilove.bustrace.service.batch.DeduplicationLocationService;
 import com.dazzilove.bustrace.service.web.RouteService;
 import com.dazzilove.bustrace.service.web.TripPlanService;
+import com.dazzilove.bustrace.utils.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,12 +95,22 @@ public class BusLocationTask {
                 LocalDateTime startCreatedAt = LocalDateTime.of(baseDateTime.getYear(), baseDateTime.getMonth(), baseDateTime.getDayOfMonth(), 0, 0, 0);
                 LocalDateTime endCreatedAt = LocalDateTime.of(baseDateTime.getYear(), baseDateTime.getMonth(), baseDateTime.getDayOfMonth(), 23, 59, 59);
 
-                deduplicationLocationService.deduplicationLocation(routeId, startCreatedAt, endCreatedAt);
+                scheduleLocationSave(routeId, startCreatedAt, endCreatedAt);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    public void scheduleLocationSave(String routeId, String startDate, String endDate) throws Exception {
+        LocalDateTime startCreatedAt = DateUtil.getStartCreatedAt(startDate);
+        LocalDateTime endCreatedAt = DateUtil.getEndCreatedAt(endDate);
+        scheduleLocationSave(routeId, startCreatedAt, endCreatedAt);
+    }
+
+    private void scheduleLocationSave(String routeId, LocalDateTime startCreatedAt, LocalDateTime endCreatedAt) throws Exception {
+        deduplicationLocationService.deduplicationLocation(routeId, startCreatedAt, endCreatedAt);
     }
 
     private void busLocationAllDay() {

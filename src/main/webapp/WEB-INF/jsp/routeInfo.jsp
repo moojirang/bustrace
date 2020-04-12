@@ -32,7 +32,8 @@
     });
     for(PlateType plateType: plateTypeList) {
         for(Bus bus: plateNoList) {
-            if(bus.getPlateType().equals(plateType.getCode())) {
+            String plateTypeTemp = StringUtils.defaultString(bus.getPlateType(), "").trim();
+            if(plateTypeTemp.equals(plateType.getCode())) {
                 plateType.setTypeCnt(plateType.getTypeCnt() + 1);
             }
         }

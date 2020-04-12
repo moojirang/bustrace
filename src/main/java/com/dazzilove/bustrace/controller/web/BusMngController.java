@@ -11,8 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletRequest;
@@ -34,7 +32,7 @@ public class BusMngController {
     @Autowired
     private DeduplicationLocationService deduplicationLocationService;
 
-    @RequestMapping("/busMng/busMngList")
+//    @RequestMapping("/busMng/busMngList")
     public ModelAndView viewBusMng() throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/busMngList");
@@ -45,7 +43,7 @@ public class BusMngController {
         return mav;
     }
 
-    @RequestMapping("/busMng/viewAddRoute")
+//    @RequestMapping("/busMng/viewAddRoute")
     public ModelAndView viewAddRoute(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/routeForm");
@@ -53,8 +51,8 @@ public class BusMngController {
         return mav;
     }
 
-    @RequestMapping("/busMng/addRoute")
-    @ResponseBody
+//    @RequestMapping("/busMng/addRoute")
+//    @ResponseBody
     public String addRoute(ServletRequest request) throws Exception {
 
         Route route = convertRouteByRequest(request);
@@ -73,7 +71,7 @@ public class BusMngController {
         return "등록 완료 되었습니다.";
     }
 
-    @RequestMapping("/busMng/viewEditRoute")
+//    @RequestMapping("/busMng/viewEditRoute")
     public ModelAndView viewEditRoute(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/routeForm");
@@ -87,8 +85,8 @@ public class BusMngController {
         return mav;
     }
 
-    @RequestMapping("/busMng/editRoute")
-    @ResponseBody
+//    @RequestMapping("/busMng/editRoute")
+//    @ResponseBody
     public String editRoute(ServletRequest request) throws Exception {
 
         Route route = convertRouteByRequest(request);
@@ -107,8 +105,8 @@ public class BusMngController {
         return "수정 완료 되었습니다.";
     }
 
-    @RequestMapping("/busMng/delRoute")
-    @ResponseBody
+//    @RequestMapping("/busMng/delRoute")
+//    @ResponseBody
     public String delRoute(ServletRequest request) throws Exception {
 
         Route route = convertRouteByRequest(request);
@@ -127,7 +125,7 @@ public class BusMngController {
         return "삭제 완료 되었습니다.";
     }
 
-    @RequestMapping("/busMng/busMngInfo")
+//    @RequestMapping("/busMng/busMngInfo")
     public ModelAndView viewBusMngInfo(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/busMngInfo");
@@ -142,7 +140,7 @@ public class BusMngController {
 		return routeService.getRouteInfo(_id);
 	}
 
-    @RequestMapping("/busMng/viewAddTripPlan")
+//    @RequestMapping("/busMng/viewAddTripPlan")
     public ModelAndView viewAddTripPlan(ServletRequest request) throws Exception {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("busMng/tripPlanForm");
@@ -160,8 +158,8 @@ public class BusMngController {
         return mav;
     }
 
-    @RequestMapping("/busMng/addTripPlan")
-	@ResponseBody
+//    @RequestMapping("/busMng/addTripPlan")
+//	@ResponseBody
 	public String addTripPlan(ServletRequest request) throws Exception {
 
 		TripPlan tripPlan = convertTripPlanByRequest(request);
@@ -180,7 +178,7 @@ public class BusMngController {
     	return "등록 완료 되었습니다.";
 	}
 
-	@RequestMapping("/busMng/viewEditTripPlan")
+//	@RequestMapping("/busMng/viewEditTripPlan")
 	public ModelAndView viewEditTripPlan(ServletRequest request) throws Exception {
     	ModelAndView mav = new ModelAndView();
 		mav.setViewName("busMng/tripPlanForm");
@@ -199,8 +197,8 @@ public class BusMngController {
 		return mav;
 	}
 
-	@RequestMapping("/busMng/editTripPlan")
-	@ResponseBody
+//	@RequestMapping("/busMng/editTripPlan")
+//	@ResponseBody
 	public String editTripPlan(ServletRequest request) throws Exception {
 
 		TripPlan tripPlan = convertTripPlanByRequest(request);
@@ -219,8 +217,8 @@ public class BusMngController {
 		return "수정 완료 되었습니다.";
 	}
 
-	@RequestMapping("/busMng/delTripPlan")
-	@ResponseBody
+//	@RequestMapping("/busMng/delTripPlan")
+//	@ResponseBody
 	public String delTripPlan(ServletRequest request) throws Exception {
 
 		TripPlan tripPlan = convertTripPlanByRequest(request);
@@ -239,8 +237,8 @@ public class BusMngController {
 		return "삭제 완료 되었습니다.";
 	}
 
-    @RequestMapping("/busMng/deduplicationLocation/{from}/{to}")
-    @ResponseBody
+//    @RequestMapping("/busMng/deduplicationLocation/{from}/{to}")
+//    @ResponseBody
     public String deduplicationLocation(
             @PathVariable String from,
             @PathVariable String to

@@ -4,6 +4,9 @@ bustrace:
   scheduler:
     threadPoolSize: 5
 
+server:
+  port: 8080
+
 logging:
   level:
     hello: INFO
@@ -21,14 +24,9 @@ spring:
       uri: mongodb://127.0.0.1:27017
       database: bustrace
   mvc:
-      view:
-        prefix: /WEB-INF/jsp/
-        suffix: .jsp
-#  thymeleaf:
-#    cache: false
-#    enabled: true
-#    prefix: classpath:/templates/
-#    suffix: .html
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
 
 ---
 spring:

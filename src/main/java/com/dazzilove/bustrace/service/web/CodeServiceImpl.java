@@ -24,10 +24,10 @@ public class CodeServiceImpl implements CodeService {
 
 	@Override
 	public void addCode(Code code) throws Exception {
-		code.setId(UUID.randomUUID());
-		code.setCreatedAt(LocalDateTime.now());
-		code.setUpdatedAt(LocalDateTime.now());
-		codeRepository.insert(code);
+//		code.setId(UUID.randomUUID());
+//		code.setCreatedAt(LocalDateTime.now());
+//		code.setUpdatedAt(LocalDateTime.now());
+//		codeRepository.insert(code);
 	}
 
 	@Override

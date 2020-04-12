@@ -3,6 +3,7 @@ package com.dazzilove.dd.testdb;
 import com.dazzilove.dd.domain.Word;
 import com.dazzilove.dd.domain.WordUnit;
 import com.dazzilove.dd.service.WordUnitExamService;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -21,6 +22,7 @@ public class TempDbInsertTest {
 	WordUnitExamService wordTestService;
 
 	@Test
+	@Ignore
 	public void tempWordTestDbInsert() throws JSONException {
 		String tempDb = "";
 

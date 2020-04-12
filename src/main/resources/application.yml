@@ -8,6 +8,8 @@ server:
   port: 8080
 
 logging:
+  file:
+    name: ./logs/bustrace.log
   level:
     hello: INFO
     org:

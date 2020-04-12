@@ -17,6 +17,7 @@ logging:
           mongodb: INFO
 
 spring:
+  pid: bustrace.pid
   application:
     name: Bootstrap Spring Boot
   data:

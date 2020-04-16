@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 public class Batch {
 
-    public static final String BASIC_URL = "https://bustrace.11st.co.kr";
+    public static final String BASIC_URL = "https://bustrace.dazzilove.com";
 
     private String name;
     private String method;

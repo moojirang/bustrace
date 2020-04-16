@@ -20,4 +20,8 @@ public class RealtimeLocation {
     private String plateType;
     private String remainSeatCnt;
     private LocalDateTime createdAt;
+
+    private LocalDateTime startCreatedAt;
+    private LocalDateTime endCreatedAt;
+
 }

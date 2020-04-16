@@ -19,8 +19,8 @@ public class PlateRunHistoryServiceTest {
 
         PlateRunHistory plateRunHistoryParam = new PlateRunHistory();
         plateRunHistoryParam.setRouteId("224000047"); // 3300
-        plateRunHistoryParam.setStartDate(now.minusDays(2));
-        plateRunHistoryParam.setEndDate(now.minusDays(2));
+        plateRunHistoryParam.setStartDate(now.minusDays(8));
+        plateRunHistoryParam.setEndDate(now.minusDays(1));
 
         plateRunHistoryService.savePlateRunHistory(plateRunHistoryParam);
     }

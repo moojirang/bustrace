@@ -8,6 +8,8 @@ server:
   port: 8080
 
 logging:
+  file:
+    name: ./logs/bustrace.log
   level:
     hello: INFO
     org:
@@ -17,6 +19,7 @@ logging:
           mongodb: INFO
 
 spring:
+  pid: bustrace.pid
   application:
     name: Bootstrap Spring Boot
   data:

@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * 한글테스트
+ * ABCDEFG
+ */
 @RestController
 @RequestMapping("/bus")
 public class BusLocationController {

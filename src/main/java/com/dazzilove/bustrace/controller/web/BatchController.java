@@ -65,19 +65,27 @@ public class BatchController {
     }
 
     private Object getBatchList() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         GregorianCalendar now = (GregorianCalendar) GregorianCalendar.getInstance();
 
-        List<Batch> list = new ArrayList<>();
+        List<Batch> list = new ArrayList<>();        
+        addScheduleStationSaveTask(list, now);
+        addScheduleLocationSaveTask(list, now);
+        return list;
+    }
 
+    private void addScheduleStationSaveTask(List<Batch> list, GregorianCalendar now) {
         Batch batch = new Batch();
         batch.setName("노선별 정거장 정보 수집 배치");
         batch.setSchedule("0 1 * * * ?");
         batch.setMethod("BusLocationTask.scheduleStationSaveTask");
         batch.setUrl("/batchMng/scheduleStationSaveTask");
         list.add(batch);
+    }
 
-        batch = new Batch();
+    private void addScheduleLocationSaveTask(List<Batch> list, GregorianCalendar now) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+        Batch batch = new Batch();
         batch.setName("노선별 과거 데이터 정리 배치");
         batch.setSchedule("0 1 0 * * ?");
         batch.setMethod("BusLocationTask.scheduleLocationSaveTask");
@@ -103,7 +111,5 @@ public class BatchController {
         batch.setBatchParams(batchParams);
 
         list.add(batch);
-
-        return list;
     }
 }

@@ -6,6 +6,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class MainController {
+    @RequestMapping("/")
+    public ModelAndView goHome() throws Exception {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("main");
+        return mav;
+    }
     @RequestMapping("/main")
     public ModelAndView goMain() throws Exception {
         ModelAndView mav = new ModelAndView();

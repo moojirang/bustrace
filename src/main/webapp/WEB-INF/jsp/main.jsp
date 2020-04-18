@@ -20,7 +20,7 @@
                 <div>BusTrace Backend System 입니다.</div>
                 <div>버스 목록 확인을 위해서는 아래의 페이지로 이동하세요.</div>
             </p>
-            <a href="http://bustrace-app.dazzilove.com/" target="_blank" class="card-link">BusTrace-app</a>
+            <a href="https://bustrace-app.dazzilove.com/" target="_blank" class="card-link">BusTrace-app</a>
         </div>
     </div>
 </div>

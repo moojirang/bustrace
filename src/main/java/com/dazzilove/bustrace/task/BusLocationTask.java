@@ -66,6 +66,9 @@ public class BusLocationTask {
         routes.add("224000047"); // 3300
         routes.add("224000050"); // 3400
         routes.add("224000054"); // 3500
+        routes.add("224000057"); // 3301
+        routes.add("224000052"); // 5200
+
 
         for(String routeId: routes) {
             try {
@@ -88,6 +91,8 @@ public class BusLocationTask {
         routes.add("224000047"); // 3300
         routes.add("224000050"); // 3400
         routes.add("224000054"); // 3500
+        routes.add("224000057"); // 3301
+        routes.add("224000052"); // 5200
 
         for(String routeId: routes) {
             try {
@@ -124,6 +129,8 @@ public class BusLocationTask {
         routes.add("224000047"); // 3300
         routes.add("224000050"); // 3400
         routes.add("224000054"); // 3500
+        routes.add("224000057"); // 3301
+        routes.add("224000052"); // 5200
 
         busLocationSave(routes);
     }
@@ -134,6 +141,8 @@ public class BusLocationTask {
         routes.add("224000047"); // 3300
         routes.add("224000050"); // 3400
         routes.add("224000054"); // 3500
+        routes.add("224000057"); // 3301
+        routes.add("224000052"); // 5200
 
         busLocationSave(routes);
     }
@@ -159,6 +168,8 @@ public class BusLocationTask {
         routes.add("224000047"); // 3300
         routes.add("224000050"); // 3400
         routes.add("224000054"); // 3500
+        routes.add("224000057"); // 3301
+        routes.add("224000052"); // 5200
 
         for(String routeId: routes) {
             tripPlanService.updateTripRecord(routeId);
